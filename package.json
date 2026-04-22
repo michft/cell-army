@@ -1,0 +1,23 @@
+{
+  "name": "conferenceapp",
+  "private": true,
+  "version": "0.1.0",
+  "description": "AWS Summit Sydney agenda planner",
+  "type": "module",
+  "packageManager": "pnpm@10.30.3",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "refresh:agenda": "node ./scripts/fetchAgenda.mjs"
+  },
+  "dependencies": {
+    "qrcode": "^1.5.4",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.0.1",
+    "vite": "^8.0.9"
+  }
+}

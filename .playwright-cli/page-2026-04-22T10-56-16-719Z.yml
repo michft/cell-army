@@ -1,0 +1,317 @@
+- generic [active] [ref=e1]:
+  - link "Skip to main content link" [ref=e2] [cursor=pointer]:
+    - /url: "#aws-page-content-main"
+    - text: Skip to main content
+  - generic [ref=e10]:
+    - navigation "Global navigation" [ref=e11]:
+      - generic "Secondary global navigation" [ref=e13]:
+        - list [ref=e15]:
+          - listitem [ref=e16]:
+            - button "English" [ref=e17] [cursor=pointer]:
+              - generic [ref=e18]: English
+          - listitem [ref=e23]:
+            - link "Contact us" [ref=e24] [cursor=pointer]:
+              - /url: /contact-us/?nc2=h_ut_cu
+              - generic [ref=e25]: Contact us
+          - listitem [ref=e26]:
+            - link "AWS Marketplace" [ref=e27] [cursor=pointer]:
+              - /url: https://aws.amazon.com/marketplace?nc2=h_utmp
+              - generic [ref=e28]: AWS Marketplace
+          - listitem [ref=e29]:
+            - button "Support" [ref=e30] [cursor=pointer]:
+              - generic [ref=e31]: Support
+          - listitem [ref=e34]:
+            - button "My account" [ref=e35] [cursor=pointer]:
+              - generic [ref=e36]: My account
+        - button "AWS Profile" [ref=e41] [cursor=pointer]
+      - generic "Primary global navigation" [ref=e44]:
+        - list [ref=e45]:
+          - listitem [ref=e46]:
+            - link "Click here to return to Amazon Web Services homepage" [ref=e47] [cursor=pointer]:
+              - /url: /?nc2=h_home
+          - listitem [ref=e55]:
+            - link "Agentic AI" [ref=e56] [cursor=pointer]:
+              - /url: https://aws.amazon.com/ai/agentic-ai/?nc2=h_l1_f
+              - generic [ref=e58]: Agentic AI
+          - listitem [ref=e59]:
+            - button "Discover AWS" [ref=e60]:
+              - generic [ref=e62] [cursor=pointer]: Discover AWS
+          - listitem [ref=e63]:
+            - button "Products" [ref=e64]:
+              - generic [ref=e66] [cursor=pointer]: Products
+          - listitem [ref=e67]:
+            - button "Solutions" [ref=e68]:
+              - generic [ref=e70] [cursor=pointer]: Solutions
+          - listitem [ref=e71]:
+            - button "Pricing" [ref=e72]:
+              - generic [ref=e74] [cursor=pointer]: Pricing
+          - listitem [ref=e75]:
+            - button "Resources" [ref=e76]:
+              - generic [ref=e78] [cursor=pointer]: Resources
+        - list [ref=e79]:
+          - listitem [ref=e80]:
+            - button "Search" [ref=e82]:
+              - paragraph [ref=e83] [cursor=pointer]: Search
+          - listitem [ref=e86]:
+            - link "Sign in to console" [ref=e87] [cursor=pointer]:
+              - /url: https://console.aws.amazon.com/console/home/?nc2=h_si&src=header-signin
+              - generic [ref=e88]: Sign in to console
+          - listitem [ref=e89]:
+            - button "Create account" [ref=e90] [cursor=pointer]:
+              - generic [ref=e91]: Create account
+    - button "Open feedback" [ref=e94] [cursor=pointer]
+  - main [ref=e98]:
+    - generic [ref=e100]:
+      - generic [ref=e103]:
+        - paragraph [ref=e104]: AWS Summit Sydney
+        - list [ref=e106]:
+          - listitem [ref=e107]:
+            - link "Overview" [ref=e108] [cursor=pointer]:
+              - /url: /events/summits/sydney/
+              - generic [ref=e109]: Overview
+          - listitem [ref=e110]:
+            - link "Agenda" [ref=e111] [cursor=pointer]:
+              - /url: /events/summits/sydney/agenda/
+              - generic [ref=e112]: Agenda
+          - listitem [ref=e113]:
+            - link "FAQs" [ref=e114] [cursor=pointer]:
+              - /url: /events/summits/sydney/faqs/
+              - generic [ref=e115]: FAQs
+          - listitem [ref=e116]:
+            - link "Sponsors" [ref=e117] [cursor=pointer]:
+              - /url: /events/summits/sydney/sponsors/
+              - generic [ref=e118]: Sponsors
+          - listitem [ref=e119]:
+            - link "Register now »" [ref=e120] [cursor=pointer]:
+              - /url: https://pages.awscloud.com/aws-summit-sydney-2026-registration.html
+              - generic [ref=e121]: Register now »
+      - generic [ref=e131]:
+        - generic [ref=e134]:
+          - list [ref=e137]:
+            - listitem [ref=e138]:
+              - link "AWS Summits" [ref=e139] [cursor=pointer]:
+                - /url: /events/summits/
+              - img [ref=e140]
+            - listitem [ref=e142]:
+              - link "AWS Summit Sydney" [ref=e143] [cursor=pointer]:
+                - /url: /events/summits/sydney/
+              - img [ref=e144]
+            - listitem [ref=e146]:
+              - generic [ref=e147]: Agenda
+          - generic [ref=e152]:
+            - generic [ref=e153]:
+              - heading "AWS Summit Sydney Agenda" [level=1] [ref=e154]
+              - paragraph [ref=e155]: 13–14 May 2026 | International Convention Centre (ICC) Sydney
+            - button "Register now" [ref=e158] [cursor=pointer]:
+              - generic [ref=e159]: Register now
+        - img "Missing alt text value" [ref=e162]
+      - generic [ref=e172]:
+        - heading "What you will experience" [level=2] [ref=e175]
+        - generic [ref=e177]:
+          - generic [ref=e178]:
+            - heading "Expo" [level=3] [ref=e179] [cursor=pointer]:
+              - button "Expo" [ref=e180]:
+                - generic [ref=e182]: Expo
+            - generic "Expo"
+          - generic [ref=e183]:
+            - heading "Sessions" [level=3] [ref=e184] [cursor=pointer]:
+              - button "Sessions" [ref=e185]:
+                - generic [ref=e187]: Sessions
+            - generic "Sessions"
+          - generic [ref=e188]:
+            - heading "Start building on AWS today" [level=3] [ref=e189] [cursor=pointer]:
+              - button "Start building on AWS today" [ref=e190]:
+                - generic [ref=e192]: Start building on AWS today
+            - generic "Start building on AWS today"
+      - generic [ref=e201]:
+        - heading "Session catalogue" [level=2] [ref=e207]
+        - generic [ref=e210]:
+          - generic [ref=e213]:
+            - generic [ref=e214]:
+              - button "Filter" [ref=e216] [cursor=pointer]:
+                - generic:
+                  - img
+                - generic [ref=e217]: Filter
+              - search [ref=e218]:
+                - img [ref=e221]
+                - textbox "Search" [ref=e224]
+            - status [ref=e231]: Displaying 1-8 (143)
+            - status [ref=e232]:
+              - status [ref=e233]: Displaying 0-0 (143)
+          - generic [ref=e234]:
+            - 'link "English AWS, Service Stream Intermediate 27× Faster: How Service Stream Automated Work Order Verification with AI on AWS MAE203 Register now" [ref=e238] [cursor=pointer]':
+              - /url: https://pages.awscloud.com/aws-summit-sydney-2026-registration.html
+              - generic [ref=e239]:
+                - generic [ref=e241]:
+                  - generic [ref=e242]:
+                    - img [ref=e243]
+                    - generic [ref=e245]: English
+                  - generic [ref=e246]:
+                    - img [ref=e247]
+                    - generic [ref=e249]: AWS, Service Stream
+                  - generic [ref=e250]:
+                    - img [ref=e251]
+                    - generic [ref=e253]: Intermediate
+                - generic [ref=e254]:
+                  - 'heading "27× Faster: How Service Stream Automated Work Order Verification with AI on AWS" [level=4] [ref=e255]'
+                  - generic [ref=e256]: MAE203
+                - generic [ref=e257]:
+                  - generic [ref=e260]: Register now
+                  - button [ref=e263]:
+                    - img
+            - 'link "AWS Foundational 40,000 Users, Zero Downtime: NSW Courts'' Cloud Migration Journey WPS101 Register now" [ref=e267] [cursor=pointer]':
+              - /url: https://pages.awscloud.com/aws-summit-sydney-2026-registration.html
+              - generic [ref=e268]:
+                - generic [ref=e270]:
+                  - generic [ref=e271]:
+                    - img [ref=e272]
+                    - generic [ref=e274]: AWS
+                  - generic [ref=e275]:
+                    - img [ref=e276]
+                    - generic [ref=e278]: Foundational
+                - generic [ref=e279]:
+                  - 'heading "40,000 Users, Zero Downtime: NSW Courts'' Cloud Migration Journey" [level=4] [ref=e280]'
+                  - generic [ref=e281]: WPS101
+                - generic [ref=e282]:
+                  - generic [ref=e285]: Register now
+                  - button [ref=e288]:
+                    - img
+            - link "English AWS Advanced A practitioner’s guide to data for agentic AI ANT301 Register now" [ref=e292] [cursor=pointer]:
+              - /url: https://pages.awscloud.com/aws-summit-sydney-2026-registration.html
+              - generic [ref=e293]:
+                - generic [ref=e295]:
+                  - generic [ref=e296]:
+                    - img [ref=e297]
+                    - generic [ref=e299]: English
+                  - generic [ref=e300]:
+                    - img [ref=e301]
+                    - generic [ref=e303]: AWS
+                  - generic [ref=e304]:
+                    - img [ref=e305]
+                    - generic [ref=e307]: Advanced
+                - generic [ref=e308]:
+                  - heading "A practitioner’s guide to data for agentic AI" [level=4] [ref=e309]
+                  - generic [ref=e310]: ANT301
+                - generic [ref=e311]:
+                  - generic [ref=e314]: Register now
+                  - button [ref=e317]:
+                    - img
+            - link "English Commonwealth Bank Advanced AI Blast-Radius Reviews for AWS Changes Using Amazon Bedrock DEV308 Register now" [ref=e321] [cursor=pointer]:
+              - /url: https://pages.awscloud.com/aws-summit-sydney-2026-registration.html
+              - generic [ref=e322]:
+                - generic [ref=e324]:
+                  - generic [ref=e325]:
+                    - img [ref=e326]
+                    - generic [ref=e328]: English
+                  - generic [ref=e329]:
+                    - img [ref=e330]
+                    - generic [ref=e332]: Commonwealth Bank
+                  - generic [ref=e333]:
+                    - img [ref=e334]
+                    - generic [ref=e336]: Advanced
+                - generic [ref=e337]:
+                  - heading "AI Blast-Radius Reviews for AWS Changes Using Amazon Bedrock" [level=4] [ref=e338]
+                  - generic [ref=e339]: DEV308
+                - generic [ref=e340]:
+                  - generic [ref=e343]: Register now
+                  - button [ref=e346]:
+                    - img
+            - 'link "English Versent Intermediate AI Isn’t Just for Developers: Using Kiro CLI & AWS MCP for Cloud Ops DEV206 Register now" [ref=e350] [cursor=pointer]':
+              - /url: https://pages.awscloud.com/aws-summit-sydney-2026-registration.html
+              - generic [ref=e351]:
+                - generic [ref=e353]:
+                  - generic [ref=e354]:
+                    - img [ref=e355]
+                    - generic [ref=e357]: English
+                  - generic [ref=e358]:
+                    - img [ref=e359]
+                    - generic [ref=e361]: Versent
+                  - generic [ref=e362]:
+                    - img [ref=e363]
+                    - generic [ref=e365]: Intermediate
+                - generic [ref=e366]:
+                  - 'heading "AI Isn’t Just for Developers: Using Kiro CLI & AWS MCP for Cloud Ops" [level=4] [ref=e367]'
+                  - generic [ref=e368]: DEV206
+                - generic [ref=e369]:
+                  - generic [ref=e372]: Register now
+                  - button [ref=e375]:
+                    - img
+            - link "English Expert AI League AIM403 Register now" [ref=e379] [cursor=pointer]:
+              - /url: https://pages.awscloud.com/aws-summit-sydney-2026-registration.html
+              - generic [ref=e380]:
+                - generic [ref=e382]:
+                  - generic [ref=e383]:
+                    - img [ref=e384]
+                    - generic [ref=e386]: English
+                  - generic [ref=e387]:
+                    - img [ref=e388]
+                    - generic [ref=e390]: Expert
+                - generic [ref=e391]:
+                  - heading "AI League" [level=4] [ref=e392]
+                  - generic [ref=e393]: AIM403
+                - generic [ref=e394]:
+                  - generic [ref=e397]: Register now
+                  - button [ref=e400]:
+                    - img
+            - link "English Foundational AI League Championship AIM101 Register now" [ref=e404] [cursor=pointer]:
+              - /url: https://pages.awscloud.com/aws-summit-sydney-2026-registration.html
+              - generic [ref=e405]:
+                - generic [ref=e407]:
+                  - generic [ref=e408]:
+                    - img [ref=e409]
+                    - generic [ref=e411]: English
+                  - generic [ref=e412]:
+                    - img [ref=e413]
+                    - generic [ref=e415]: Foundational
+                - generic [ref=e416]:
+                  - heading "AI League Championship" [level=4] [ref=e417]
+                  - generic [ref=e418]: AIM101
+                - generic [ref=e419]:
+                  - generic [ref=e422]: Register now
+                  - button [ref=e425]:
+                    - img
+            - link "English AWS Intermediate AI Monetization and Pricing Strategies ISV203 Register now" [ref=e429] [cursor=pointer]:
+              - /url: https://pages.awscloud.com/aws-summit-sydney-2026-registration.html
+              - generic [ref=e430]:
+                - generic [ref=e432]:
+                  - generic [ref=e433]:
+                    - img [ref=e434]
+                    - generic [ref=e436]: English
+                  - generic [ref=e437]:
+                    - img [ref=e438]
+                    - generic [ref=e440]: AWS
+                  - generic [ref=e441]:
+                    - img [ref=e442]
+                    - generic [ref=e444]: Intermediate
+                - generic [ref=e445]:
+                  - heading "AI Monetization and Pricing Strategies" [level=4] [ref=e446]
+                  - generic [ref=e447]: ISV203
+                - generic [ref=e448]:
+                  - generic [ref=e451]: Register now
+                  - button [ref=e454]:
+                    - img
+            - button "Show 8 more" [ref=e457] [cursor=pointer]:
+              - generic [ref=e458]: Show 8 more
+      - generic [ref=e468]:
+        - heading "Session level guide" [level=2] [ref=e471]
+        - generic [ref=e473]:
+          - generic [ref=e474]:
+            - heading "Level 100 - Foundational" [level=3] [ref=e475] [cursor=pointer]:
+              - button "Level 100 - Foundational" [ref=e476]:
+                - generic [ref=e478]: Level 100 - Foundational
+            - generic "Expo"
+          - generic [ref=e479]:
+            - heading "Level 200 - Intermediate" [level=3] [ref=e480] [cursor=pointer]:
+              - button "Level 200 - Intermediate" [ref=e481]:
+                - generic [ref=e483]: Level 200 - Intermediate
+            - generic "Sessions"
+          - generic [ref=e484]:
+            - heading "Level 300 - Advanced" [level=3] [ref=e485] [cursor=pointer]:
+              - button "Level 300 - Advanced" [ref=e486]:
+                - generic [ref=e488]: Level 300 - Advanced
+            - generic "Start building on AWS today"
+          - generic [ref=e489]:
+            - heading "Level 400 - Expert" [level=3] [ref=e490] [cursor=pointer]:
+              - button "Level 400 - Expert" [ref=e491]:
+                - generic [ref=e493]: Level 400 - Expert
+            - generic "Level 400 - Expert"
