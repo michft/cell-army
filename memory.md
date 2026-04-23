@@ -13,3 +13,6 @@
 
 ## Conventions
 - Mobile-first layout with portrait emphasis.
+
+## Agenda Data
+- https://aws.amazon.com/events/summits/sydney/agenda/

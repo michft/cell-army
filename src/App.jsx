@@ -1,6 +1,10 @@
 import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import QRCode from "qrcode";
 import agenda from "./data/sessions.json";
+import Calendar from "./Calendar";
+
+const APP_TITLE = import.meta.env.VITE_APP_TITLE || "AWS Summit Sydney Planner";
+const AGENDA_URL = import.meta.env.VITE_AGENDA_URL || agenda.source.agendaUrl;
 
 const DAY_OPTIONS = [
   { id: "day1", label: "Day 1", date: "13 May" },
@@ -26,6 +30,14 @@ const PROFILE_FIELDS = [
 
 const FIXED_TIME_NOTE =
   "Sessions run at fixed summit times. This app helps you browse each day, mark the talks you plan to attend, and highlight future talks from speakers or organisations you liked.";
+
+const LEVEL_LABELS = {
+  foundational: "100",
+  intermediate: "200",
+  advanced: "300",
+  expert: "400",
+  unspecified: "Other",
+};
 
 function escapeIcs(value) {
   return value
@@ -64,12 +76,29 @@ function speakerName(label) {
   return label.split(",")[0]?.trim() ?? label;
 }
 
-function sessionMatches(session, query, topicFilter) {
+function sessionLevelCode(session) {
+  const codeMatch = session.code?.match(/(\d)/);
+  if (codeMatch) {
+    return `${codeMatch[1]}00`;
+  }
+  return LEVEL_LABELS[session.level] ?? "Other";
+}
+
+function toggleSelection(current, value) {
+  return current.includes(value)
+    ? current.filter((entry) => entry !== value)
+    : [...current, value].sort();
+}
+
+function sessionMatches(session, query, topicFilters, levelFilters) {
   const topics = tagLabels(session, "GLOBAL#aws-technology-categories");
+  const levelCode = sessionLevelCode(session);
   const haystack = [
     session.title,
     session.code,
     session.description,
+    session.level,
+    levelCode,
     ...session.speakers,
     ...session.organisations,
     ...topics,
@@ -78,9 +107,10 @@ function sessionMatches(session, query, topicFilter) {
     .toLowerCase();
 
   const queryHit = !query || haystack.includes(query);
-  const topicHit = topicFilter === "all" || topics.includes(topicFilter);
+  const topicHit = topicFilters.length === 0 || topicFilters.some((topic) => topics.includes(topic));
+  const levelHit = levelFilters.length === 0 || levelFilters.includes(levelCode);
 
-  return queryHit && topicHit;
+  return queryHit && topicHit && levelHit;
 }
 
 export default function App() {
@@ -99,7 +129,8 @@ export default function App() {
   const [currentDay, setCurrentDay] = useState("day1");
   const [viewMode, setViewMode] = useState("browse");
   const [query, setQuery] = useState("");
-  const [topicFilter, setTopicFilter] = useState("all");
+  const [topicFilters, setTopicFilters] = useState([]);
+  const [levelFilters, setLevelFilters] = useState([]);
   const [profile, setProfile] = useState(initialState.profile);
   const [saved, setSaved] = useState(initialState.saved);
   const [likedSpeakers, setLikedSpeakers] = useState(initialState.likedSpeakers);
@@ -120,9 +151,15 @@ export default function App() {
     [],
   );
 
+  const levels = useMemo(
+    () =>
+      Array.from(new Set(agenda.sessions.map((session) => sessionLevelCode(session)))).sort(),
+    [],
+  );
+
   const sessions = useMemo(() => {
     const filtered = agenda.sessions.filter((session) =>
-      sessionMatches(session, deferredQuery, topicFilter),
+      sessionMatches(session, deferredQuery, topicFilters, levelFilters),
     );
 
     return filtered
@@ -163,11 +200,11 @@ export default function App() {
 
         return left.title.localeCompare(right.title);
       });
-  }, [currentDay, deferredQuery, likedOrgs, likedSpeakers, saved, topicFilter]);
+  }, [currentDay, deferredQuery, levelFilters, likedOrgs, likedSpeakers, saved, topicFilters]);
 
   const visibleSessions = useMemo(() => {
     if (viewMode === "planned") {
-      return sessions.filter((session) => session.assignedDay === currentDay && session.isSaved);
+      return sessions.filter((session) => session.isSaved);
     }
 
     if (viewMode === "recommended") {
@@ -187,6 +224,10 @@ export default function App() {
       })),
     [sessions],
   );
+
+  useEffect(() => {
+    document.title = APP_TITLE;
+  }, []);
 
   useEffect(() => {
     window.localStorage.setItem(
@@ -258,20 +299,19 @@ export default function App() {
     setCurrentDay(DAY_OPTIONS[nextIndex].id);
   }
 
+  function resetPlanner() {
+    setViewMode("browse");
+    setQuery("");
+    setTopicFilters([]);
+    setLevelFilters([]);
+    setSaved({});
+    setLikedSpeakers([]);
+    setLikedOrgs([]);
+    setCurrentDay("day1");
+  }
+
   return (
-    <div
-      className="app-shell"
-      onTouchStart={(event) => {
-        touchStartX.current = event.changedTouches[0].clientX;
-      }}
-      onTouchEnd={(event) => {
-        const distance = event.changedTouches[0].clientX - touchStartX.current;
-        if (Math.abs(distance) < 60) {
-          return;
-        }
-        cycleDay(distance < 0 ? 1 : -1);
-      }}
-    >
+    <div className="app-shell">
       <main className="phone-frame">
         <section className="hero-card">
           <p className="eyebrow">Portrait planner</p>
@@ -283,13 +323,26 @@ export default function App() {
                 {agenda.event.venue}
               </p>
             </div>
-            <a className="outline-link" href={agenda.source.agendaUrl} target="_blank" rel="noreferrer">
-              Official agenda
+            <a className="outline-link" href={AGENDA_URL} target="_blank" rel="noreferrer">
+              Online agenda
             </a>
           </div>
           <p className="hero-note">{FIXED_TIME_NOTE}</p>
 
-          <div className="day-switcher" aria-label="Planner days">
+          <div
+            className="day-switcher"
+            aria-label="Planner days"
+            onTouchStart={(event) => {
+              touchStartX.current = event.changedTouches[0].clientX;
+            }}
+            onTouchEnd={(event) => {
+              const distance = event.changedTouches[0].clientX - touchStartX.current;
+              if (Math.abs(distance) < 60) {
+                return;
+              }
+              cycleDay(distance < 0 ? 1 : -1);
+            }}
+          >
             {dayStats.map((day) => (
               <button
                 key={day.id}
@@ -338,6 +391,7 @@ export default function App() {
           <div className="segmented-control">
             {[
               { id: "browse", label: "Browse" },
+              { id: "calendar", label: "Calendar" },
               { id: "planned", label: "My list" },
               { id: "recommended", label: "Future talks" },
             ].map((option) => (
@@ -350,6 +404,9 @@ export default function App() {
                 {option.label}
               </button>
             ))}
+            <button className="segment reset-segment" onClick={resetPlanner} type="button">
+              Reset
+            </button>
           </div>
 
           <div className="search-row">
@@ -360,23 +417,64 @@ export default function App() {
               value={query}
               onChange={(event) => setQuery(event.target.value)}
             />
-            <select
-              aria-label="Filter by topic"
-              className="topic-select"
-              value={topicFilter}
-              onChange={(event) => setTopicFilter(event.target.value)}
-            >
-              <option value="all">All topics</option>
-              {topics.map((topic) => (
-                <option key={topic} value={topic}>
-                  {topic}
-                </option>
-              ))}
-            </select>
+          </div>
+
+          {viewMode !== "calendar" && (
+            <>
+          <div className="filter-stack">
+            <div className="filter-group">
+              <span className="filter-label">Topics</span>
+              <div className="chip-row">
+                {topics.map((topic) => (
+                  <button
+                    key={topic}
+                    className={
+                      topicFilters.includes(topic) ? "topic-chip is-active" : "topic-chip"
+                    }
+                    onClick={() =>
+                      setTopicFilters((current) => toggleSelection(current, topic))
+                    }
+                    type="button"
+                  >
+                    {topic}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="filter-group">
+              <span className="filter-label">Talk level</span>
+              <div className="chip-row">
+                {levels.map((level) => (
+                  <button
+                    key={level}
+                    className={
+                      levelFilters.includes(level) ? "topic-chip is-active" : "topic-chip"
+                    }
+                    onClick={() =>
+                      setLevelFilters((current) => toggleSelection(current, level))
+                    }
+                    type="button"
+                  >
+                    {level}
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
 
           <div className="liked-strip">
             <span>Liked</span>
+            {topicFilters.map((label) => (
+              <span key={`topic-${label}`} className="mini-chip">
+                {label}
+              </span>
+            ))}
+            {levelFilters.map((label) => (
+              <span key={`level-${label}`} className="mini-chip">
+                {label}
+              </span>
+            ))}
             {[...likedSpeakers, ...likedOrgs].slice(0, 8).map((label) => (
               <span key={label} className="mini-chip">
                 {label}
@@ -386,8 +484,22 @@ export default function App() {
               <span className="muted-copy">Tap a speaker or org on a card to surface related talks.</span>
             ) : null}
           </div>
+            </>
+          )}
         </section>
 
+        {viewMode === "calendar" ? (
+          <section className="calendar-section">
+            <Calendar
+              sessions={sessions}
+              currentDay={currentDay}
+              saved={saved}
+              onToggleSave={toggleSave}
+              dayLabel={DAY_OPTIONS.find((d) => d.id === currentDay)?.label}
+              dayDate={DAY_OPTIONS.find((d) => d.id === currentDay)?.date}
+            />
+          </section>
+        ) : (
         <section className="cards-grid">
           {visibleSessions.map((session) => {
             const topicsForSession = tagLabels(session, "GLOBAL#aws-technology-categories");
@@ -398,7 +510,21 @@ export default function App() {
               >
                 <div className="card-topline">
                   <span className="code-badge">{session.code}</span>
-                  <span className="level-badge">{session.level}</span>
+                  <button
+                    className={
+                      levelFilters.includes(sessionLevelCode(session))
+                        ? "level-badge is-active"
+                        : "level-badge"
+                    }
+                    onClick={() =>
+                      setLevelFilters((current) =>
+                        toggleSelection(current, sessionLevelCode(session)),
+                      )
+                    }
+                    type="button"
+                  >
+                    {sessionLevelCode(session)}
+                  </button>
                   {session.recommendationReason ? (
                     <span className="signal-badge">{session.recommendationReason}</span>
                   ) : null}
@@ -410,9 +536,18 @@ export default function App() {
 
                 <div className="chip-row">
                   {topicsForSession.slice(0, 3).map((topic) => (
-                    <span key={topic} className="topic-chip">
+                    <button
+                      key={topic}
+                      className={
+                        topicFilters.includes(topic) ? "topic-chip is-active" : "topic-chip"
+                      }
+                      onClick={() =>
+                        setTopicFilters((current) => toggleSelection(current, topic))
+                      }
+                      type="button"
+                    >
                       {topic}
-                    </span>
+                    </button>
                   ))}
                 </div>
 
@@ -461,15 +596,16 @@ export default function App() {
                     onClick={() => toggleSave(session.id)}
                     type="button"
                   >
-                    {session.isSaved ? "Attending" : "Mark attending"}
+                    {session.isSaved ? "Attending" : "Add"}
                   </button>
                 </div>
               </article>
             );
           })}
         </section>
+        )}
 
-        {visibleSessions.length === 0 ? (
+        {visibleSessions.length === 0 && viewMode !== "calendar" ? (
           <section className="empty-card">
             <h2>No talks match this view</h2>
             <p>Try another topic, clear the search, or like a speaker first.</p>

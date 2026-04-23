@@ -19,6 +19,17 @@ function extractListItems(input) {
   );
 }
 
+function parseSessionTime(body) {
+  // Parse "WPS302 | 14-May | 15:00 - 15:30" format
+  const timeMatch = body?.match(/(\d{2}):(\d{2})\s*-\s*(\d{2}):(\d{2})/);
+  if (timeMatch) {
+    const startTime = `${timeMatch[1]}:${timeMatch[2]}`;
+    const endTime = `${timeMatch[3]}:${timeMatch[4]}`;
+    return { startTime, endTime };
+  }
+  return { startTime: null, endTime: null };
+}
+
 function normalizeSession(entry, index) {
   const fields = entry.item.additionalFields;
   const speakers = extractListItems(fields.bodyBack ?? "");
@@ -27,6 +38,7 @@ function normalizeSession(entry, index) {
     .split(",")
     .map((value) => value.trim())
     .filter(Boolean);
+  const { startTime, endTime } = parseSessionTime(fields.body);
 
   return {
     id: entry.item.id,
@@ -39,6 +51,8 @@ function normalizeSession(entry, index) {
     speakers,
     description,
     registerUrl: fields.ctaLink,
+    startTime,
+    endTime,
     tags: entry.tags.map((tag) => ({
       namespace: tag.tagNamespaceId,
       label: tag.name,
