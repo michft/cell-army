@@ -27,6 +27,14 @@ const PROFILE_FIELDS = [
 const FIXED_TIME_NOTE =
   "Sessions run at fixed summit times. This app helps you browse each day, mark the talks you plan to attend, and highlight future talks from speakers or organisations you liked.";
 
+function escapeIcs(value) {
+  return value
+    .replace(/\\/g, "\\\\")
+    .replace(/\n/g, "\\n")
+    .replace(/,/g, "\\,")
+    .replace(/;/g, "\\;");
+}
+
 function loadState() {
   try {
     const parsed = JSON.parse(window.localStorage.getItem(STORAGE_KEY) ?? "null");
@@ -188,12 +196,22 @@ export default function App() {
   }, [likedOrgs, likedSpeakers, profile, saved]);
 
   useEffect(() => {
+    const name = profile.name.trim();
+    const role = profile.role.trim();
+    const company = profile.company.trim();
+    const email = profile.email.trim();
+    const phone = profile.phone.trim();
+
     const payload = [
-      "AWS Summit Sydney",
-      ...PROFILE_FIELDS.map(({ key, label }) =>
-        profile[key].trim() ? `${label}: ${profile[key].trim()}` : null,
-      ).filter(Boolean),
-    ].join("\n");
+      "BEGIN:VCARD",
+      "VERSION:2.0",
+      `FN:${escapeIcs(name || "None")}`,
+      ...(role ? [`TITLE:${escapeIcs(role)}`] : []),
+      ...(company ? [`ORG:${escapeIcs(company)}`] : []),
+      ...(email ? [`EMAIL:${escapeIcs(email)}`] : []),
+      ...(phone ? [`TEL:${escapeIcs(phone)}`] : []),
+      "END:VCARD",
+    ].join("\r\n");
 
     QRCode.toDataURL(payload, {
       margin: 1,

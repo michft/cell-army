@@ -206,7 +206,7 @@ button {
 .qr-panel img {
   width: 180px;
   max-width: 100%;
-  border-radius: 16px;
+  border-radius: 0;
 }
 
 .qr-panel p {
