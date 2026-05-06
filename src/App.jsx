@@ -258,8 +258,8 @@ export default function App() {
       margin: 1,
       width: 256,
       color: {
-        dark: "#1b1a17",
-        light: "#f7f1e8",
+        dark: "#f63b4f",
+        light: "#13161c",
       },
     }).then(setQrCodeUrl);
   }, [profile]);
