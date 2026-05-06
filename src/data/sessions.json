@@ -4,7 +4,7 @@
     "apiUrl": "https://aws.amazon.com/api/dirs/items/search?item.directoryId=events-cards-interactive-summits-sydney-agenda&item.locale=en_US&size=200",
     "fetchedAt": "2026-05-06T08:47:00.521Z",
     "totalSessions": 176,
-    "note": "AWS exposes catalogue metadata publicly, but not explicit day/time slots in this feed. The app keeps a two-day planner and seeds each talk into Day 1 or Day 2 as a starting draft you can change."
+    "note": "AWS exposes catalogue metadata publicly, including event-day tags and session times used by this planner snapshot."
   },
   "event": {
     "name": "AWS Summit Sydney",
@@ -90,7 +90,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day1"
+      "plannerDay": "day2"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#wps301",
@@ -240,7 +240,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day1"
+      "plannerDay": "day2"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#wps203",
@@ -255,7 +255,7 @@
       "speakers": [
         "Juan Bedoya, Senior Solutions Architect, AWS"
       ],
-      "description": "Deploying ML in high-stakes environments demands enterprise readiness, governance, and continuous monitoring. In this session, you'll learn how Gold Coast Health moved from pilot to production with a predictive model identifying patients unlikely to attend procedures \u2014 achieving 33% precision, doubling the 15% manual baseline \u2014 while ensuring fairness across cohorts. The session covers real-world ML architecture on Amazon SageMaker Pipelines, production monitoring including data quality, pipeline health, and drift detection, plus navigating AI governance through bias analysis and impact assessment. Whether you're in healthcare, financial services, or any regulated industry, walk away with actionable patterns for deploying responsible ML at scale. - Juan Bedoya, Senior Solutions Architect, AWS",
+      "description": "Deploying ML in high-stakes environments demands enterprise readiness, governance, and continuous monitoring. In this session, you'll learn how Gold Coast Health moved from pilot to production with a predictive model identifying patients unlikely to attend procedures — achieving 33% precision, doubling the 15% manual baseline — while ensuring fairness across cohorts. The session covers real-world ML architecture on Amazon SageMaker Pipelines, production monitoring including data quality, pipeline health, and drift detection, plus navigating AI governance through bias analysis and impact assessment. Whether you're in healthcare, financial services, or any regulated industry, walk away with actionable patterns for deploying responsible ML at scale. - Juan Bedoya, Senior Solutions Architect, AWS",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "10:30",
       "endTime": "11:00",
@@ -331,7 +331,7 @@
       "speakers": [
         "Navi Kaur, Delivery Readiness Tech Lead, AWS"
       ],
-      "description": "Join us for an engaging session on AI Agents and Tools in AWS, where we\u2019ll explore how to build intelligent, autonomous systems using Amazon Bedrock and open-source frameworks. Learn about function calling, ReAct patterns, and AWS\u2019s comprehensive agent platforms. We\u2019ll dive into practical demonstrations using Strands and CrewAI, and discover how to leverage protocols like MCP and A2A for seamless tool integration and agent collaboration. Perfect for developers looking to create production-ready AI solutions. - Navi Kaur, Delivery Readiness Tech Lead, AWS",
+      "description": "Join us for an engaging session on AI Agents and Tools in AWS, where we’ll explore how to build intelligent, autonomous systems using Amazon Bedrock and open-source frameworks. Learn about function calling, ReAct patterns, and AWS’s comprehensive agent platforms. We’ll dive into practical demonstrations using Strands and CrewAI, and discover how to leverage protocols like MCP and A2A for seamless tool integration and agent collaboration. Perfect for developers looking to create production-ready AI solutions. - Navi Kaur, Delivery Readiness Tech Lead, AWS",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "12:00",
       "endTime": "12:45",
@@ -392,7 +392,7 @@
       "speakers": [
         "Peter Vandaele, AWS Technical Instructor, AWS"
       ],
-      "description": "Prepare for the AWS Certified Solutions Architect \u2013 Associate exam with this interactive study session. Review the AWS Certified Solutions Architect \u2013 Associate Official Practice Question Set, and get your questions answered by the subject matter expert leading the study session. - Peter Vandaele, AWS Technical Instructor, AWS",
+      "description": "Prepare for the AWS Certified Solutions Architect – Associate exam with this interactive study session. Review the AWS Certified Solutions Architect – Associate Official Practice Question Set, and get your questions answered by the subject matter expert leading the study session. - Peter Vandaele, AWS Technical Instructor, AWS",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "13:30",
       "endTime": "14:15",
@@ -433,7 +433,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day1"
+      "plannerDay": "day2"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#tnc203",
@@ -621,7 +621,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day2"
+      "plannerDay": "day1"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#tnc101",
@@ -693,7 +693,7 @@
       "language": "English",
       "organisations": [],
       "speakers": [],
-      "description": "What happens when live video meets AI and the scalability of AWS? This session explores how Unleash live harnesses AWS to deliver real-time vision analytics, moving from ingestion to insight in milliseconds. We detail the architecture of cloud-native pipelines that process live streams at scale and apply custom computer vision models across the energy, security, and infrastructure sectors. By combining edge connectivity with AWS\u2019s elastic infrastructure, Unleash live transforms drone and CCTV feeds into actionable intelligence. Attendees will gain insights into key design decisions and learn how cloud-based AI optimises operations, reduces risk, and unlocks the speed that modern physical AI demands.",
+      "description": "What happens when live video meets AI and the scalability of AWS? This session explores how Unleash live harnesses AWS to deliver real-time vision analytics, moving from ingestion to insight in milliseconds. We detail the architecture of cloud-native pipelines that process live streams at scale and apply custom computer vision models across the energy, security, and infrastructure sectors. By combining edge connectivity with AWS’s elastic infrastructure, Unleash live transforms drone and CCTV feeds into actionable intelligence. Attendees will gain insights into key design decisions and learn how cloud-based AI optimises operations, reduces risk, and unlocks the speed that modern physical AI demands.",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "15:45",
       "endTime": "16:00",
@@ -831,7 +831,7 @@
       "language": "English",
       "organisations": [],
       "speakers": [],
-      "description": "AI agents are moving from demo to deployment. Startups across ANZ are building production-grade assistants using open-source orchestration frameworks, fine-tuned foundation models, and GPU-accelerated inference on AWS and NVIDIA infrastructure. This panel explores what it actually takes to ship agentic use cases\u2014from choosing the right models and frameworks to managing latency, cost, and reliability at scale. We'll hear from AirTree VC on where the investment thesis is heading, from NVIDIA on how accelerated compute is shaping the agent stack, and from Heidi Health building and scaling these systems in production. Whether it's vertical agents for healthcare, customer support, or code generation, we'll focus on what's working, what's hype, and where the real startup opportunities lie in the agent ecosystem.",
+      "description": "AI agents are moving from demo to deployment. Startups across ANZ are building production-grade assistants using open-source orchestration frameworks, fine-tuned foundation models, and GPU-accelerated inference on AWS and NVIDIA infrastructure. This panel explores what it actually takes to ship agentic use cases—from choosing the right models and frameworks to managing latency, cost, and reliability at scale. We'll hear from AirTree VC on where the investment thesis is heading, from NVIDIA on how accelerated compute is shaping the agent stack, and from Heidi Health building and scaling these systems in production. Whether it's vertical agents for healthcare, customer support, or code generation, we'll focus on what's working, what's hype, and where the real startup opportunities lie in the agent ecosystem.",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "14:25",
       "endTime": "14:40",
@@ -892,7 +892,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day1"
+      "plannerDay": "day2"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#stp215",
@@ -964,7 +964,7 @@
           "description": "Artificial Intelligence"
         }
       ],
-      "plannerDay": "day2"
+      "plannerDay": "day1"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#stp214",
@@ -979,7 +979,7 @@
       "speakers": [
         "Samantha Barr, Senior GTM, Bedrock, AWS"
       ],
-      "description": "We've all experienced it\u2014that moment when an AI assistant creates more problems than it solves because of its robotic responses and lack of contextual awareness. It operates in a vacuum, making customer experiences less than delightful. In this session, you will learn how to create meaningful and hyper-personalized customer experiences with Amazon Nova Sonic and design patterns to enable new use cases. You will discover how Amazon Nova Sonic's tool use and function calling capabilities enable integration with external APIs and internal and external data sources to provide context that makes for delightful voice-based customer interactions. - Samantha Barr, Senior GTM, Bedrock, AWS",
+      "description": "We've all experienced it—that moment when an AI assistant creates more problems than it solves because of its robotic responses and lack of contextual awareness. It operates in a vacuum, making customer experiences less than delightful. In this session, you will learn how to create meaningful and hyper-personalized customer experiences with Amazon Nova Sonic and design patterns to enable new use cases. You will discover how Amazon Nova Sonic's tool use and function calling capabilities enable integration with external APIs and internal and external data sources to provide context that makes for delightful voice-based customer interactions. - Samantha Barr, Senior GTM, Bedrock, AWS",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "15:00",
       "endTime": "15:30",
@@ -1030,7 +1030,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day1"
+      "plannerDay": "day2"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#stp213",
@@ -1093,7 +1093,7 @@
     {
       "id": "events-cards-interactive-summits-sydney-agenda#stp212",
       "code": "STP212",
-      "title": "How Apate\u00a0AI uses Amazon Bedrock\u00a0and voice AI\u00a0to catch scammers",
+      "title": "How Apate AI uses Amazon Bedrock and voice AI to catch scammers",
       "sessionType": "Startup talk",
       "level": "intermediate",
       "language": "English",
@@ -1161,7 +1161,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day1"
+      "plannerDay": "day2"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#stp211",
@@ -1237,7 +1237,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day2"
+      "plannerDay": "day1"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#stp210",
@@ -1543,7 +1543,7 @@
       "language": "English",
       "organisations": [],
       "speakers": [],
-      "description": "When you're building multi-tenant vector search but can't control what customers throw at you, every indexing decision \u2014 isolation, embedding, chunking, partitioning \u2014 becomes a bet you're making blind, and this talk gives you the framework to make the right ones.",
+      "description": "When you're building multi-tenant vector search but can't control what customers throw at you, every indexing decision — isolation, embedding, chunking, partitioning — becomes a bet you're making blind, and this talk gives you the framework to make the right ones.",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "11:50",
       "endTime": "12:05",
@@ -1621,7 +1621,7 @@
         "Iman Abbasnejad, Applied Scientist, AWS",
         "Prem Oommen, Founding Engineer, Machine Learning, Heidi Health"
       ],
-      "description": "Join Heidi Health and AWS's Generative AI Innovation Center (GenAIIC) for a behind-the-scenes look at building and deploying custom speech-to-text AI for healthcare. Learn hard-won lessons and a practical blueprint: curating domain-specific training data, fine-tuning open-weight models, validating non-deterministic outputs at scale, and shipping to production with optimized inference. Both teams share how AWS services reduced infrastructure complexity, accelerated iteration cycles, and scaled custom models across diverse real-world use cases \u2014 all while maintaining security and cost efficiency. Ideal for ML engineers, data scientists, and technical leaders exploring fine-tuning and production ML on AWS. - Iman Abbasnejad, Applied Scientist, AWS - Prem Oommen, Founding Engineer, Machine Learning, Heidi Health",
+      "description": "Join Heidi Health and AWS's Generative AI Innovation Center (GenAIIC) for a behind-the-scenes look at building and deploying custom speech-to-text AI for healthcare. Learn hard-won lessons and a practical blueprint: curating domain-specific training data, fine-tuning open-weight models, validating non-deterministic outputs at scale, and shipping to production with optimized inference. Both teams share how AWS services reduced infrastructure complexity, accelerated iteration cycles, and scaled custom models across diverse real-world use cases — all while maintaining security and cost efficiency. Ideal for ML engineers, data scientists, and technical leaders exploring fine-tuning and production ML on AWS. - Iman Abbasnejad, Applied Scientist, AWS - Prem Oommen, Founding Engineer, Machine Learning, Heidi Health",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "11:20",
       "endTime": "11:35",
@@ -2018,7 +2018,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day1"
+      "plannerDay": "day2"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#smb204",
@@ -2035,7 +2035,7 @@
         "Sudarshan Narasimhan, Prin. Data Solutions Architect, AWS",
         "Mark Gwynne, CIO, AAMC"
       ],
-      "description": "AAMC partnered with AWS to build an intelligent, AI-driven contact centre that transforms data into actionable insights. The solution unifies customer interaction data\u2014calls, chats, surveys, and QA reviews\u2014into a single environment where AI continuously analyses and learns. Leaders ask questions in natural language and receive instant, data-backed answers with visual context. This self-optimising system enables faster, more confident decision-making while continuously improving customer experience operations through deeper visibility and adaptive learning capabilities. - Sudarshan Narasimhan, Prin. Data Solutions Architect, AWS - Mark Gwynne, CIO, AAMC",
+      "description": "AAMC partnered with AWS to build an intelligent, AI-driven contact centre that transforms data into actionable insights. The solution unifies customer interaction data—calls, chats, surveys, and QA reviews—into a single environment where AI continuously analyses and learns. Leaders ask questions in natural language and receive instant, data-backed answers with visual context. This self-optimising system enables faster, more confident decision-making while continuously improving customer experience operations through deeper visibility and adaptive learning capabilities. - Sudarshan Narasimhan, Prin. Data Solutions Architect, AWS - Mark Gwynne, CIO, AAMC",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "14:15",
       "endTime": "14:45",
@@ -2096,7 +2096,7 @@
       "speakers": [
         "Ravi, Sirivella, Fingermark"
       ],
-      "description": "Fingermark's Eyecue platform turns drive-thru video feeds into real-time operational intelligence for some of the world's largest QSR brands. Using hybrid edge-cloud architecture on AWS, they track every customer journey\u2014capturing precise timing at order points, windows, and bays\u2014while keeping sensitive data at the edge. Now they're taking the next leap: agentic AI powered by Amazon Bedrock AgentCore. Autonomous agents automatically answer compliance questions\u2014\"Are there spills? Are staff following food handling protocols?\"\u2014replacing manual audits with continuous monitoring. See how a Kiwi company scaled from local innovation to global impact, and from computer vision to autonomous agents. - Ravi, Sirivella, Fingermark",
+      "description": "Fingermark's Eyecue platform turns drive-thru video feeds into real-time operational intelligence for some of the world's largest QSR brands. Using hybrid edge-cloud architecture on AWS, they track every customer journey—capturing precise timing at order points, windows, and bays—while keeping sensitive data at the edge. Now they're taking the next leap: agentic AI powered by Amazon Bedrock AgentCore. Autonomous agents automatically answer compliance questions—\"Are there spills? Are staff following food handling protocols?\"—replacing manual audits with continuous monitoring. See how a Kiwi company scaled from local innovation to global impact, and from computer vision to autonomous agents. - Ravi, Sirivella, Fingermark",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "15:45",
       "endTime": "16:15",
@@ -2137,7 +2137,7 @@
           "description": "Artificial Intelligence"
         }
       ],
-      "plannerDay": "day1"
+      "plannerDay": "day2"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#smb202",
@@ -2218,7 +2218,7 @@
         "Kenny Han, Solution Architect, AWS",
         "Stephen Brown, Co-Founder & CTO, Skyjed"
       ],
-      "description": "Traditional AI-assisted development treats AI as a tool. The AI-Driven Development Lifecycle (AI-DLC) treats it as a central collaborator throughout the development process. In this session, join Skyjed CTO Stephen Brown, to share how his team applied AI-DLC to compress a 4-6 week implementation into 48 hours. Discover how AI-DLC's three phases \u2014 Inception, Construction, and Operations \u2014 reimagines the software lifecycle through AI-powered execution with human oversight and dynamic team collaboration. Drawing on Skyjed's firsthand experience on integrating AI-assisted development into their existing software development lifecycle, this talk explores how team collaboration, Kiro-powered workflows, and enterprise-grade code development practices were enhanced rather than replaced. You'll walk away with practical steps to achieve 15\u201320x acceleration\u2014without sacrificing quality, governance, or control. - Teddy Aryono, Sr. Specialist Solutions Architect, AWS - Kenny Han, Solution Architect, AWS - Stephen Brown, Co-Founder & CTO, Skyjed",
+      "description": "Traditional AI-assisted development treats AI as a tool. The AI-Driven Development Lifecycle (AI-DLC) treats it as a central collaborator throughout the development process. In this session, join Skyjed CTO Stephen Brown, to share how his team applied AI-DLC to compress a 4-6 week implementation into 48 hours. Discover how AI-DLC's three phases — Inception, Construction, and Operations — reimagines the software lifecycle through AI-powered execution with human oversight and dynamic team collaboration. Drawing on Skyjed's firsthand experience on integrating AI-assisted development into their existing software development lifecycle, this talk explores how team collaboration, Kiro-powered workflows, and enterprise-grade code development practices were enhanced rather than replaced. You'll walk away with practical steps to achieve 15–20x acceleration—without sacrificing quality, governance, or control. - Teddy Aryono, Sr. Specialist Solutions Architect, AWS - Kenny Han, Solution Architect, AWS - Stephen Brown, Co-Founder & CTO, Skyjed",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "12:00",
       "endTime": "12:30",
@@ -2274,7 +2274,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day1"
+      "plannerDay": "day2"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#sec305",
@@ -2351,7 +2351,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day2"
+      "plannerDay": "day1"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#sec302",
@@ -2485,7 +2485,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day2"
+      "plannerDay": "day1"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#prt302-s",
@@ -2500,7 +2500,7 @@
       "speakers": [
         "Richard Zhang, , Senior Solutions Architect APJ, Vercel"
       ],
-      "description": "Most engineering teams have the frameworks, the cloud, and the AI tooling. Velocity still breaks. It breaks between commit and production \u2014 in deployment systems, infra tickets, and the gaps nobody owns. This session examines where modern web delivery actually stalls, and whether today's platforms are genuinely fixing the problem or just masking fragile foundations - Richard Zhang, , Senior Solutions Architect APJ, Vercel",
+      "description": "Most engineering teams have the frameworks, the cloud, and the AI tooling. Velocity still breaks. It breaks between commit and production — in deployment systems, infra tickets, and the gaps nobody owns. This session examines where modern web delivery actually stalls, and whether today's platforms are genuinely fixing the problem or just masking fragile foundations - Richard Zhang, , Senior Solutions Architect APJ, Vercel",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "11:00",
       "endTime": "11:30",
@@ -2563,7 +2563,7 @@
         "Eric, Director of Developer Experience, Culture Amp",
         "Peter Bradd, Chief Evangelist APAC, Miro"
       ],
-      "description": "Today's leaders face pressure to prove AI ROI, yet many struggle to realise value on fragmented foundations. Miro on AWS solves this by uniting teams, tools, and collaborative AI workflows in one workspace \u2014 amplifying the way teams actually work with enterprise scale and security. In this fireside chat with Culture Amp, hear how turning AI ambition into real outcomes works in practice. - Rhiannon Gaskell, Director of Delivery Systems & Capability, Culture Amp - Eric, Director of Developer Experience, Culture Amp - Peter Bradd, Chief Evangelist APAC, Miro",
+      "description": "Today's leaders face pressure to prove AI ROI, yet many struggle to realise value on fragmented foundations. Miro on AWS solves this by uniting teams, tools, and collaborative AI workflows in one workspace — amplifying the way teams actually work with enterprise scale and security. In this fireside chat with Culture Amp, hear how turning AI ambition into real outcomes works in practice. - Rhiannon Gaskell, Director of Delivery Systems & Capability, Culture Amp - Eric, Director of Developer Experience, Culture Amp - Peter Bradd, Chief Evangelist APAC, Miro",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "13:45",
       "endTime": "14:15",
@@ -2619,7 +2619,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day2"
+      "plannerDay": "day1"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#prt214-s",
@@ -2740,7 +2740,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day2"
+      "plannerDay": "day1"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#prt212-s",
@@ -2836,7 +2836,7 @@
       "speakers": [
         "Vincent Hardy, Partner Development Manager, Red Hat"
       ],
-      "description": "Balance IT ops and AI with Red Hat on AWS. Learn how ROSA integrates with AWS-native services to scale secure, cost-effective AI. Discover how OpenShift bridges VMs and containers on AWS\u2019s global infrastructure. Join us for a fireside chat with Service NSW on leveraging Open Source and AWS cloud-native agility to drive modern, high-performance architecture. - Vincent Hardy, Partner Development Manager, Red Hat",
+      "description": "Balance IT ops and AI with Red Hat on AWS. Learn how ROSA integrates with AWS-native services to scale secure, cost-effective AI. Discover how OpenShift bridges VMs and containers on AWS’s global infrastructure. Join us for a fireside chat with Service NSW on leveraging Open Source and AWS cloud-native agility to drive modern, high-performance architecture. - Vincent Hardy, Partner Development Manager, Red Hat",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "11:00",
       "endTime": "11:30",
@@ -2892,7 +2892,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day2"
+      "plannerDay": "day1"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#prt210-s",
@@ -2973,7 +2973,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day1"
+      "plannerDay": "day2"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#prt209-s",
@@ -3045,7 +3045,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day2"
+      "plannerDay": "day1"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#prt208-s",
@@ -3125,10 +3125,10 @@
       ],
       "speakers": [
         "Michelle Crain, Director, Deloitte Cognitive Customer Experience and Contact Centre AI",
-        "Niek Peters, Executive, Contact Centre Delivery at NAB\u2014further along the Connect journey and now expanding into multi-channel enablement accelerated by AI.",
-        "Anthony Hickling, Crew Tech Lead, Assisted Channels at Bupa\u2014recently completed a major migration to Amazon Connect and already seeing NPS and business results."
+        "Niek Peters, Executive, Contact Centre Delivery at NAB—further along the Connect journey and now expanding into multi-channel enablement accelerated by AI.",
+        "Anthony Hickling, Crew Tech Lead, Assisted Channels at Bupa—recently completed a major migration to Amazon Connect and already seeing NPS and business results."
       ],
-      "description": "Geopolitical instability, rising CX demands, rapid tech shifts, and escalating cyber threats converge faster than manual processes can handle. Join our expert panel as they leverage AWS and AI to build customer solutions, elevate engagement, and neutralise cyber threats. We'll share real deployments, proven governance, and measurable gains in efficiency, resilience, and customer impact. - Michelle Crain, Director, Deloitte Cognitive Customer Experience and Contact Centre AI - Niek Peters, Executive, Contact Centre Delivery at NAB\u2014further along the Connect journey and now expanding into multi-channel enablement accelerated by AI. - Anthony Hickling, Crew Tech Lead, Assisted Channels at Bupa\u2014recently completed a major migration to Amazon Connect and already seeing NPS and business results.",
+      "description": "Geopolitical instability, rising CX demands, rapid tech shifts, and escalating cyber threats converge faster than manual processes can handle. Join our expert panel as they leverage AWS and AI to build customer solutions, elevate engagement, and neutralise cyber threats. We'll share real deployments, proven governance, and measurable gains in efficiency, resilience, and customer impact. - Michelle Crain, Director, Deloitte Cognitive Customer Experience and Contact Centre AI - Niek Peters, Executive, Contact Centre Delivery at NAB—further along the Connect journey and now expanding into multi-channel enablement accelerated by AI. - Anthony Hickling, Crew Tech Lead, Assisted Channels at Bupa—recently completed a major migration to Amazon Connect and already seeing NPS and business results.",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "13:45",
       "endTime": "14:15",
@@ -3184,7 +3184,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day2"
+      "plannerDay": "day1"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#prt206-s",
@@ -3274,7 +3274,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day2"
+      "plannerDay": "day1"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#prt204-s",
@@ -3287,7 +3287,7 @@
         "LaunchDarkly"
       ],
       "speakers": [],
-      "description": "Generative AI systems evolve constantly, and the impact of prompt or model changes often isn\u2019t clear until real users interact with them in production. In this session, learn how teams using Amazon Bedrock safely experiment with AI at runtime, testing models and prompts with targeted rollouts, evaluating system outputs online, and optimising against real business result",
+      "description": "Generative AI systems evolve constantly, and the impact of prompt or model changes often isn’t clear until real users interact with them in production. In this session, learn how teams using Amazon Bedrock safely experiment with AI at runtime, testing models and prompts with targeted rollouts, evaluating system outputs online, and optimising against real business result",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "11:25",
       "endTime": "11:40",
@@ -3323,7 +3323,7 @@
     {
       "id": "events-cards-interactive-summits-sydney-agenda#prt203-s",
       "code": "PRT203-S",
-      "title": "Design, Deploy, and Govern AI Agents with Boomi\u2019s Agentstudio\n5 Steps to Enterprise-Grade AI Security for Amazon Bedrock Projects \n(sponsored by Boomi)",
+      "title": "Design, Deploy, and Govern AI Agents with Boomi’s Agentstudio\n5 Steps to Enterprise-Grade AI Security for Amazon Bedrock Projects \n(sponsored by Boomi)",
       "sessionType": "Lightning talk",
       "level": "intermediate",
       "language": "English",
@@ -3362,7 +3362,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day2"
+      "plannerDay": "day1"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#prt202-s",
@@ -3450,7 +3450,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day2"
+      "plannerDay": "day1"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#prt112-s",
@@ -3498,7 +3498,7 @@
       "speakers": [
         "Elese Cox, Solutions Engineer, Mimecast"
       ],
-      "description": "Human risk is a critical layer of any security strategy. Human risk management addresses how employee behavior\u2014from accidental sharing to shadow AI use\u2014creates organizational exposure. Discover how Mimecast, on AWS, helps identify risky behavior, protect critical data and account access, and support compliance. Real-world insights. Behavioural analytics. Adaptive controls. Measurable ROI. - Elese Cox, Solutions Engineer, Mimecast",
+      "description": "Human risk is a critical layer of any security strategy. Human risk management addresses how employee behavior—from accidental sharing to shadow AI use—creates organizational exposure. Discover how Mimecast, on AWS, helps identify risky behavior, protect critical data and account access, and support compliance. Real-world insights. Behavioural analytics. Adaptive controls. Measurable ROI. - Elese Cox, Solutions Engineer, Mimecast",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "10:55",
       "endTime": "11:10",
@@ -3649,7 +3649,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day2"
+      "plannerDay": "day1"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#prt108-s",
@@ -3730,7 +3730,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day1"
+      "plannerDay": "day2"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#prt107-s",
@@ -3816,7 +3816,7 @@
       "speakers": [
         "Erin Alonso, , Harness"
       ],
-      "description": "Most teams have \"done DevOps\" but still face low platform adoption, rising cloud costs, lagging security, and fragile incident response. This session explores the \"After\" state: treating your platform as a product, with golden paths, built-in security, AI-driven simplicity, and reliability by default\u2014using Harness as the model for a governed, cost-aware, AI-native developer experience. - Erin Alonso, , Harness",
+      "description": "Most teams have \"done DevOps\" but still face low platform adoption, rising cloud costs, lagging security, and fragile incident response. This session explores the \"After\" state: treating your platform as a product, with golden paths, built-in security, AI-driven simplicity, and reliability by default—using Harness as the model for a governed, cost-aware, AI-native developer experience. - Erin Alonso, , Harness",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "10:55",
       "endTime": "11:10",
@@ -3872,7 +3872,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day1"
+      "plannerDay": "day2"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#prt105-s",
@@ -3887,7 +3887,7 @@
       "speakers": [
         "Will Hiebert , VP of Sales, APJ, Glean"
       ],
-      "description": "As AI moves from assistants to agents, success depends on context\u2014what the system attends to and acts on. In this lightning talk, we\u2019ll show three examples of context-aware agents in the enterprise through quick demos: meeting coordination, engineering issue resolution, and sales forecasting, highlighting how the right context enables reliable execution at work. - Will Hiebert , VP of Sales, APJ, Glean",
+      "description": "As AI moves from assistants to agents, success depends on context—what the system attends to and acts on. In this lightning talk, we’ll show three examples of context-aware agents in the enterprise through quick demos: meeting coordination, engineering issue resolution, and sales forecasting, highlighting how the right context enables reliable execution at work. - Will Hiebert , VP of Sales, APJ, Glean",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "10:30",
       "endTime": "10:45",
@@ -3943,7 +3943,7 @@
       "speakers": [
         "Allister Muir , Senior Cyber Resilience Engineer, , Commvault"
       ],
-      "description": "AI innovation depends on consistent, trusted data. When disrupted, AI systems and the business decisions they support are at risk. In this session, learn how cloud\u2011native protection models support AI pipelines, reduce recovery time after disruptions, and minimise operational overhead. Discover best practices to protect AI and cloud\u2011native applications in AWS while innovating with confidence. - Allister Muir , Senior Cyber Resilience Engineer, , Commvault",
+      "description": "AI innovation depends on consistent, trusted data. When disrupted, AI systems and the business decisions they support are at risk. In this session, learn how cloud‑native protection models support AI pipelines, reduce recovery time after disruptions, and minimise operational overhead. Discover best practices to protect AI and cloud‑native applications in AWS while innovating with confidence. - Allister Muir , Senior Cyber Resilience Engineer, , Commvault",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "11:25",
       "endTime": "11:40",
@@ -4018,7 +4018,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day2"
+      "plannerDay": "day1"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#prt102-s",
@@ -4110,7 +4110,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day2"
+      "plannerDay": "day1"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#mam307",
@@ -4125,7 +4125,7 @@
       "speakers": [
         "Benn Cizauskas, Senior Technical Account Manager, AWS"
       ],
-      "description": "Rio Tinto\u2019s data science team saw an opportunity to preserve institutional knowledge and improve developer productivity by modernizing a legacy codebase. Rather than attempting a full system overhaul, the team focused first on adding generative AI capabilities to their critical legacy application. By using the proven, open, and trusted data foundation of AWS, the company laid the groundwork for incremental modernization without disrupting core operations. Learn about model fine tuning against legacy codebases, Amazon Nova, SageMaker Jumpstart and AgentCore in this deep dive with AWS & Rio Tinto - Benn Cizauskas, Senior Technical Account Manager, AWS",
+      "description": "Rio Tinto’s data science team saw an opportunity to preserve institutional knowledge and improve developer productivity by modernizing a legacy codebase. Rather than attempting a full system overhaul, the team focused first on adding generative AI capabilities to their critical legacy application. By using the proven, open, and trusted data foundation of AWS, the company laid the groundwork for incremental modernization without disrupting core operations. Learn about model fine tuning against legacy codebases, Amazon Nova, SageMaker Jumpstart and AgentCore in this deep dive with AWS & Rio Tinto - Benn Cizauskas, Senior Technical Account Manager, AWS",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "14:30",
       "endTime": "15:00",
@@ -4243,7 +4243,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day2"
+      "plannerDay": "day1"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#mam305",
@@ -4259,7 +4259,7 @@
         "Deenadayaalan, Senior Practice Manager, AWS",
         "Bin, Liu, AWS"
       ],
-      "description": "This session demonstrates how agentic AI systems revolutionize legacy application modernization through intelligent reverse engineering workflows. We showcase a multi-agent architecture that autonomously analyzes legacy codebases, generates comprehensive business specifications, and rebuilds cloud-native applications while preserving critical business logic. Our agentic framework orchestrates specialized AI agents\u2014Analyzer, Generator, Evaluator, and Refiner\u2014working collaboratively to extract institutional knowledge from decades-old systems and validate modernized applications against original code. Drawing from real-world enterprise implementations including Commonwealth Bank of Australia's transformation, we present practical patterns for deploying autonomous AI agents that achieve 70% efficiency gains in modernization cycles. - Deenadayaalan, Senior Practice Manager, AWS - Bin, Liu, AWS",
+      "description": "This session demonstrates how agentic AI systems revolutionize legacy application modernization through intelligent reverse engineering workflows. We showcase a multi-agent architecture that autonomously analyzes legacy codebases, generates comprehensive business specifications, and rebuilds cloud-native applications while preserving critical business logic. Our agentic framework orchestrates specialized AI agents—Analyzer, Generator, Evaluator, and Refiner—working collaboratively to extract institutional knowledge from decades-old systems and validate modernized applications against original code. Drawing from real-world enterprise implementations including Commonwealth Bank of Australia's transformation, we present practical patterns for deploying autonomous AI agents that achieve 70% efficiency gains in modernization cycles. - Deenadayaalan, Senior Practice Manager, AWS - Bin, Liu, AWS",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "16:45",
       "endTime": "17:15",
@@ -4387,7 +4387,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day2"
+      "plannerDay": "day1"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#mam303",
@@ -4507,7 +4507,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day2"
+      "plannerDay": "day1"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#mam301",
@@ -4698,12 +4698,12 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day1"
+      "plannerDay": "day2"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#mae203",
       "code": "MAE203",
-      "title": "27\u00d7 Faster: How Service Stream Automated Work Order Verification with AI on AWS",
+      "title": "27× Faster: How Service Stream Automated Work Order Verification with AI on AWS",
       "sessionType": "Breakout session",
       "level": "intermediate",
       "language": "English",
@@ -4715,7 +4715,7 @@
         "Najeeb Aftab, Account Executive, AWS",
         "Simon Fisher Head of Data and AI, Service Stream"
       ],
-      "description": "Every month, Service Stream's field operations generate over 1 million images requiring verification \u2014 proof that infrastructure maintenance work has been completed to contract specification. Manually reviewing this volume was resource-intensive, error-prone, and created payment bottlenecks that slowed contractor payment cycles and strained client relationships. To solve this, Service Stream partnered with AWS to build an AI-powered work order verification system. The system now processes up to 800 work orders per hour \u2014 27 times faster than manual review \u2014 with improved accuracy, reduced subjectivity, and no increase in headcount. In this session, learn how Service Stream used AWS AI and cloud services to automatically check field images against contract requirements \u2014 delivering a production-ready solution in just three months. We'll walk through the business drivers, solution design, and real-world outcomes \u2014 including how eliminating manual bottlenecks improved ServiceS tream's ability to meet client commitments, reduce payment delays, and build trust across their contractor network. Whether you're in field services, utilities, infrastructure, or any operations-heavy industry, this session will show you how intelligent automation can transform high-volume verification workflows and deliver tangible business value. - Najeeb Aftab, Account Executive, AWS - Simon Fisher Head of Data and AI, Service Stream",
+      "description": "Every month, Service Stream's field operations generate over 1 million images requiring verification — proof that infrastructure maintenance work has been completed to contract specification. Manually reviewing this volume was resource-intensive, error-prone, and created payment bottlenecks that slowed contractor payment cycles and strained client relationships. To solve this, Service Stream partnered with AWS to build an AI-powered work order verification system. The system now processes up to 800 work orders per hour — 27 times faster than manual review — with improved accuracy, reduced subjectivity, and no increase in headcount. In this session, learn how Service Stream used AWS AI and cloud services to automatically check field images against contract requirements — delivering a production-ready solution in just three months. We'll walk through the business drivers, solution design, and real-world outcomes — including how eliminating manual bottlenecks improved ServiceS tream's ability to meet client commitments, reduce payment delays, and build trust across their contractor network. Whether you're in field services, utilities, infrastructure, or any operations-heavy industry, this session will show you how intelligent automation can transform high-volume verification workflows and deliver tangible business value. - Najeeb Aftab, Account Executive, AWS - Simon Fisher Head of Data and AI, Service Stream",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "10:30",
       "endTime": "11:00",
@@ -4779,7 +4779,7 @@
         "Salman Rahman, Enterprise Account Manager, AWS",
         "Tim Sheridan, Director of Product & Technology Seven West Media"
       ],
-      "description": "Join Tim Sheridan, Director of Product & Technology at Seven West Media, as he shares how Seven is leveraging cloud and AI to maximise the return on their most valuable asset \u2014 premium live content. With marquee events like the AFL Grand Final and The Ashes cricket series, the stakes couldn't be higher: massive concurrent audiences, critical advertising revenue, and zero tolerance for failure. Tim shares how they leaned on AI-powered developer and business tools to accelerate delivery, de-risk high-profile events, and maximise the return on its premium content investments. Discover how Seven's team transformed their approach to innovation \u2014 using cloud-native architecture and AI to achieve speed to market, audience experience, and advertising revenue. - Nishant Dhiman, Sr. Solutions Architect, AWS - Salman Rahman, Enterprise Account Manager, AWS - Tim Sheridan, Director of Product & Technology Seven West Media",
+      "description": "Join Tim Sheridan, Director of Product & Technology at Seven West Media, as he shares how Seven is leveraging cloud and AI to maximise the return on their most valuable asset — premium live content. With marquee events like the AFL Grand Final and The Ashes cricket series, the stakes couldn't be higher: massive concurrent audiences, critical advertising revenue, and zero tolerance for failure. Tim shares how they leaned on AI-powered developer and business tools to accelerate delivery, de-risk high-profile events, and maximise the return on its premium content investments. Discover how Seven's team transformed their approach to innovation — using cloud-native architecture and AI to achieve speed to market, audience experience, and advertising revenue. - Nishant Dhiman, Sr. Solutions Architect, AWS - Salman Rahman, Enterprise Account Manager, AWS - Tim Sheridan, Director of Product & Technology Seven West Media",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "11:15",
       "endTime": "11:45",
@@ -4835,7 +4835,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day1"
+      "plannerDay": "day2"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#isv304",
@@ -4850,7 +4850,7 @@
       "speakers": [
         "Sam Crowther Founder & CEO, Kasada"
       ],
-      "description": "AI agents are powerful but risky\u2014they can access sensitive data, trigger workflows, and make autonomous decisions. Kasada and AWS are helping enterprises adopt agents with confidence through comprehensive AI agent trust management that protects legitimate AI agents while detecting and blocking malicious automated visits. Kasada's platform, integrated with AWS services, enables organizations to distinguish trusted agent traffic from sophisticated bot threats, monitor for anomalous behavior, and maintain agent integrity against evolving AI-powered attacks. Join Kasada and AWS experts to explore a practical framework for managing agent trust: how AI and agentic traffic are being abused today, where risks appear across discovery and checkout, how teams decide when to allow or block agents, what new protocols like Web Bot Auth do and where they fall short, and what Kasada has built for agent traffic visibility\u2014all while maintaining seamless customer experience. - Sam Crowther Founder & CEO, Kasada",
+      "description": "AI agents are powerful but risky—they can access sensitive data, trigger workflows, and make autonomous decisions. Kasada and AWS are helping enterprises adopt agents with confidence through comprehensive AI agent trust management that protects legitimate AI agents while detecting and blocking malicious automated visits. Kasada's platform, integrated with AWS services, enables organizations to distinguish trusted agent traffic from sophisticated bot threats, monitor for anomalous behavior, and maintain agent integrity against evolving AI-powered attacks. Join Kasada and AWS experts to explore a practical framework for managing agent trust: how AI and agentic traffic are being abused today, where risks appear across discovery and checkout, how teams decide when to allow or block agents, what new protocols like Web Bot Auth do and where they fall short, and what Kasada has built for agent traffic visibility—all while maintaining seamless customer experience. - Sam Crowther Founder & CEO, Kasada",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "15:45",
       "endTime": "16:00",
@@ -4938,7 +4938,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day2"
+      "plannerDay": "day1"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#isv302",
@@ -5004,7 +5004,7 @@
       "speakers": [
         "Sean Fernandez, VP Infrastructure and Security, Roller"
       ],
-      "description": "Learn how Roller Software grew from an Australian startup into a global venue management platform serving 3,000 venues across 30 countries and delivering 120 million experiences annually. Using AWS multi-tenant architecture, Roller maintains 99.99% uptime while processing $4 billion in transactions each year through their modern monolith application. This session covers practical strategies for tenant isolation, infrastructure scaling, and enterprise-grade security. You\u2019ll discover how to leverage AWS\u2019s native multi-tenant capabilities and get a proven roadmap for scaling your SaaS business from startup to enterprise while keeping costs efficient and operations excellent. - Sean Fernandez, VP Infrastructure and Security, Roller",
+      "description": "Learn how Roller Software grew from an Australian startup into a global venue management platform serving 3,000 venues across 30 countries and delivering 120 million experiences annually. Using AWS multi-tenant architecture, Roller maintains 99.99% uptime while processing $4 billion in transactions each year through their modern monolith application. This session covers practical strategies for tenant isolation, infrastructure scaling, and enterprise-grade security. You’ll discover how to leverage AWS’s native multi-tenant capabilities and get a proven roadmap for scaling your SaaS business from startup to enterprise while keeping costs efficient and operations excellent. - Sean Fernandez, VP Infrastructure and Security, Roller",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "14:55",
       "endTime": "15:10",
@@ -5040,7 +5040,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day2"
+      "plannerDay": "day1"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#isv214",
@@ -5055,7 +5055,7 @@
       "speakers": [
         "Emie Fernandez, CTO, Infotrack"
       ],
-      "description": "Most AI agents fail not because of models, but because they can\u2019t access trusted external data. This session shows how InfoTrack used Model Context Protocol (MCP) to connect agents to authoritative data sources via a compliant and secured gateway. - Emie Fernandez, CTO, Infotrack",
+      "description": "Most AI agents fail not because of models, but because they can’t access trusted external data. This session shows how InfoTrack used Model Context Protocol (MCP) to connect agents to authoritative data sources via a compliant and secured gateway. - Emie Fernandez, CTO, Infotrack",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "14:50",
       "endTime": "15:05",
@@ -5086,7 +5086,7 @@
           "description": "Artificial Intelligence"
         }
       ],
-      "plannerDay": "day1"
+      "plannerDay": "day2"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#isv213",
@@ -5179,7 +5179,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day1"
+      "plannerDay": "day2"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#isv210",
@@ -5194,7 +5194,7 @@
       "speakers": [
         "Bryce Matheson, Software Engineer, Canva"
       ],
-      "description": "From initial idea to execution\u2014learn about Canva's journey migrating MySQL workloads from Amazon RDS to Aurora at scale. Discover how Canva achieved meaningful performance improvements, cost savings, and operational efficiencies through this strategic migration. This lightning talk shares real-world insights on planning and executing large-scale database migrations, key Aurora best practices for optimizing cost and performance, and how the latest monitoring features help maintain efficiency as you scale. Learn how AWS Countdown Premium (CDP) accelerated and de-risked Canva's migration, delivering tangible business value while minimizing operational disruption. - Bryce Matheson, Software Engineer, Canva",
+      "description": "From initial idea to execution—learn about Canva's journey migrating MySQL workloads from Amazon RDS to Aurora at scale. Discover how Canva achieved meaningful performance improvements, cost savings, and operational efficiencies through this strategic migration. This lightning talk shares real-world insights on planning and executing large-scale database migrations, key Aurora best practices for optimizing cost and performance, and how the latest monitoring features help maintain efficiency as you scale. Learn how AWS Countdown Premium (CDP) accelerated and de-risked Canva's migration, delivering tangible business value while minimizing operational disruption. - Bryce Matheson, Software Engineer, Canva",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "12:40",
       "endTime": "12:55",
@@ -5230,7 +5230,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day2"
+      "plannerDay": "day1"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#isv209",
@@ -5282,7 +5282,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day1"
+      "plannerDay": "day2"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#isv208",
@@ -5333,7 +5333,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day2"
+      "plannerDay": "day1"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#isv207",
@@ -5406,7 +5406,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day1"
+      "plannerDay": "day2"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#isv206",
@@ -5422,7 +5422,7 @@
         "Greg Sherwood, CTO, Squiz",
         "John-Paul Syriatowicz, Executive Chairman/Co-Founder, Squiz"
       ],
-      "description": "Squiz, a global Digital Experience Platform provider, is transforming how organizations deliver conversational search experiences. By adopting Amazon S3 Vectors, Squiz reimagined its ingestion pipeline \u2014 increasing data processing speed by 50% and shifting from bespoke, always-on infrastructure to a scalable serverless model. This allows Squiz to seamlessly scale from 25,000 to millions of vectors per client, while significantly reducing costs. Hear how this shift freed engineering teams to focus on RAG innovation rather than infrastructure management, and how it powers smart video search capabilities across their platform. - Greg Sherwood, CTO, Squiz - John-Paul Syriatowicz, Executive Chairman/Co-Founder, Squiz",
+      "description": "Squiz, a global Digital Experience Platform provider, is transforming how organizations deliver conversational search experiences. By adopting Amazon S3 Vectors, Squiz reimagined its ingestion pipeline — increasing data processing speed by 50% and shifting from bespoke, always-on infrastructure to a scalable serverless model. This allows Squiz to seamlessly scale from 25,000 to millions of vectors per client, while significantly reducing costs. Hear how this shift freed engineering teams to focus on RAG innovation rather than infrastructure management, and how it powers smart video search capabilities across their platform. - Greg Sherwood, CTO, Squiz - John-Paul Syriatowicz, Executive Chairman/Co-Founder, Squiz",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "16:10",
       "endTime": "16:25",
@@ -5458,7 +5458,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day2"
+      "plannerDay": "day1"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#isv205",
@@ -5639,7 +5639,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day1"
+      "plannerDay": "day2"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#isv202",
@@ -5658,7 +5658,7 @@
         "Joe Taw, Senior Infrastructure Engineering Manager, Safetyculture",
         "Chris Atkins, Distinguished Engineer, Buildkite"
       ],
-      "description": "As business demands evolve, architectural patterns must evolve too. SafetyCulture and Buildkite implemented cell-based architectures driven by distinct business objectives\u2014scaling for hypergrowth and enhancing infrastructure resilience. SafetyCulture's expansion plans required proactive architectural evolution to unlock unlimited scaling capacity. Buildkite needed to meet stringent security isolation requirements while achieving scale through repeatable deployment units. This session shares real-world experiences as both companies designed and implemented cell-based architectures for their SaaS platforms. Discover how SafetyCulture identified bottlenecks, redesigned systems for isolation and resilience, and aligned technical capabilities with business growth targets. Learn how Buildkite leveraged cell-based design to achieve both scale and security isolation. Walk away with actionable patterns for building resilient, scalable architectures. - Jagdeep Singh, Technical Account Manager, AWS - Joe Taw, Senior Infrastructure Engineering Manager, Safetyculture - Chris Atkins, Distinguished Engineer, Buildkite",
+      "description": "As business demands evolve, architectural patterns must evolve too. SafetyCulture and Buildkite implemented cell-based architectures driven by distinct business objectives—scaling for hypergrowth and enhancing infrastructure resilience. SafetyCulture's expansion plans required proactive architectural evolution to unlock unlimited scaling capacity. Buildkite needed to meet stringent security isolation requirements while achieving scale through repeatable deployment units. This session shares real-world experiences as both companies designed and implemented cell-based architectures for their SaaS platforms. Discover how SafetyCulture identified bottlenecks, redesigned systems for isolation and resilience, and aligned technical capabilities with business growth targets. Learn how Buildkite leveraged cell-based design to achieve both scale and security isolation. Walk away with actionable patterns for building resilient, scalable architectures. - Jagdeep Singh, Technical Account Manager, AWS - Joe Taw, Senior Infrastructure Engineering Manager, Safetyculture - Chris Atkins, Distinguished Engineer, Buildkite",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "11:15",
       "endTime": "11:45",
@@ -5731,7 +5731,7 @@
         "Lingling Cui, Technical Account Manager, AWS",
         "Arshad Zackeriya, Senior Engineer, Xero"
       ],
-      "description": "AI coding agents are transforming how developers build and operate modern cloud-native applications. With tools such as Kiro CLI, Kiro IDE, or any MCP-compatible AI coding assistant, developers are embracing AI to move faster and scale smarter. This session explores how MCP servers help developers streamline code generation, deployment, and debugging by embedding infrastructure awareness directly into the AI assistant. Learn how Xero is leveraging MCP to speed up development, simplify operations, and deliver more reliable containerized apps at scale. Xero will also share their success story using Kiro CLI, Prometheus MCP, EKS MCP, and AWS Knowledge Base MCP to identify and resolve Prometheus cost spikes\u2014slashing costs by 40%. - Lingling Cui, Technical Account Manager, AWS - Arshad Zackeriya, Senior Engineer, Xero",
+      "description": "AI coding agents are transforming how developers build and operate modern cloud-native applications. With tools such as Kiro CLI, Kiro IDE, or any MCP-compatible AI coding assistant, developers are embracing AI to move faster and scale smarter. This session explores how MCP servers help developers streamline code generation, deployment, and debugging by embedding infrastructure awareness directly into the AI assistant. Learn how Xero is leveraging MCP to speed up development, simplify operations, and deliver more reliable containerized apps at scale. Xero will also share their success story using Kiro CLI, Prometheus MCP, EKS MCP, and AWS Knowledge Base MCP to identify and resolve Prometheus cost spikes—slashing costs by 40%. - Lingling Cui, Technical Account Manager, AWS - Arshad Zackeriya, Senior Engineer, Xero",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "10:30",
       "endTime": "11:00",
@@ -5787,7 +5787,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day1"
+      "plannerDay": "day2"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#isv104",
@@ -5889,7 +5889,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day1"
+      "plannerDay": "day2"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#isv102",
@@ -5994,12 +5994,12 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day1"
+      "plannerDay": "day2"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#ino203",
       "code": "INO203",
-      "title": "Behind the curtain: How Amazon\u2019s AI innovations are powered by AWS",
+      "title": "Behind the curtain: How Amazon’s AI innovations are powered by AWS",
       "sessionType": "Breakout session",
       "level": "intermediate",
       "language": "English",
@@ -6010,7 +6010,7 @@
         "Sam Kline, Principal ANZ Data/GenAI Strategist, AWS",
         "Rob Findlay, Digital Innovation Manager, AWS"
       ],
-      "description": "Discover how Amazon leaders across Zoox, Prime Video, and Amazon Stores are leveraging AI to power their next-generation innovations with AWS and create better experiences for customers. Through three key stories discover how customer needs sparked transformative experiences: fan feedback revolutionising sports broadcasting with AI-powered highlights, shopping patterns evolving Amazon\u2019s mobile commerce platform, and robotics and automation delivering advances in supply chain optimisation and fulfillment. Learn the best practices Amazon has applied using AWS that can help scale innovation in your organisation. - Sam Kline, Principal ANZ Data/GenAI Strategist, AWS - Rob Findlay, Digital Innovation Manager, AWS",
+      "description": "Discover how Amazon leaders across Zoox, Prime Video, and Amazon Stores are leveraging AI to power their next-generation innovations with AWS and create better experiences for customers. Through three key stories discover how customer needs sparked transformative experiences: fan feedback revolutionising sports broadcasting with AI-powered highlights, shopping patterns evolving Amazon’s mobile commerce platform, and robotics and automation delivering advances in supply chain optimisation and fulfillment. Learn the best practices Amazon has applied using AWS that can help scale innovation in your organisation. - Sam Kline, Principal ANZ Data/GenAI Strategist, AWS - Rob Findlay, Digital Innovation Manager, AWS",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "13:30",
       "endTime": "14:00",
@@ -6059,11 +6059,11 @@
         "AWS"
       ],
       "speakers": [
-        "Nieves Garcia, Head of Generative AI Strategy - APJC \u200b- Generative AI Innovation Center, AWS",
-        "Rossana Bianchi, Head of Generative AI Strategy - ANZ\u200b - Generative AI Innovation Center, AWS",
-        "Lily Martin, Deep Learning Architect\u200b - ANZ - Generative AI Innovation Center, AWS"
+        "Nieves Garcia, Head of Generative AI Strategy - APJC ​- Generative AI Innovation Center, AWS",
+        "Rossana Bianchi, Head of Generative AI Strategy - ANZ​ - Generative AI Innovation Center, AWS",
+        "Lily Martin, Deep Learning Architect​ - ANZ - Generative AI Innovation Center, AWS"
       ],
-      "description": "Many teams move fast with agentic AI prototypes that impress in demos but stall in production\u2014blocked by gaps in reliability, accuracy, and safety. In this session, AWS agentic AI technical leaders will help builders rethink how to build and scale production-grade, trustworthy agentic AI. Learn proven patterns to build and deploy agents that earn trust in the real world. See AWS agentic AI platform Amazon Bedrock AgentCore in action. Discover how AWS customers move fast from sparks of experiment to scaled AI-driven innovation with trust at the core, transforming industries. - Nieves Garcia, Head of Generative AI Strategy - APJC \u200b- Generative AI Innovation Center, AWS - Rossana Bianchi, Head of Generative AI Strategy - ANZ\u200b - Generative AI Innovation Center, AWS - Lily Martin, Deep Learning Architect\u200b - ANZ - Generative AI Innovation Center, AWS",
+      "description": "Many teams move fast with agentic AI prototypes that impress in demos but stall in production—blocked by gaps in reliability, accuracy, and safety. In this session, AWS agentic AI technical leaders will help builders rethink how to build and scale production-grade, trustworthy agentic AI. Learn proven patterns to build and deploy agents that earn trust in the real world. See AWS agentic AI platform Amazon Bedrock AgentCore in action. Discover how AWS customers move fast from sparks of experiment to scaled AI-driven innovation with trust at the core, transforming industries. - Nieves Garcia, Head of Generative AI Strategy - APJC ​- Generative AI Innovation Center, AWS - Rossana Bianchi, Head of Generative AI Strategy - ANZ​ - Generative AI Innovation Center, AWS - Lily Martin, Deep Learning Architect​ - ANZ - Generative AI Innovation Center, AWS",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "15:45",
       "endTime": "16:15",
@@ -6114,7 +6114,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day1"
+      "plannerDay": "day2"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#ino103",
@@ -6182,7 +6182,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day1"
+      "plannerDay": "day2"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#ino102",
@@ -6199,7 +6199,7 @@
         "Tomas Bacon, Head of Enterprise AI, Sportsbet",
         "Shaun McIlroy, Platform Reliability Manager, Sportsbet"
       ],
-      "description": "Discover how Sportsbet, Australia's leading sports betting platform, transformed its technology organization through strategic AWS partnerships. Learn how they built an enterprise-wide AI learning culture that achieved record-breaking certification results, and completed a serverless-first modernization that delivered significant cost savings and emissions reductions while handling massive scale. This session shares practical strategies for building executive buy-in, establishing effective AWS partnerships, and creating a culture where innovation thrives\u2014demonstrating how to focus internal resources on competitive differentiation while partnering for technical expertise to accelerate transformation. - Rupesh Kapadia, Head of Technology - Cloud, Operations & WPT, Sportsbet - Tomas Bacon, Head of Enterprise AI, Sportsbet - Shaun McIlroy, Platform Reliability Manager, Sportsbet",
+      "description": "Discover how Sportsbet, Australia's leading sports betting platform, transformed its technology organization through strategic AWS partnerships. Learn how they built an enterprise-wide AI learning culture that achieved record-breaking certification results, and completed a serverless-first modernization that delivered significant cost savings and emissions reductions while handling massive scale. This session shares practical strategies for building executive buy-in, establishing effective AWS partnerships, and creating a culture where innovation thrives—demonstrating how to focus internal resources on competitive differentiation while partnering for technical expertise to accelerate transformation. - Rupesh Kapadia, Head of Technology - Cloud, Operations & WPT, Sportsbet - Tomas Bacon, Head of Enterprise AI, Sportsbet - Shaun McIlroy, Platform Reliability Manager, Sportsbet",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "15:00",
       "endTime": "15:30",
@@ -6257,7 +6257,7 @@
         "Igor Londero Gentil, FSI Solutions Arch, Field-AGS-ANZ-ENT-CS, AWS",
         "Devesh Maheshwari, Chief Technology Officer, Lendi Group, Lendi Group"
       ],
-      "description": "When Lendi Group launched Project Aurora on AWS, they bet big on a single super-agent with 270 tools. It flopped\u2014technically impressive but commercially useless. The agent couldn't sell. The breakthrough came from treating AI like a workforce: specialist agents with clear roles, sales logic embedded in the funnel, and relentless measurement. Engagement tripled. This talk shares the hard lessons from Lendi's 16-week sprint: why capability isn't outcome, why your best prompt engineer might be a 23-year-old closer, and how to architect agentic systems that actually convert. - Igor Londero Gentil, FSI Solutions Arch, Field-AGS-ANZ-ENT-CS, AWS - Devesh Maheshwari, Chief Technology Officer, Lendi Group, Lendi Group",
+      "description": "When Lendi Group launched Project Aurora on AWS, they bet big on a single super-agent with 270 tools. It flopped—technically impressive but commercially useless. The agent couldn't sell. The breakthrough came from treating AI like a workforce: specialist agents with clear roles, sales logic embedded in the funnel, and relentless measurement. Engagement tripled. This talk shares the hard lessons from Lendi's 16-week sprint: why capability isn't outcome, why your best prompt engineer might be a 23-year-old closer, and how to architect agentic systems that actually convert. - Igor Londero Gentil, FSI Solutions Arch, Field-AGS-ANZ-ENT-CS, AWS - Devesh Maheshwari, Chief Technology Officer, Lendi Group, Lendi Group",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "14:15",
       "endTime": "14:45",
@@ -6298,7 +6298,7 @@
           "description": "Artificial Intelligence"
         }
       ],
-      "plannerDay": "day1"
+      "plannerDay": "day2"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#ind301",
@@ -6371,7 +6371,7 @@
       "language": "English",
       "organisations": [],
       "speakers": [],
-      "description": "In one of Australia's most operationally complex industries, Team Global Express (TGE) turned data into a strategic asset, and AI into a competitive edge. In 2025, TGE invested in data modernisation, establishing an AWS native data platform which now serves as the operational heartbeat of its logistics network. On this foundation, TGE is delivering compounding business value through rapid deployment of AI solutions across multiple domains. Join this session to learn how TGE secured board-level backing, built a lean AI team, and is scaling pragmatic, cost-effective AI \u2013 including the lessons learned along the way and what\u2019s next on their roadmap.",
+      "description": "In one of Australia's most operationally complex industries, Team Global Express (TGE) turned data into a strategic asset, and AI into a competitive edge. In 2025, TGE invested in data modernisation, establishing an AWS native data platform which now serves as the operational heartbeat of its logistics network. On this foundation, TGE is delivering compounding business value through rapid deployment of AI solutions across multiple domains. Join this session to learn how TGE secured board-level backing, built a lean AI team, and is scaling pragmatic, cost-effective AI – including the lessons learned along the way and what’s next on their roadmap.",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "15:00",
       "endTime": "15:30",
@@ -6412,7 +6412,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day1"
+      "plannerDay": "day2"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#ind204",
@@ -6423,7 +6423,7 @@
       "language": "English",
       "organisations": [],
       "speakers": [],
-      "description": "Every month, Transurban handles 5.5 million customer interactions across its Linkt brand \u2013 and is reimagining every one of them. Built on Amazon Connect, Transurban's AI-powered customer service platform has evolved from simple chatbots to multi-turn conversational AI and personalised experiences that are already lifting bot containment and freeing agents for higher-value work. Join this session to hear how Transurban is aligning people, process, and AI to transform customer service, what's coming next with Amazon Connect Cases and Email, and the hard-won lessons from scaling AI in a complex enterprise.",
+      "description": "Every month, Transurban handles 5.5 million customer interactions across its Linkt brand – and is reimagining every one of them. Built on Amazon Connect, Transurban's AI-powered customer service platform has evolved from simple chatbots to multi-turn conversational AI and personalised experiences that are already lifting bot containment and freeing agents for higher-value work. Join this session to hear how Transurban is aligning people, process, and AI to transform customer service, what's coming next with Amazon Connect Cases and Email, and the hard-won lessons from scaling AI in a complex enterprise.",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "12:00",
       "endTime": "12:30",
@@ -6516,7 +6516,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day1"
+      "plannerDay": "day2"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#ind201",
@@ -6531,7 +6531,7 @@
       "speakers": [
         "Roshan Thomas, Principal Solutions Architect, AWS"
       ],
-      "description": "As Worley's software landscape expands, manual license governance struggles to keep pace with scale and complexity. While manual optimisation has delivered measurable results, a sustainable approach is needed to scale these outcomes. Software Intelligence Advisor (SIA) is Worley's agentic AI solution that enables optimal license decisions and empowers end users. Underpinned by AWS native data platforms, SIA combines deep usage intelligence with a conversational agent that meets users within existing collaboration tools. Through trusted, context-aware conversations, the agent validates usage patterns and encourages better behaviours \u2013 delivering scalable, human-centred optimisation and a pragmatic path to learning what agentic AI can deliver. - Roshan Thomas, Principal Solutions Architect, AWS",
+      "description": "As Worley's software landscape expands, manual license governance struggles to keep pace with scale and complexity. While manual optimisation has delivered measurable results, a sustainable approach is needed to scale these outcomes. Software Intelligence Advisor (SIA) is Worley's agentic AI solution that enables optimal license decisions and empowers end users. Underpinned by AWS native data platforms, SIA combines deep usage intelligence with a conversational agent that meets users within existing collaboration tools. Through trusted, context-aware conversations, the agent validates usage patterns and encourages better behaviours – delivering scalable, human-centred optimisation and a pragmatic path to learning what agentic AI can deliver. - Roshan Thomas, Principal Solutions Architect, AWS",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "14:15",
       "endTime": "14:45",
@@ -6597,7 +6597,7 @@
       "speakers": [
         "Elias Sayigh, Sr. WW Specialist SA, Connect, AWS"
       ],
-      "description": "Discover how Flybuys achieved rapid contact centre transformation through early Amazon Connect adoption using AI-powered capabilities and a disciplined Test, Learn, Iterate approach. Starting with a focused pilot, they deployed AI-driven features like intelligent routing, real-time sentiment analysis, and automated quality assurance. They progressed through Launch, Activate, and Consume phases\u2014capturing baseline metrics, scaling through peer-led training, and continuously refining AI performance based on weekly feedback loops. The results: reduced AHT, improved CSAT, 100% AI-powered QA coverage, and measurable ROI. This demonstrates that early AI adoption delivers calculated, data-driven transformation. - Elias Sayigh, Sr. WW Specialist SA, Connect, AWS",
+      "description": "Discover how Flybuys achieved rapid contact centre transformation through early Amazon Connect adoption using AI-powered capabilities and a disciplined Test, Learn, Iterate approach. Starting with a focused pilot, they deployed AI-driven features like intelligent routing, real-time sentiment analysis, and automated quality assurance. They progressed through Launch, Activate, and Consume phases—capturing baseline metrics, scaling through peer-led training, and continuously refining AI performance based on weekly feedback loops. The results: reduced AHT, improved CSAT, 100% AI-powered QA coverage, and measurable ROI. This demonstrates that early AI adoption delivers calculated, data-driven transformation. - Elias Sayigh, Sr. WW Specialist SA, Connect, AWS",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "15:00",
       "endTime": "15:30",
@@ -6643,7 +6643,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day1"
+      "plannerDay": "day2"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#ide301",
@@ -6713,7 +6713,7 @@
         "Sarah Bassett, Director of Software, AWS",
         "Deidre Kyle, Head of Enterprise, AWS"
       ],
-      "description": "As AI reshapes every industry, professionals across all roles and backgrounds are navigating an unprecedented pace of change\u2014bringing new opportunities but also rising burnout, blurred boundaries, and pressure to continuously adapt. This moment of disruption presents a powerful opportunity to not only deliver innovation but to redesign how we lead, build culture, and sustain meaningful careers in more equitable ways. Join accomplished AWS leaders and peers for this immersive session that combines strategic leadership frameworks, emotional intelligence, and interactive roundtable discussion to accelerate your impact in tech. Together, we will explore practical strategies for claiming visible technical leadership, activating professional networks, setting sustainable boundaries in hybrid work, and championing responsible AI adoption without amplifying existing inequalities. Participants will share lived experiences, tactics that worked and lessons learned, and build meaningful connections through guided speed networking in a collaborative, supportive environment. This session empowers professionals from all backgrounds, with particular focus on amplifying diverse voices and fostering inclusive innovation. Leave with actionable strategies to strengthen your leadership presence, leverage emotional intelligence as a career accelerator, build psychologically safe and inclusive team environments, and navigate the challenges shaping your future in tech. - Ambika Sinha Account Manager AWS - Jyothi Madanlal, Solutions Architect, AWS - Sarah Bassett, Director of Software, AWS - Deidre Kyle, Head of Enterprise, AWS",
+      "description": "As AI reshapes every industry, professionals across all roles and backgrounds are navigating an unprecedented pace of change—bringing new opportunities but also rising burnout, blurred boundaries, and pressure to continuously adapt. This moment of disruption presents a powerful opportunity to not only deliver innovation but to redesign how we lead, build culture, and sustain meaningful careers in more equitable ways. Join accomplished AWS leaders and peers for this immersive session that combines strategic leadership frameworks, emotional intelligence, and interactive roundtable discussion to accelerate your impact in tech. Together, we will explore practical strategies for claiming visible technical leadership, activating professional networks, setting sustainable boundaries in hybrid work, and championing responsible AI adoption without amplifying existing inequalities. Participants will share lived experiences, tactics that worked and lessons learned, and build meaningful connections through guided speed networking in a collaborative, supportive environment. This session empowers professionals from all backgrounds, with particular focus on amplifying diverse voices and fostering inclusive innovation. Leave with actionable strategies to strengthen your leadership presence, leverage emotional intelligence as a career accelerator, build psychologically safe and inclusive team environments, and navigate the challenges shaping your future in tech. - Ambika Sinha Account Manager AWS - Jyothi Madanlal, Solutions Architect, AWS - Sarah Bassett, Director of Software, AWS - Deidre Kyle, Head of Enterprise, AWS",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "13:30",
       "endTime": "14:45",
@@ -6749,7 +6749,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day1"
+      "plannerDay": "day2"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#ide101",
@@ -6764,7 +6764,7 @@
       "speakers": [
         "Isha Dalal, Solutions Architect, AWS"
       ],
-      "description": "Building AI applications that customers trust requires more than technical excellence\u2014it demands a deliberate approach to managing risk across every stage of the AI lifecycle. As organizations scale their AI initiatives, the challenge of balancing innovation speed with responsible AI practices across dimensions like privacy, security, fairness, safety, and explainability becomes increasingly critical. Join our panelists for a 30-minute discussion where they will explore: Practical approaches to embedding responsible AI principles into AI application development without slowing down innovation, key considerations across privacy, security, fairness, safety, and explainability that organizations should prioritize, lessons learned from building AI applications that earn and maintain customer trust, and strategies for navigating the evolving responsible AI landscape and managing risk at scale. Whether you are a technical leader building AI solutions, a business decision-maker shaping your organization's AI strategy, or a practitioner looking to deepen your understanding of responsible AI, this session will provide actionable insights to help you build AI applications that are not only innovative but also trustworthy. - Isha Dalal, Solutions Architect, AWS",
+      "description": "Building AI applications that customers trust requires more than technical excellence—it demands a deliberate approach to managing risk across every stage of the AI lifecycle. As organizations scale their AI initiatives, the challenge of balancing innovation speed with responsible AI practices across dimensions like privacy, security, fairness, safety, and explainability becomes increasingly critical. Join our panelists for a 30-minute discussion where they will explore: Practical approaches to embedding responsible AI principles into AI application development without slowing down innovation, key considerations across privacy, security, fairness, safety, and explainability that organizations should prioritize, lessons learned from building AI applications that earn and maintain customer trust, and strategies for navigating the evolving responsible AI landscape and managing risk at scale. Whether you are a technical leader building AI solutions, a business decision-maker shaping your organization's AI strategy, or a practitioner looking to deepen your understanding of responsible AI, this session will provide actionable insights to help you build AI applications that are not only innovative but also trustworthy. - Isha Dalal, Solutions Architect, AWS",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "12:15",
       "endTime": "13:00",
@@ -6816,7 +6816,7 @@
       "language": "English",
       "organisations": [],
       "speakers": [],
-      "description": "AWS GameDay is a gamified learning event that challenges participants to use AWS solutions to solve real-world technical problems in a risk-free setting. As a new hire at Unicorn.Rentals, the world\u2019s largest mythical creature rental company, you\u2019ll test your AWS knowledge in an interactive, team-based, risk-free environment! The Secret Agentic Unicorns GameDay covers the different components of AgentCore, guiding participants through agent creating using Strands, A2A, and other AgentCore technologies. You\u2019ll get real world experience creating and learning about AgentCore agents, and have fun along the way.",
+      "description": "AWS GameDay is a gamified learning event that challenges participants to use AWS solutions to solve real-world technical problems in a risk-free setting. As a new hire at Unicorn.Rentals, the world’s largest mythical creature rental company, you’ll test your AWS knowledge in an interactive, team-based, risk-free environment! The Secret Agentic Unicorns GameDay covers the different components of AgentCore, guiding participants through agent creating using Strands, A2A, and other AgentCore technologies. You’ll get real world experience creating and learning about AgentCore agents, and have fun along the way.",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "10:15",
       "endTime": "17:20",
@@ -6956,7 +6956,7 @@
         "Ratan Kumar, Principal Solutions Architect FSI, AWS",
         "Antonio Baxter, Solutions Architect, AWS"
       ],
-      "description": "Getting agentic AI right in financial services means balancing innovation with the realities of compliance, risk, and auditability. This session cuts through the hype \u2014 exploring proven architectural patterns from reactive agents to multi-agent topologies, and how FSI organisations are using them to transform customer experience and automate operations. Leave with actionable guidance on building the business case, avoiding enterprise-scale pitfalls, and putting well-architected agents into production. - Ratan Kumar, Principal Solutions Architect FSI, AWS - Antonio Baxter, Solutions Architect, AWS",
+      "description": "Getting agentic AI right in financial services means balancing innovation with the realities of compliance, risk, and auditability. This session cuts through the hype — exploring proven architectural patterns from reactive agents to multi-agent topologies, and how FSI organisations are using them to transform customer experience and automate operations. Leave with actionable guidance on building the business case, avoiding enterprise-scale pitfalls, and putting well-architected agents into production. - Ratan Kumar, Principal Solutions Architect FSI, AWS - Antonio Baxter, Solutions Architect, AWS",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "12:00",
       "endTime": "12:30",
@@ -7002,7 +7002,7 @@
           "description": "Artificial Intelligence"
         }
       ],
-      "plannerDay": "day1"
+      "plannerDay": "day2"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#fsi202",
@@ -7020,7 +7020,7 @@
         "May Lam, Chief Information Officer, Australian Payments Plus",
         "Khalil Yarak, Engineering, Australian Payments Plus"
       ],
-      "description": "Australian Payments Plus\u2014operator of Australia's critical payment infrastructure including eftpos, BPAY, and NPP, processing millions of daily transactions\u2014transformed their development practices by adopting Spec-Driven Development using AWS Kiro. AP+ manages the payment rails connecting banks, merchants, and consumers throughout Australia. Through intensive Event-Driven Architecture bootcamps and hands-on training, engineering teams now independently run development workshops every two weeks, accelerating delivery of payment platform innovations while maintaining the highest security and compliance standards required for national financial infrastructure. Learn the practical framework for building development velocity in regulated environments. - Will Laws, Senior Solutions Architect, AWS - May Lam, Chief Information Officer, Australian Payments Plus - Khalil Yarak, Engineering, Australian Payments Plus",
+      "description": "Australian Payments Plus—operator of Australia's critical payment infrastructure including eftpos, BPAY, and NPP, processing millions of daily transactions—transformed their development practices by adopting Spec-Driven Development using AWS Kiro. AP+ manages the payment rails connecting banks, merchants, and consumers throughout Australia. Through intensive Event-Driven Architecture bootcamps and hands-on training, engineering teams now independently run development workshops every two weeks, accelerating delivery of payment platform innovations while maintaining the highest security and compliance standards required for national financial infrastructure. Learn the practical framework for building development velocity in regulated environments. - Will Laws, Senior Solutions Architect, AWS - May Lam, Chief Information Officer, Australian Payments Plus - Khalil Yarak, Engineering, Australian Payments Plus",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "15:45",
       "endTime": "16:15",
@@ -7076,7 +7076,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day1"
+      "plannerDay": "day2"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#fsi201",
@@ -7093,7 +7093,7 @@
         "Eneko Bilbao, Head of Specialist Solutions Architects, AWS",
         "Simon Davies, General Manager, Core Banking Technology, Commonwealth Bank of Australia"
       ],
-      "description": "Commonwealth Bank migrated the world's largest SAP core banking deployment to AWS in 18 months: the system behind 40% of Australia's payments, 15 million customers, running 24\u00d77. This isn't a lift-and-shift story, it's a reinvention of how the bank runs critical systems - from architecture and resilience engineering to replacing siloed operational teams with full-stack automation, and the cultural shift this required. Join us to hear how CBA's critical financial infrastructure was modernised with AWS, and what this unlocks for their AI-enabled future. If you're building foundations for regulated, mission-critical workloads, this is the session you don't want to miss. - Eneko Bilbao, Head of Specialist Solutions Architects, AWS - Simon Davies, General Manager, Core Banking Technology, Commonwealth Bank of Australia",
+      "description": "Commonwealth Bank migrated the world's largest SAP core banking deployment to AWS in 18 months: the system behind 40% of Australia's payments, 15 million customers, running 24×7. This isn't a lift-and-shift story, it's a reinvention of how the bank runs critical systems - from architecture and resilience engineering to replacing siloed operational teams with full-stack automation, and the cultural shift this required. Join us to hear how CBA's critical financial infrastructure was modernised with AWS, and what this unlocks for their AI-enabled future. If you're building foundations for regulated, mission-critical workloads, this is the session you don't want to miss. - Eneko Bilbao, Head of Specialist Solutions Architects, AWS - Simon Davies, General Manager, Core Banking Technology, Commonwealth Bank of Australia",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "11:15",
       "endTime": "11:45",
@@ -7165,7 +7165,7 @@
         "Ankit Richharia, Solutions Architect, AWS",
         "Aman Sharma, Senior Solutions Architect, AWS"
       ],
-      "description": "Discover the future of software development as we explore the transformative power of agents with Kiro\u2019s spec-driven development in modernizing your entire software development lifecycle (SDLC). Agentic AI is impacting software development by automating tasks, improving efficiency, and enabling more autonomous workflows throughout the development lifecycle. It allows teams to go beyond simple code generation to handle project planning, designing, testing, documentation, building agents into workflows, and retiring technical debt. Join us to explore how these powerful capabilities work together to help organizations accelerate from prototype to production ready applications. - Ankit Richharia, Solutions Architect, AWS - Aman Sharma, Senior Solutions Architect, AWS",
+      "description": "Discover the future of software development as we explore the transformative power of agents with Kiro’s spec-driven development in modernizing your entire software development lifecycle (SDLC). Agentic AI is impacting software development by automating tasks, improving efficiency, and enabling more autonomous workflows throughout the development lifecycle. It allows teams to go beyond simple code generation to handle project planning, designing, testing, documentation, building agents into workflows, and retiring technical debt. Join us to explore how these powerful capabilities work together to help organizations accelerate from prototype to production ready applications. - Ankit Richharia, Solutions Architect, AWS - Aman Sharma, Senior Solutions Architect, AWS",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "12:30",
       "endTime": "13:00",
@@ -7226,7 +7226,7 @@
       "speakers": [
         "Rahul Grover, Senior Director, Publicis Sapient"
       ],
-      "description": "Explore how to build production-grade AI agents with persistent, context-aware memory using Amazon Bedrock AgentCore. This expert session covers architectural patterns for implementing four memory types\u2014episodic, semantic, preference, and summary\u2014enabling agents that recall past interactions, recognize cross-session patterns, and maintain conversation context. You'll examine real implementation techniques for long-term memory management, workflow orchestration, and retrieval strategies using Amazon Bedrock. Leave with practical skills to design intelligent agents that deliver faster, more accurate responses in high-stakes applications. Ideal for architects and engineers ready to move beyond stateless AI toward genuinely intelligent, memory-enabled systems. - Rahul Grover, Senior Director, Publicis Sapient",
+      "description": "Explore how to build production-grade AI agents with persistent, context-aware memory using Amazon Bedrock AgentCore. This expert session covers architectural patterns for implementing four memory types—episodic, semantic, preference, and summary—enabling agents that recall past interactions, recognize cross-session patterns, and maintain conversation context. You'll examine real implementation techniques for long-term memory management, workflow orchestration, and retrieval strategies using Amazon Bedrock. Leave with practical skills to design intelligent agents that deliver faster, more accurate responses in high-stakes applications. Ideal for architects and engineers ready to move beyond stateless AI toward genuinely intelligent, memory-enabled systems. - Rahul Grover, Senior Director, Publicis Sapient",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "15:20",
       "endTime": "15:35",
@@ -7277,7 +7277,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day2"
+      "plannerDay": "day1"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#dev314",
@@ -7414,7 +7414,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day2"
+      "plannerDay": "day1"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#dev312",
@@ -7429,7 +7429,7 @@
       "speakers": [
         "Darshit Pandya, Senior Principal Engineer, Serko Ltd."
       ],
-      "description": "When a Strands Agent fails across five Lambda log streams with no correlation, debugging takes 20 minutes minimum. This session demonstrates a structured observability layer that reduces diagnosis to under two minutes. You'll learn how Lambda Powertools Tracer wraps Strands tool invocations as X-Ray subsegments, how Powertools Logger injects AgentCore session correlation IDs across invocations, and how Powertools Metrics surfaces tool retry frequency as CloudWatch alarms \u2014 before timeouts occur. The session covers three production failure classes \u2014 tool timeout, reasoning loop, and retry storm \u2014 and delivers a reusable CDK construct providing full instrumentation for any Strands Agent Lambda deployment. - Darshit Pandya, Senior Principal Engineer, Serko Ltd.",
+      "description": "When a Strands Agent fails across five Lambda log streams with no correlation, debugging takes 20 minutes minimum. This session demonstrates a structured observability layer that reduces diagnosis to under two minutes. You'll learn how Lambda Powertools Tracer wraps Strands tool invocations as X-Ray subsegments, how Powertools Logger injects AgentCore session correlation IDs across invocations, and how Powertools Metrics surfaces tool retry frequency as CloudWatch alarms — before timeouts occur. The session covers three production failure classes — tool timeout, reasoning loop, and retry storm — and delivers a reusable CDK construct providing full instrumentation for any Strands Agent Lambda deployment. - Darshit Pandya, Senior Principal Engineer, Serko Ltd.",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "14:55",
       "endTime": "15:10",
@@ -7556,7 +7556,7 @@
           "description": "Artificial Intelligence"
         }
       ],
-      "plannerDay": "day2"
+      "plannerDay": "day1"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#dev310",
@@ -7607,7 +7607,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day1"
+      "plannerDay": "day2"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#dev309",
@@ -7622,7 +7622,7 @@
       "speakers": [
         "Alan Blockley, Global Head of Ecosystem Enablement, Thoughtworks"
       ],
-      "description": "Parsing LLM responses as JSON works\u2014until truncation, missing fields, or malformed output breaks your pipeline. This session examines Amazon Bedrock Structured Output, which enforces schema compliance at the model level rather than relying on prompt instructions. You'll learn how to define response contracts using JSON Schema, understand where native structured output differs from prompt-based approaches, and see practical patterns for integrating reliable model responses into production systems. Attendees will leave with concrete techniques for eliminating output validation failures, designing more resilient AI workflows, and understanding the architectural implications of treating model responses as typed, validated data rather than freeform text. - Alan Blockley, Global Head of Ecosystem Enablement, Thoughtworks",
+      "description": "Parsing LLM responses as JSON works—until truncation, missing fields, or malformed output breaks your pipeline. This session examines Amazon Bedrock Structured Output, which enforces schema compliance at the model level rather than relying on prompt instructions. You'll learn how to define response contracts using JSON Schema, understand where native structured output differs from prompt-based approaches, and see practical patterns for integrating reliable model responses into production systems. Attendees will leave with concrete techniques for eliminating output validation failures, designing more resilient AI workflows, and understanding the architectural implications of treating model responses as typed, validated data rather than freeform text. - Alan Blockley, Global Head of Ecosystem Enablement, Thoughtworks",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "14:25",
       "endTime": "14:40",
@@ -7709,7 +7709,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day1"
+      "plannerDay": "day2"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#dev307",
@@ -7724,7 +7724,7 @@
       "speakers": [
         "Lovee Jain, Senior Software Engineer, Prezzee"
       ],
-      "description": "In this lightning talk, we'll walk through a real-world architectural pattern used in production: combining AWS CloudFront with Route 53 latency-based routing to make your ECS-backed services truly global. Starting with the problem of slow response times for APAC users, we'll build up a practical active-active architecture step by step. You'll see how CloudFront sits in front of your regional ALBs, how WAF is woven into the design from the start rather than bolted on later, and why getting your domain configuration right \u2014 distinguishing between your ALB origin domain and your public-facing CloudFront alternate domain \u2014 is critical to making this pattern work correctly. - Lovee Jain, Senior Software Engineer, Prezzee",
+      "description": "In this lightning talk, we'll walk through a real-world architectural pattern used in production: combining AWS CloudFront with Route 53 latency-based routing to make your ECS-backed services truly global. Starting with the problem of slow response times for APAC users, we'll build up a practical active-active architecture step by step. You'll see how CloudFront sits in front of your regional ALBs, how WAF is woven into the design from the start rather than bolted on later, and why getting your domain configuration right — distinguishing between your ALB origin domain and your public-facing CloudFront alternate domain — is critical to making this pattern work correctly. - Lovee Jain, Senior Software Engineer, Prezzee",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "11:45",
       "endTime": "12:00",
@@ -7811,7 +7811,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day1"
+      "plannerDay": "day2"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#dev305",
@@ -7867,7 +7867,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day2"
+      "plannerDay": "day1"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#dev304",
@@ -7994,7 +7994,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day2"
+      "plannerDay": "day1"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#dev210",
@@ -8009,7 +8009,7 @@
       "speakers": [
         "Dmytro Sirant, Owner, Perun Engineering"
       ],
-      "description": "Modern AWS environments generate more alerts than teams can realistically investigate. This session demonstrates a proof-of-concept that transforms Slack alerts into automated investigation workflows using AI.Learn how to trigger parallel queries across CloudWatch, Amazon EKS, Prometheus, and deployment history when an alert fires \u2014 returning correlated summaries with probable causes and dashboard links directly in Slack.You'll leave understanding practical integration patterns for AI-assisted triage, telemetry hygiene requirements, and guardrails for safely introducing AI into production incident response. Discover how AI augments \u2014 rather than replaces \u2014 your existing observability stack, meaningfully reducing time-to-insight during incidents. - Dmytro Sirant, Owner, Perun Engineering",
+      "description": "Modern AWS environments generate more alerts than teams can realistically investigate. This session demonstrates a proof-of-concept that transforms Slack alerts into automated investigation workflows using AI.Learn how to trigger parallel queries across CloudWatch, Amazon EKS, Prometheus, and deployment history when an alert fires — returning correlated summaries with probable causes and dashboard links directly in Slack.You'll leave understanding practical integration patterns for AI-assisted triage, telemetry hygiene requirements, and guardrails for safely introducing AI into production incident response. Discover how AI augments — rather than replaces — your existing observability stack, meaningfully reducing time-to-insight during incidents. - Dmytro Sirant, Owner, Perun Engineering",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "16:10",
       "endTime": "16:25",
@@ -8080,7 +8080,7 @@
       "speakers": [
         "Matthew Merriel, Principal Consultant, Mantel Group"
       ],
-      "description": "AI coding agents introduce failure modes traditional CI/CD pipelines weren't built to catch \u2014 deleted tests, weakened type constraints, silent cross-service regressions. This session examines practical pipeline-level guardrails for agentic workflows running on ECS Fargate and distributed CI environments. You'll learn which failure patterns agents introduce that humans rarely do, which automated checks reliably catch them, and how to structure pipelines that apply appropriate scrutiny to agent-generated code without blocking developer velocity. Leave with concrete, implementable patterns covering test integrity enforcement, type safety validation, and cross-service regression detection \u2014 applicable whether you're managing one agent or coordinating many across multiple repositories. - Matthew Merriel, Principal Consultant, Mantel Group",
+      "description": "AI coding agents introduce failure modes traditional CI/CD pipelines weren't built to catch — deleted tests, weakened type constraints, silent cross-service regressions. This session examines practical pipeline-level guardrails for agentic workflows running on ECS Fargate and distributed CI environments. You'll learn which failure patterns agents introduce that humans rarely do, which automated checks reliably catch them, and how to structure pipelines that apply appropriate scrutiny to agent-generated code without blocking developer velocity. Leave with concrete, implementable patterns covering test integrity enforcement, type safety validation, and cross-service regression detection — applicable whether you're managing one agent or coordinating many across multiple repositories. - Matthew Merriel, Principal Consultant, Mantel Group",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "15:45",
       "endTime": "16:00",
@@ -8131,7 +8131,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day2"
+      "plannerDay": "day1"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#dev208",
@@ -8148,7 +8148,7 @@
         "Dale Orders, Software Engineer, Five9",
         "Stephen Sennett, Lead Consultant, V2 AI"
       ],
-      "description": "Managing infrastructure as code sounds straightforward until you're wrangling hundreds of modules across multiple teams and accounts. In this session, a Platform Engineer and Lead Architect share hard-won lessons from building and scaling IaC platforms at large organisations \u2014 covering module composition strategies, state isolation patterns, and CI/CD pipelines that keep deployments safe and reproducible. You'll walk away with practical design patterns you can apply immediately, whether you're laying the foundations of your first landing zone or untangling a sprawling estate that's grown faster than its architecture. - Dale Orders, Software Engineer, Five9 - Stephen Sennett, Lead Consultant, V2 AI",
+      "description": "Managing infrastructure as code sounds straightforward until you're wrangling hundreds of modules across multiple teams and accounts. In this session, a Platform Engineer and Lead Architect share hard-won lessons from building and scaling IaC platforms at large organisations — covering module composition strategies, state isolation patterns, and CI/CD pipelines that keep deployments safe and reproducible. You'll walk away with practical design patterns you can apply immediately, whether you're laying the foundations of your first landing zone or untangling a sprawling estate that's grown faster than its architecture. - Dale Orders, Software Engineer, Five9 - Stephen Sennett, Lead Consultant, V2 AI",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "15:15",
       "endTime": "15:30",
@@ -8204,7 +8204,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day1"
+      "plannerDay": "day2"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#dev207",
@@ -8219,7 +8219,7 @@
       "speakers": [
         "Matthew Gillard, CTO and Co Founder CuidadoConnect"
       ],
-      "description": "Modern IoT platforms are inherently data platforms. Events flow through APIs, queues, AWS Lambda Serverless functions, storage systems, and device networks before becoming meaningful data. When something goes wrong, tracing a single event across these distributed components quickly becomes painful\u2014and the question shifts from _\u201cwhat happened?\u201d_ to _\u201cwhere do I even start looking?\u201d I\u2019ll walk through three practical observability patterns drawn from building and operating a production, event-driven IoT healthcare platform on AWS that processes tens of thousands of device events daily. Using OpenTelemetry, AWS X-Ray and Honeycomb, we\u2019ll explore techniques for gaining visibility into asynchronous event pipelines, correlating activity across services, and tracing events as they move through distributed systems. You\u2019ll leave with three concrete patterns you can apply immediately to your own event-driven data systems. - Matthew Gillard, CTO and Co Founder CuidadoConnect",
+      "description": "Modern IoT platforms are inherently data platforms. Events flow through APIs, queues, AWS Lambda Serverless functions, storage systems, and device networks before becoming meaningful data. When something goes wrong, tracing a single event across these distributed components quickly becomes painful—and the question shifts from _“what happened?”_ to _“where do I even start looking?” I’ll walk through three practical observability patterns drawn from building and operating a production, event-driven IoT healthcare platform on AWS that processes tens of thousands of device events daily. Using OpenTelemetry, AWS X-Ray and Honeycomb, we’ll explore techniques for gaining visibility into asynchronous event pipelines, correlating activity across services, and tracing events as they move through distributed systems. You’ll leave with three concrete patterns you can apply immediately to your own event-driven data systems. - Matthew Gillard, CTO and Co Founder CuidadoConnect",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "12:15",
       "endTime": "12:30",
@@ -8275,12 +8275,12 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day2"
+      "plannerDay": "day1"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#dev206",
       "code": "DEV206",
-      "title": "AI Isn\u2019t Just for Developers: Using Kiro CLI & AWS MCP for Cloud Ops",
+      "title": "AI Isn’t Just for Developers: Using Kiro CLI & AWS MCP for Cloud Ops",
       "sessionType": "Dev chat",
       "level": "intermediate",
       "language": "English",
@@ -8290,7 +8290,7 @@
       "speakers": [
         "Jason Wood, Lead Consultant - Cloud, Versent"
       ],
-      "description": "You can\u2019t turn your head sideways without seeing a slew of articles, blogs, or videos about AI, and most of them focus on developer tooling and writing code. But AI isn\u2019t just for developers. It\u2019s an incredibly powerful tool for operations folks, too.In this lightning talk, I\u2019ll share how I use Kiro CLI and the Kiro console with AWS Model Context Protocol (MCP) integrations for day-to-day cloud operations. From information gathering and log analysis to reporting and IAM policy interpretation, these tools help reduce cognitive load and speed up your output when working with AWS environments.I\u2019ll also discuss how I used Kiro\u2019s spec-driven development approach to build a Python-based reporting tool, despite not being a software developer.This session is designed to make AI tooling feel approachable and practical for anyone working in AWS \u2014 not just developers. - Jason Wood, Lead Consultant - Cloud, Versent",
+      "description": "You can’t turn your head sideways without seeing a slew of articles, blogs, or videos about AI, and most of them focus on developer tooling and writing code. But AI isn’t just for developers. It’s an incredibly powerful tool for operations folks, too.In this lightning talk, I’ll share how I use Kiro CLI and the Kiro console with AWS Model Context Protocol (MCP) integrations for day-to-day cloud operations. From information gathering and log analysis to reporting and IAM policy interpretation, these tools help reduce cognitive load and speed up your output when working with AWS environments.I’ll also discuss how I used Kiro’s spec-driven development approach to build a Python-based reporting tool, despite not being a software developer.This session is designed to make AI tooling feel approachable and practical for anyone working in AWS — not just developers. - Jason Wood, Lead Consultant - Cloud, Versent",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "14:00",
       "endTime": "14:15",
@@ -8336,7 +8336,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day1"
+      "plannerDay": "day2"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#dev205",
@@ -8388,7 +8388,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day2"
+      "plannerDay": "day1"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#dev204",
@@ -8403,7 +8403,7 @@
       "speakers": [
         "Arshad Zackeriya, Senior Engineer, Xero"
       ],
-      "description": "Managing EKS clusters means correlating logs, metrics, IAM policies, and network configurations under pressure. The AWS DevOps Agent, announced at re:Invent 2025, changes this workflow fundamentally. In this session, you'll watch a live demonstration where the DevOps Agent autonomously investigates an EKS service failure\u2014tracing issues from Pod logs through VPC Security Groups without manual intervention. You'll learn how the agent correlates cross-service dependencies, generates verified remediation plans, and integrates into existing SRE workflows. - Arshad Zackeriya, Senior Engineer, Xero",
+      "description": "Managing EKS clusters means correlating logs, metrics, IAM policies, and network configurations under pressure. The AWS DevOps Agent, announced at re:Invent 2025, changes this workflow fundamentally. In this session, you'll watch a live demonstration where the DevOps Agent autonomously investigates an EKS service failure—tracing issues from Pod logs through VPC Security Groups without manual intervention. You'll learn how the agent correlates cross-service dependencies, generates verified remediation plans, and integrates into existing SRE workflows. - Arshad Zackeriya, Senior Engineer, Xero",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "11:50",
       "endTime": "12:05",
@@ -8454,7 +8454,7 @@
       "speakers": [
         "Trent Hornibrook, Head of Engineering, Bell Financial Group"
       ],
-      "description": "Architecture diagrams show what you built. They don't explain why. At Bell Financial Group, every major technology choice \u2014 from landing zone design to compute platform to database engine \u2014 is captured in an Architecture Decision Document that forces honest evaluation of trade-offs. In this talk, the Head of Engineering at Bell Financial Group walks through the real decisions behind their AWS platform: why ECS Fargate beat EKS, when DynamoDB wins over relational databases, why the entire infrastructure is written in TypeScript CDK, and the deliberate constraints they place on Lambda usage. No slides full of boxes and arrows \u2014 just the reasoning, the trade-offs, and the lessons learned building a regulated financial services platform on AWS. - Trent Hornibrook, Head of Engineering, Bell Financial Group",
+      "description": "Architecture diagrams show what you built. They don't explain why. At Bell Financial Group, every major technology choice — from landing zone design to compute platform to database engine — is captured in an Architecture Decision Document that forces honest evaluation of trade-offs. In this talk, the Head of Engineering at Bell Financial Group walks through the real decisions behind their AWS platform: why ECS Fargate beat EKS, when DynamoDB wins over relational databases, why the entire infrastructure is written in TypeScript CDK, and the deliberate constraints they place on Lambda usage. No slides full of boxes and arrows — just the reasoning, the trade-offs, and the lessons learned building a regulated financial services platform on AWS. - Trent Hornibrook, Head of Engineering, Bell Financial Group",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "12:10",
       "endTime": "12:25",
@@ -8507,7 +8507,7 @@
         "Bikram, Bora, AWS",
         "Dennis Matotek, Engineering & AI Lead - Flybuys, Flybuys (Part of Wesfarmers Group)"
       ],
-      "description": "Scaling AI successfully isn\u2019t just about moving fast \u2014 it\u2019s about building the right foundations first. In this session, learn how Flybuys focused early on AI governance, steering documents, and engineering standards to enable smooth, secure AI adoption at scale. We\u2019ll explore how upfront investment in guardrails, training, and approval processes allowed teams to deploy AI capabilities faster and with confidence. You\u2019ll hear how Flybuys is embedding governance and security expectations into engineering workflows using Kiro, including standardised steering patterns, approval pathways, and controlled rollout of AI capabilities such as Powers. Attendees will gain practical insights into how slowing down early can unlock faster, safer AI delivery across the organisation. - Bikram, Bora, AWS - Dennis Matotek, Engineering & AI Lead - Flybuys, Flybuys (Part of Wesfarmers Group)",
+      "description": "Scaling AI successfully isn’t just about moving fast — it’s about building the right foundations first. In this session, learn how Flybuys focused early on AI governance, steering documents, and engineering standards to enable smooth, secure AI adoption at scale. We’ll explore how upfront investment in guardrails, training, and approval processes allowed teams to deploy AI capabilities faster and with confidence. You’ll hear how Flybuys is embedding governance and security expectations into engineering workflows using Kiro, including standardised steering patterns, approval pathways, and controlled rollout of AI capabilities such as Powers. Attendees will gain practical insights into how slowing down early can unlock faster, safer AI delivery across the organisation. - Bikram, Bora, AWS - Dennis Matotek, Engineering & AI Lead - Flybuys, Flybuys (Part of Wesfarmers Group)",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "15:15",
       "endTime": "15:45",
@@ -8573,7 +8573,7 @@
       "speakers": [
         "William Wong, Principal Specialist Solution Architect - Databases, AWS"
       ],
-      "description": "Learn how AWS zero-ETL integrations eliminate complex data movement pipelines across multiple database engines, enabling data engineers, architects, and DBAs to reduce maintenance overhead while ensuring near real-time data availability for analytics and ML workloads. Examine the underlying architecture for supported zero-ETL integrations between Amazon Aurora, Amazon DynamoDB, and Amazon RDS sources to Amazon Redshift, Amazon SageMaker, and Amazon OpenSearch Service targets. Explore data movement options, tunable settings, and monitoring capabilities for ongoing data replication\u2014all without traditional ETL complexity. - William Wong, Principal Specialist Solution Architect - Databases, AWS",
+      "description": "Learn how AWS zero-ETL integrations eliminate complex data movement pipelines across multiple database engines, enabling data engineers, architects, and DBAs to reduce maintenance overhead while ensuring near real-time data availability for analytics and ML workloads. Examine the underlying architecture for supported zero-ETL integrations between Amazon Aurora, Amazon DynamoDB, and Amazon RDS sources to Amazon Redshift, Amazon SageMaker, and Amazon OpenSearch Service targets. Explore data movement options, tunable settings, and monitoring capabilities for ongoing data replication—all without traditional ETL complexity. - William Wong, Principal Specialist Solution Architect - Databases, AWS",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "15:15",
       "endTime": "15:45",
@@ -8634,7 +8634,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day2"
+      "plannerDay": "day1"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#dat401",
@@ -8722,7 +8722,7 @@
         "JP Panda, Senior Specialist - Analytics, AWS",
         "Ciaran Hale, Chief Technology Officer, Deputy"
       ],
-      "description": "Ciaran Hale shares how Deputy moved from fragmented AI experiments to a centralised AI and data foundation on AWS. By standardising infrastructure, introducing governance guardrails, and building reusable components, Deputy enabled teams to scale AI with confidence. This shift also transformed internal adoption\u2014embedding AI into everyday workflows\u2014and unlocked new customer value through Deputy AI, delivering smarter automation and insights in-product. A practical blueprint for building an AI-native organisation. - JP Panda, Senior Specialist - Analytics, AWS - Ciaran Hale, Chief Technology Officer, Deputy",
+      "description": "Ciaran Hale shares how Deputy moved from fragmented AI experiments to a centralised AI and data foundation on AWS. By standardising infrastructure, introducing governance guardrails, and building reusable components, Deputy enabled teams to scale AI with confidence. This shift also transformed internal adoption—embedding AI into everyday workflows—and unlocked new customer value through Deputy AI, delivering smarter automation and insights in-product. A practical blueprint for building an AI-native organisation. - JP Panda, Senior Specialist - Analytics, AWS - Ciaran Hale, Chief Technology Officer, Deputy",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "11:45",
       "endTime": "12:15",
@@ -8783,12 +8783,12 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day2"
+      "plannerDay": "day1"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#dat303",
       "code": "DAT303",
-      "title": "Explore what\u2019s new in data and AI governance with SageMaker Catalog",
+      "title": "Explore what’s new in data and AI governance with SageMaker Catalog",
       "sessionType": "Breakout session",
       "level": "advanced",
       "language": "English",
@@ -8798,7 +8798,7 @@
       "speakers": [
         "Sean Beath, Sr Analytics Specialist Solutions Architect, AWS"
       ],
-      "description": "Join this session to learn about the latest capabilities in Amazon SageMaker Catalog that help organizations govern data and AI more effectively. We will walk through new features that make it easier to discover, govern, and securely share structured and unstructured data, models, business intelligence dashboards, and applications. You\u2019ll hear how customers are using these capabilities to improve data discovery and access, streamline compliance, and support AI initiatives. - Sean Beath, Sr Analytics Specialist Solutions Architect, AWS",
+      "description": "Join this session to learn about the latest capabilities in Amazon SageMaker Catalog that help organizations govern data and AI more effectively. We will walk through new features that make it easier to discover, govern, and securely share structured and unstructured data, models, business intelligence dashboards, and applications. You’ll hear how customers are using these capabilities to improve data discovery and access, streamline compliance, and support AI initiatives. - Sean Beath, Sr Analytics Specialist Solutions Architect, AWS",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "16:45",
       "endTime": "17:15",
@@ -8932,7 +8932,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day2"
+      "plannerDay": "day1"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#dat201",
@@ -9072,7 +9072,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day2"
+      "plannerDay": "day1"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#cop301",
@@ -9088,7 +9088,7 @@
         "Jyothi Madanlal, Solutions Architect, AWS",
         "Matheus Canela, FSI Sr Solutions Architect, AWS"
       ],
-      "description": "Gain deep visibility into the performance and reliability of autonomous agents with Amazon CloudWatch. This session showcases how CloudWatch delivers end\u2011to\u2011end observability for agentic AI workloads\u2014tracking decision quality, token efficiency, and workflow execution at scale. Explore pre\u2011built dashboards and advanced metrics that help you optimize agent performance, control operational costs, and maintain consistent behavior across complex intelligent systems. Walk away ready to implement production\u2011grade observability that ensures your AI agents operate reliably, make optimal decisions, and deliver measurable outcomes at scale. - Jyothi Madanlal, Solutions Architect, AWS - Matheus Canela, FSI Sr Solutions Architect, AWS",
+      "description": "Gain deep visibility into the performance and reliability of autonomous agents with Amazon CloudWatch. This session showcases how CloudWatch delivers end‑to‑end observability for agentic AI workloads—tracking decision quality, token efficiency, and workflow execution at scale. Explore pre‑built dashboards and advanced metrics that help you optimize agent performance, control operational costs, and maintain consistent behavior across complex intelligent systems. Walk away ready to implement production‑grade observability that ensures your AI agents operate reliably, make optimal decisions, and deliver measurable outcomes at scale. - Jyothi Madanlal, Solutions Architect, AWS - Matheus Canela, FSI Sr Solutions Architect, AWS",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "12:30",
       "endTime": "13:00",
@@ -9154,7 +9154,7 @@
       "speakers": [
         "Victoria Webster, Sr WW Spec Seller Connect, AWS"
       ],
-      "description": "The enterprise landscape is shifting rapidly, forcing businesses to rethink their customer experience (CX) and collaboration strategies. From rising security threats, to dynamic workforces, to the desire to delight customers at every touchpoint: the demands are complex and ever-evolving. AWS empowers you to navigate these challenges with AI embedded from day one across the entire customer journey\u2014not bolted on, but built in. - Victoria Webster, Sr WW Spec Seller Connect, AWS",
+      "description": "The enterprise landscape is shifting rapidly, forcing businesses to rethink their customer experience (CX) and collaboration strategies. From rising security threats, to dynamic workforces, to the desire to delight customers at every touchpoint: the demands are complex and ever-evolving. AWS empowers you to navigate these challenges with AI embedded from day one across the entire customer journey—not bolted on, but built in. - Victoria Webster, Sr WW Spec Seller Connect, AWS",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "14:15",
       "endTime": "14:45",
@@ -9200,7 +9200,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day1"
+      "plannerDay": "day2"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#arc402",
@@ -9252,7 +9252,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day2"
+      "plannerDay": "day1"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#arc401",
@@ -9403,7 +9403,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day2"
+      "plannerDay": "day1"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#arc305",
@@ -9419,7 +9419,7 @@
         "James Dinh, Solutions Architect, AWS",
         "Daniel Wirjo, Solutions Architect, AWS"
       ],
-      "description": "Existing SaaS providers must determine how and where agents best fit into their offerings. Getting there requires organizations to transform existing IP and functionality into agent-powered experiences. This breakout will dig into the details of this transformation, examining the patterns, strategies, and techniques that can be used to introduce agents into an existing multi-tenant system. We\u2019ll focus heavily on identifying the target agents, digging into how/where they\u2019re built and introduced, how they\u2019re integrated, and so on. We\u2019ll also dig into how multi-tenancy lands in new agents, integrating with MCP servers, using RAG, applying tenant isolation, supporting onboarding, and on on. - James Dinh, Solutions Architect, AWS - Daniel Wirjo, Solutions Architect, AWS",
+      "description": "Existing SaaS providers must determine how and where agents best fit into their offerings. Getting there requires organizations to transform existing IP and functionality into agent-powered experiences. This breakout will dig into the details of this transformation, examining the patterns, strategies, and techniques that can be used to introduce agents into an existing multi-tenant system. We’ll focus heavily on identifying the target agents, digging into how/where they’re built and introduced, how they’re integrated, and so on. We’ll also dig into how multi-tenancy lands in new agents, integrating with MCP servers, using RAG, applying tenant isolation, supporting onboarding, and on on. - James Dinh, Solutions Architect, AWS - Daniel Wirjo, Solutions Architect, AWS",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "12:30",
       "endTime": "13:00",
@@ -9536,7 +9536,7 @@
           "description": "Artificial Intelligence"
         }
       ],
-      "plannerDay": "day2"
+      "plannerDay": "day1"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#arc303",
@@ -9552,7 +9552,7 @@
         "Sheng Chen, Sr Solutions Architect, AWS",
         "Frank Fan, Principal SA, Containers, AWS"
       ],
-      "description": "Join this session to explore how Amazon EKS Hybrid Nodes enables GenAI inference anywhere. We'll discuss reference architectures for adding on-prem GPUs to your EKS hybrid cluster, and for running real-time data capture and processing at the edge. You'll learn how EKS Hybrid Nodes enables seamless integration between the cloud and your on-prem or edge environments. We\u2019ll also walk through a real-world example, showcasing how to accelerate GenAI inference at the edge using Amazon EKS Hybrid Nodes with NVIDIA DGX platform. - Sheng Chen, Sr Solutions Architect, AWS - Frank Fan, Principal SA, Containers, AWS",
+      "description": "Join this session to explore how Amazon EKS Hybrid Nodes enables GenAI inference anywhere. We'll discuss reference architectures for adding on-prem GPUs to your EKS hybrid cluster, and for running real-time data capture and processing at the edge. You'll learn how EKS Hybrid Nodes enables seamless integration between the cloud and your on-prem or edge environments. We’ll also walk through a real-world example, showcasing how to accelerate GenAI inference at the edge using Amazon EKS Hybrid Nodes with NVIDIA DGX platform. - Sheng Chen, Sr Solutions Architect, AWS - Frank Fan, Principal SA, Containers, AWS",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "16:00",
       "endTime": "16:30",
@@ -9679,7 +9679,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day2"
+      "plannerDay": "day1"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#arc301",
@@ -9817,12 +9817,12 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day2"
+      "plannerDay": "day1"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#ant301",
       "code": "ANT301",
-      "title": "A practitioner\u2019s guide to data for agentic AI",
+      "title": "A practitioner’s guide to data for agentic AI",
       "sessionType": "Breakout session",
       "level": "advanced",
       "language": "English",
@@ -9956,7 +9956,7 @@
       "speakers": [
         "Iman Abbasnejad, Applied Scientist, AWS"
       ],
-      "description": "As API costs for general-purpose LLMs rise, relying solely on off-the-shelf models can quickly undermine both cost control and system reliability. In this session, we share how Nearmap moved beyond API dependency by fine-tuning and distilling domain-specific models on AWS to analyze 300 million building permits for roof modifications. We\u2019ll discuss our approach to generating and structuring training data, distilling large models into smaller, production-ready alternatives, evaluating trade-offs across model architectures, and making data-driven accuracy-versus-cost decisions before deployment. Attendees will leave with concrete patterns for shipping efficient, specialized models into production. - Iman Abbasnejad, Applied Scientist, AWS",
+      "description": "As API costs for general-purpose LLMs rise, relying solely on off-the-shelf models can quickly undermine both cost control and system reliability. In this session, we share how Nearmap moved beyond API dependency by fine-tuning and distilling domain-specific models on AWS to analyze 300 million building permits for roof modifications. We’ll discuss our approach to generating and structuring training data, distilling large models into smaller, production-ready alternatives, evaluating trade-offs across model architectures, and making data-driven accuracy-versus-cost decisions before deployment. Attendees will leave with concrete patterns for shipping efficient, specialized models into production. - Iman Abbasnejad, Applied Scientist, AWS",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "11:45",
       "endTime": "12:15",
@@ -10012,7 +10012,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day2"
+      "plannerDay": "day1"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#aim303",
@@ -10068,7 +10068,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day2"
+      "plannerDay": "day1"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#aim302",
@@ -10085,7 +10085,7 @@
         "Linta Thayyil Mathew, Principal Solutions Architect, AWS",
         "Emma Blanusa, Group Head Data &amp; AI, NIB"
       ],
-      "description": "AI agents offer powerful capabilities \u2014 and introduce fundamentally new risks that require more than traditional controls. This session explores responsible agentic AI through three lenses: the science, the framework, and a real-world customer story. Understand the scientific frontiers that make agents different \u2014 from emergent behaviour and agent-to-agent trust to the challenges of governing systems that plan, negotiate, and act autonomously. Learn the four areas of the AWS Responsible AI framework where agents change the rules, and hear how one of Australia's leading health insurer is putting responsible AI into practice \u2014 from strategy to governance to real-world trade-offs. - Linta Thayyil Mathew, Principal Solutions Architect, AWS - Emma Blanusa, Group Head Data &amp; AI, NIB",
+      "description": "AI agents offer powerful capabilities — and introduce fundamentally new risks that require more than traditional controls. This session explores responsible agentic AI through three lenses: the science, the framework, and a real-world customer story. Understand the scientific frontiers that make agents different — from emergent behaviour and agent-to-agent trust to the challenges of governing systems that plan, negotiate, and act autonomously. Learn the four areas of the AWS Responsible AI framework where agents change the rules, and hear how one of Australia's leading health insurer is putting responsible AI into practice — from strategy to governance to real-world trade-offs. - Linta Thayyil Mathew, Principal Solutions Architect, AWS - Emma Blanusa, Group Head Data &amp; AI, NIB",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "12:30",
       "endTime": "13:00",
@@ -10199,7 +10199,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day2"
+      "plannerDay": "day1"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#aim204",
@@ -10214,7 +10214,7 @@
       "speakers": [
         "Simone Crozier, Quick Suite Geo Leader APJC, AWS"
       ],
-      "description": "Most of us spend more time hunting for information than using it. Amazon Quick changes that. It reaches across all your company's data \u2013 documents, databases, emails, Slack threads, dashboards, Jira tickets \u2013 and lets you search it, ask questions, and take action, all from one place. Available across web, mobile, Slack, and Microsoft tools with multi-model intelligence, Quick delivers consumer-grade AI with enterprise-grade security and governance. No vendor lock-in, no siloed copilots. Just one AI teammate that works wherever you do. - Simone Crozier, Quick Suite Geo Leader APJC, AWS",
+      "description": "Most of us spend more time hunting for information than using it. Amazon Quick changes that. It reaches across all your company's data – documents, databases, emails, Slack threads, dashboards, Jira tickets – and lets you search it, ask questions, and take action, all from one place. Available across web, mobile, Slack, and Microsoft tools with multi-model intelligence, Quick delivers consumer-grade AI with enterprise-grade security and governance. No vendor lock-in, no siloed copilots. Just one AI teammate that works wherever you do. - Simone Crozier, Quick Suite Geo Leader APJC, AWS",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "14:30",
       "endTime": "15:00",
@@ -10267,7 +10267,7 @@
         "Varun Saxena, Sr. Delivery Consultant, AWS",
         "Sankar Thiagarajan, Principal AI Product Manager, Woodside"
       ],
-      "description": "Woodside\u2019s Agentic Maintenance Framework connects frontline execution to long\u2011horizon strategy, turning each job into fuel for continuous improvement. The approach uses governed evidence and multi\u2011agent AI to assemble the right context at the decision point\u2014improving request quality, planning accuracy, and execution readiness\u2014while capturing plan\u2011vs\u2011actual signals that strengthen backlog quality, scheduling confidence, and long\u2011term maintenance strategies. The result is a closed loop where execution improves strategy, and strategy improves execution, all within existing governance and systems of record. In this talk, we\u2019ll share practical lessons from designing the tactical layer (Maint Assist) and the strategic layer (Maint Intel), show how evidence is created once and reused across the lifecycle, and outline a maturity path from prompts to agentic orchestration\u2014focused on safety, reliability, and efficiency. - Varun Saxena, Sr. Delivery Consultant, AWS - Sankar Thiagarajan, Principal AI Product Manager, Woodside",
+      "description": "Woodside’s Agentic Maintenance Framework connects frontline execution to long‑horizon strategy, turning each job into fuel for continuous improvement. The approach uses governed evidence and multi‑agent AI to assemble the right context at the decision point—improving request quality, planning accuracy, and execution readiness—while capturing plan‑vs‑actual signals that strengthen backlog quality, scheduling confidence, and long‑term maintenance strategies. The result is a closed loop where execution improves strategy, and strategy improves execution, all within existing governance and systems of record. In this talk, we’ll share practical lessons from designing the tactical layer (Maint Assist) and the strategic layer (Maint Intel), show how evidence is created once and reused across the lifecycle, and outline a maturity path from prompts to agentic orchestration—focused on safety, reliability, and efficiency. - Varun Saxena, Sr. Delivery Consultant, AWS - Sankar Thiagarajan, Principal AI Product Manager, Woodside",
       "registerUrl": "https://staging.prod.website.marketing.aws.dev/events/summits/mobile-app/",
       "startTime": "15:15",
       "endTime": "15:45",
@@ -10323,7 +10323,7 @@
           "description": "description placeholder"
         }
       ],
-      "plannerDay": "day2"
+      "plannerDay": "day1"
     },
     {
       "id": "events-cards-interactive-summits-sydney-agenda#aim201",

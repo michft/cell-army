@@ -76,6 +76,22 @@ function speakerName(label) {
   return label.split(",")[0]?.trim() ?? label;
 }
 
+function sessionPlannerDay(session) {
+  const taggedDay = session.tags.find(
+    (tag) => tag.namespace === "GLOBAL#local-tags-aws-summit-anz-event-day",
+  )?.label;
+
+  if (taggedDay === "event-day-01") {
+    return "day1";
+  }
+
+  if (taggedDay === "event-day-02") {
+    return "day2";
+  }
+
+  return session.plannerDay ?? "day1";
+}
+
 function sessionLevelCode(session) {
   const codeMatch = session.code?.match(/(\d)/);
   if (codeMatch) {
@@ -88,6 +104,78 @@ function toggleSelection(current, value) {
   return current.includes(value)
     ? current.filter((entry) => entry !== value)
     : [...current, value].sort();
+}
+
+function parseTimeValue(time) {
+  if (!time) {
+    return null;
+  }
+
+  const [hours, minutes] = time.split(":").map(Number);
+  return hours * 60 + minutes;
+}
+
+function formatWindowLabel(startMinutes, isLastWindow) {
+  const startHours = String(Math.floor(startMinutes / 60)).padStart(2, "0");
+  if (isLastWindow) {
+    return `${startHours}:00+`;
+  }
+
+  const endHours = String(Math.floor((startMinutes + 60) / 60)).padStart(2, "0");
+  return `${startHours}:00-${endHours}:00`;
+}
+
+function buildTimeWindowOptions(sessions, dayId) {
+  const starts = sessions
+    .filter((session) => sessionPlannerDay(session) === dayId)
+    .flatMap((session) => [parseTimeValue(session.startTime), parseTimeValue(session.endTime)])
+    .filter((value) => value !== null);
+
+  if (starts.length === 0) {
+    return [];
+  }
+
+  const firstHour = Math.floor(Math.min(...starts) / 60) * 60;
+  const lastHour = Math.floor((Math.max(...starts) - 1) / 60) * 60;
+  const windows = [];
+
+  for (let startMinutes = firstHour; startMinutes <= lastHour; startMinutes += 60) {
+    const endMinutes = startMinutes + 60;
+    const hasOverlap = sessions.some((session) => {
+      if (sessionPlannerDay(session) !== dayId) {
+        return false;
+      }
+
+      const sessionStart = parseTimeValue(session.startTime);
+      const sessionEnd = parseTimeValue(session.endTime);
+      if (sessionStart === null || sessionEnd === null) {
+        return false;
+      }
+
+      return sessionStart < endMinutes && sessionEnd > startMinutes;
+    });
+
+    if (hasOverlap) {
+      windows.push({
+        value: `${startMinutes}-${endMinutes}`,
+        label: formatWindowLabel(startMinutes, startMinutes === lastHour),
+        startMinutes,
+        endMinutes,
+      });
+    }
+  }
+
+  return windows;
+}
+
+function timeWindowValueForSession(session) {
+  const startMinutes = parseTimeValue(session.startTime);
+  if (startMinutes === null) {
+    return "";
+  }
+
+  const windowStart = Math.floor(startMinutes / 60) * 60;
+  return `${windowStart}-${windowStart + 60}`;
 }
 
 function sessionMatches(session, query, topicFilters, levelFilters) {
@@ -127,10 +215,12 @@ export default function App() {
   };
 
   const [currentDay, setCurrentDay] = useState("day1");
+  const [browseDay, setBrowseDay] = useState("day1");
   const [viewMode, setViewMode] = useState("browse");
   const [query, setQuery] = useState("");
   const [topicFilters, setTopicFilters] = useState([]);
   const [levelFilters, setLevelFilters] = useState([]);
+  const [timeWindow, setTimeWindow] = useState("");
   const [profile, setProfile] = useState(initialState.profile);
   const [saved, setSaved] = useState(initialState.saved);
   const [likedSpeakers, setLikedSpeakers] = useState(initialState.likedSpeakers);
@@ -157,62 +247,89 @@ export default function App() {
     [],
   );
 
+  const timeWindowOptions = useMemo(
+    () => buildTimeWindowOptions(agenda.sessions, browseDay),
+    [browseDay],
+  );
+
   const sessions = useMemo(() => {
     const filtered = agenda.sessions.filter((session) =>
       sessionMatches(session, deferredQuery, topicFilters, levelFilters),
     );
 
-    return filtered
-      .map((session) => {
-        const sessionSpeakers = session.speakers.map(speakerName);
-        const speakerMatch = sessionSpeakers.some((speaker) =>
-          likedSpeakers.includes(speaker),
-        );
-        const orgMatch = session.organisations.some((org) => likedOrgs.includes(org));
-        const assignedDay = session.plannerDay;
-        const isSaved = Boolean(saved[session.id]?.saved);
+    return filtered.map((session) => {
+      const sessionSpeakers = session.speakers.map(speakerName);
+      const speakerMatch = sessionSpeakers.some((speaker) =>
+        likedSpeakers.includes(speaker),
+      );
+      const orgMatch = session.organisations.some((org) => likedOrgs.includes(org));
+      const assignedDay = sessionPlannerDay(session);
+      const isSaved = Boolean(saved[session.id]?.saved);
 
-        return {
-          ...session,
-          assignedDay,
-          isSaved,
-          isRecommended: speakerMatch || orgMatch,
-          recommendationReason: speakerMatch
-            ? "Liked speaker"
-            : orgMatch
-              ? "Liked organisation"
-              : "",
-        };
-      })
-      .sort((left, right) => {
-        const leftScore =
-          Number(left.assignedDay === currentDay) * 4 +
-          Number(left.isSaved) * 3 +
-          Number(left.isRecommended) * 2;
-        const rightScore =
-          Number(right.assignedDay === currentDay) * 4 +
-          Number(right.isSaved) * 3 +
-          Number(right.isRecommended) * 2;
-
-        if (leftScore !== rightScore) {
-          return rightScore - leftScore;
-        }
-
-        return left.title.localeCompare(right.title);
-      });
-  }, [currentDay, deferredQuery, levelFilters, likedOrgs, likedSpeakers, saved, topicFilters]);
+      return {
+        ...session,
+        assignedDay,
+        isSaved,
+        isRecommended: speakerMatch || orgMatch,
+        recommendationReason: speakerMatch
+          ? "Liked speaker"
+          : orgMatch
+            ? "Liked organisation"
+            : "",
+      };
+    });
+  }, [deferredQuery, levelFilters, likedOrgs, likedSpeakers, saved, topicFilters]);
 
   const visibleSessions = useMemo(() => {
+    const alphabetized = [...sessions].sort((left, right) =>
+      left.title.localeCompare(right.title),
+    );
+
+    const timeFiltered = !timeWindow
+      ? alphabetized.filter((session) => session.assignedDay === browseDay)
+      : alphabetized.filter((session) => {
+          if (session.assignedDay !== browseDay) {
+            return false;
+          }
+
+          const [windowStart, windowEnd] = timeWindow.split("-").map(Number);
+          const sessionStart = parseTimeValue(session.startTime);
+          const sessionEnd = parseTimeValue(session.endTime);
+
+          if (sessionStart === null || sessionEnd === null) {
+            return false;
+          }
+
+          return sessionStart < windowEnd && sessionEnd > windowStart;
+        });
+
     if (viewMode === "planned") {
-      return sessions.filter((session) => session.isSaved);
+      return alphabetized.filter((session) => session.isSaved);
     }
 
     if (viewMode === "recommended") {
-      return sessions.filter((session) => session.isRecommended);
+      return alphabetized
+        .filter((session) => session.isRecommended)
+        .sort((left, right) => {
+          const leftScore =
+            Number(left.assignedDay === currentDay) * 4 +
+            Number(left.isSaved) * 3 +
+            Number(left.isRecommended) * 2;
+          const rightScore =
+            Number(right.assignedDay === currentDay) * 4 +
+            Number(right.isSaved) * 3 +
+            Number(right.isRecommended) * 2;
+
+          if (leftScore !== rightScore) {
+            return rightScore - leftScore;
+          }
+
+          return left.title.localeCompare(right.title);
+        });
     }
 
-    return sessions;
-  }, [currentDay, sessions, viewMode]);
+    return timeFiltered;
+  }, [currentDay, sessions, timeWindow, viewMode]);
 
   const dayStats = useMemo(
     () =>
@@ -224,6 +341,12 @@ export default function App() {
       })),
     [sessions],
   );
+
+  useEffect(() => {
+    if (timeWindow && !timeWindowOptions.some((option) => option.value === timeWindow)) {
+      setTimeWindow("");
+    }
+  }, [timeWindow, timeWindowOptions]);
 
   useEffect(() => {
     document.title = APP_TITLE;
@@ -246,7 +369,7 @@ export default function App() {
     const payload = [
       "BEGIN:VCARD",
       "VERSION:2.0",
-      `FN:${escapeIcs(name || "None")}`,
+      ...(name ? [`FN:${escapeIcs(name)}`] : []),
       ...(role ? [`TITLE:${escapeIcs(role)}`] : []),
       ...(company ? [`ORG:${escapeIcs(company)}`] : []),
       ...(email ? [`EMAIL:${escapeIcs(email)}`] : []),
@@ -300,14 +423,32 @@ export default function App() {
   }
 
   function resetPlanner() {
+    const shouldReset = window.confirm(
+      "Reset your filters, likes, and full saved schedule?",
+    );
+
+    if (!shouldReset) {
+      return;
+    }
+
     setViewMode("browse");
     setQuery("");
     setTopicFilters([]);
     setLevelFilters([]);
+    setTimeWindow("");
     setSaved({});
     setLikedSpeakers([]);
     setLikedOrgs([]);
     setCurrentDay("day1");
+    setBrowseDay("day1");
+  }
+
+  function browseSessionsForTime(session) {
+    const browseWindow = timeWindowValueForSession(session);
+    setBrowseDay(session.assignedDay);
+    setCurrentDay(session.assignedDay);
+    setTimeWindow(browseWindow);
+    setViewMode("browse");
   }
 
   return (
@@ -461,6 +602,39 @@ export default function App() {
                 ))}
               </div>
             </div>
+
+            {viewMode === "browse" ? (
+              <div className="filter-group">
+                <div className="gap-filter-header">
+                  <span className="filter-label">Fill a gap on</span>
+                  <div className="chip-row">
+                    {DAY_OPTIONS.map((day) => (
+                      <button
+                        key={day.id}
+                        className={browseDay === day.id ? "topic-chip is-active" : "topic-chip"}
+                        onClick={() => setBrowseDay(day.id)}
+                        type="button"
+                      >
+                        {day.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+                <select
+                  id="time-window-select"
+                  className="topic-select"
+                  value={timeWindow}
+                  onChange={(event) => setTimeWindow(event.target.value)}
+                >
+                  <option value="">Any time</option>
+                  {timeWindowOptions.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            ) : null}
           </div>
 
           <div className="liked-strip">
@@ -493,10 +667,9 @@ export default function App() {
             <Calendar
               sessions={sessions}
               currentDay={currentDay}
-              saved={saved}
+              onChangeDay={setCurrentDay}
+              onBrowseTime={browseSessionsForTime}
               onToggleSave={toggleSave}
-              dayLabel={DAY_OPTIONS.find((d) => d.id === currentDay)?.label}
-              dayDate={DAY_OPTIONS.find((d) => d.id === currentDay)?.date}
             />
           </section>
         ) : (

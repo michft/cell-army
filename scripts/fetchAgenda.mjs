@@ -30,7 +30,23 @@ function parseSessionTime(body) {
   return { startTime: null, endTime: null };
 }
 
-function normalizeSession(entry, index) {
+function parsePlannerDay(tags) {
+  const dayTag = tags.find(
+    (tag) => tag.tagNamespaceId === "GLOBAL#local-tags-aws-summit-anz-event-day",
+  )?.name;
+
+  if (dayTag === "event-day-01") {
+    return "day1";
+  }
+
+  if (dayTag === "event-day-02") {
+    return "day2";
+  }
+
+  return null;
+}
+
+function normalizeSession(entry) {
   const fields = entry.item.additionalFields;
   const speakers = extractListItems(fields.bodyBack ?? "");
   const description = stripHtml(fields.bodyBack ?? "");
@@ -39,6 +55,7 @@ function normalizeSession(entry, index) {
     .map((value) => value.trim())
     .filter(Boolean);
   const { startTime, endTime } = parseSessionTime(fields.body);
+  const plannerDay = parsePlannerDay(entry.tags);
 
   return {
     id: entry.item.id,
@@ -58,7 +75,7 @@ function normalizeSession(entry, index) {
       label: tag.name,
       description: tag.description,
     })),
-    plannerDay: index % 2 === 0 ? "day1" : "day2",
+    plannerDay,
   };
 }
 
@@ -83,7 +100,7 @@ async function main() {
       fetchedAt: new Date().toISOString(),
       totalSessions: payload.metadata.totalHits,
       note:
-        "AWS exposes catalogue metadata publicly, but not explicit day/time slots in this feed. The app keeps a two-day planner and seeds each talk into Day 1 or Day 2 as a starting draft you can change.",
+        "AWS exposes catalogue metadata publicly, including event-day tags and session times used by this planner snapshot.",
     },
     event: {
       name: "AWS Summit Sydney",

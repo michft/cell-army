@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 const TIME_SLOTS = [
   "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
@@ -42,13 +42,12 @@ function getSessionTopOffset(startTime) {
 export default function Calendar({ 
   sessions, 
   currentDay, 
-  saved, 
+  onChangeDay,
+  onBrowseTime,
   onToggleSave,
-  dayLabel,
-  dayDate,
 }) {
   const [showFlyout, setShowFlyout] = useState(false);
-  const [selectedDay, setSelectedDay] = useState("day1");
+  const [selectedSession, setSelectedSession] = useState(null);
   
   const daysSessions = useMemo(() => {
     const day1Sessions = sessions.filter(s => s.assignedDay === "day1" && s.startTime && s.endTime);
@@ -56,9 +55,23 @@ export default function Calendar({
     return { day1: day1Sessions, day2: day2Sessions };
   }, [sessions]);
 
-  const currentDayData = selectedDay === "day1" ? daysSessions.day1 : daysSessions.day2;
+  const currentDayData = currentDay === "day1" ? daysSessions.day1 : daysSessions.day2;
   const selectedSessions = currentDayData.filter(s => s.isSaved);
   const availableSessions = currentDayData.filter(s => !s.isSaved);
+
+  useEffect(() => {
+    if (!selectedSession) {
+      return;
+    }
+
+    const stillVisible = selectedSessions.find((session) => session.id === selectedSession.id);
+    if (!stillVisible) {
+      setSelectedSession(null);
+      return;
+    }
+
+    setSelectedSession(stillVisible);
+  }, [selectedSession, selectedSessions]);
 
   return (
     <div className="calendar-container">
@@ -68,15 +81,15 @@ export default function Calendar({
 
       <div className="calendar-days-tabs">
         <button
-          className={selectedDay === "day1" ? "day-tab is-active" : "day-tab"}
-          onClick={() => setSelectedDay("day1")}
+          className={currentDay === "day1" ? "day-tab is-active" : "day-tab"}
+          onClick={() => onChangeDay("day1")}
           type="button"
         >
           Day 1 - 13 May
         </button>
         <button
-          className={selectedDay === "day2" ? "day-tab is-active" : "day-tab"}
-          onClick={() => setSelectedDay("day2")}
+          className={currentDay === "day2" ? "day-tab is-active" : "day-tab"}
+          onClick={() => onChangeDay("day2")}
           type="button"
         >
           Day 2 - 14 May
@@ -115,9 +128,9 @@ export default function Calendar({
                   >
                     <button
                       className="calendar-session-btn"
-                      onClick={() => onToggleSave(session.id)}
+                      onClick={() => setSelectedSession(session)}
                       type="button"
-                      title={`Click to remove from schedule`}
+                      title="View session details"
                     >
                       <span className="session-time">
                         {formatTime(session.startTime)} – {formatTime(session.endTime)}
@@ -191,6 +204,95 @@ export default function Calendar({
           <span>Sessions in your schedule</span>
         </div>
       </div>
+
+      {selectedSession ? (
+        <div
+          className="session-summary-backdrop"
+          onClick={() => setSelectedSession(null)}
+          role="presentation"
+        >
+          <section
+            aria-labelledby="session-summary-title"
+            className="session-summary-dialog"
+            onClick={(event) => event.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+          >
+            <div className="session-summary-header">
+              <div>
+                <p className="eyebrow">Scheduled session</p>
+                <h3 id="session-summary-title">{selectedSession.title}</h3>
+              </div>
+              <button
+                className="session-summary-close"
+                onClick={() => setSelectedSession(null)}
+                type="button"
+              >
+                Close
+              </button>
+            </div>
+
+            <div className="session-summary-meta">
+              <span className="code-badge">{selectedSession.code}</span>
+              <span className="mini-chip">
+                {formatTime(selectedSession.startTime)} - {formatTime(selectedSession.endTime)}
+              </span>
+              <span className="mini-chip">{selectedSession.sessionType}</span>
+            </div>
+
+            <p className="session-summary-copy">{selectedSession.description}</p>
+
+            {selectedSession.speakers.length ? (
+              <div className="session-summary-block">
+                <span className="filter-label">Speakers</span>
+                <div className="chip-row">
+                  {selectedSession.speakers.map((speaker) => (
+                    <span key={speaker} className="mini-chip">
+                      {speaker}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+
+            {selectedSession.organisations.length ? (
+              <div className="session-summary-block">
+                <span className="filter-label">Organisations</span>
+                <div className="chip-row">
+                  {selectedSession.organisations.map((org) => (
+                    <span key={org} className="mini-chip">
+                      {org}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+
+            <div className="session-summary-actions">
+              <button
+                className="secondary-button"
+                onClick={() => {
+                  onBrowseTime(selectedSession);
+                  setSelectedSession(null);
+                }}
+                type="button"
+              >
+                Browse this time
+              </button>
+              <button
+                className="primary-button is-active"
+                onClick={() => {
+                  onToggleSave(selectedSession.id);
+                  setSelectedSession(null);
+                }}
+                type="button"
+              >
+                Remove from schedule
+              </button>
+            </div>
+          </section>
+        </div>
+      ) : null}
     </div>
   );
 }

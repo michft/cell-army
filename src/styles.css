@@ -256,6 +256,13 @@ button { cursor: pointer; }
 
 .filter-group { display: grid; gap: 8px; }
 
+.gap-filter-header {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
 .filter-label {
   font-size: 0.72rem;
   font-weight: 700;
@@ -409,6 +416,8 @@ button { cursor: pointer; }
 
   .search-row { flex-direction: row; }
   .search-input { flex: 1; }
+
+  .gap-filter-header { flex-wrap: nowrap; }
 }
 
 /* ─── Calendar ───────────────────────────────────────────────────────── */
@@ -798,6 +807,70 @@ button { cursor: pointer; }
 
 .legend-item.is-saved .legend-color { background: var(--accent); border-color: var(--accent); }
 
+.session-summary-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(13, 15, 18, 0.78);
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  z-index: 40;
+}
+
+.session-summary-dialog {
+  width: min(100%, 560px);
+  max-height: min(90vh, 720px);
+  overflow-y: auto;
+  background: var(--bg-surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 20px;
+  display: grid;
+  gap: 14px;
+}
+
+.session-summary-header,
+.session-summary-actions,
+.session-summary-meta {
+  display: flex;
+  gap: 10px;
+}
+
+.session-summary-header {
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.session-summary-header h3 {
+  margin: 0;
+  font-family: "Space Grotesk", sans-serif;
+  line-height: 1.15;
+}
+
+.session-summary-close {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--bg-raised);
+  color: var(--text-muted);
+  padding: 8px 12px;
+}
+
+.session-summary-meta,
+.session-summary-actions {
+  flex-wrap: wrap;
+}
+
+.session-summary-copy {
+  margin: 0;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.session-summary-block {
+  display: grid;
+  gap: 8px;
+}
+
 /* ─── Responsive (calendar) ──────────────────────────────────────────── */
 @media (max-width: 920px) {
   .calendar-layout { grid-template-columns: 1fr; }
@@ -808,13 +881,29 @@ button { cursor: pointer; }
     left: 0;
     right: 0;
     width: 100% !important;
-    height: 200px;
+    height: 0;
     border-left: none;
-    border-top: 1px solid var(--line);
+    border-top: none;
     z-index: 15;
   }
 
-  .flyout-toggle { display: none; }
+  .calendar-flyout.is-open {
+    height: 200px;
+    border-top: 1px solid var(--line);
+  }
+
+  .flyout-toggle {
+    display: flex;
+    left: auto;
+    right: 12px;
+    top: -40px;
+    transform: none;
+    width: auto;
+    height: 30px;
+    padding: 0 10px;
+    border-radius: 999px;
+  }
+
   .calendar-main { max-height: 400px; }
 }
 
