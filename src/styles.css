@@ -6,9 +6,9 @@
   --bg:          #0d0f12;          /* near-black background */
   --bg-surface:  #13161c;          /* card surface */
   --bg-raised:   #1b1f28;          /* elevated elements */
-  --accent:      #f63b4f;          /* vivid coral-red */
-  --accent-dim:  rgba(246, 59, 79, 0.12);
-  --accent-muted:rgba(246, 59, 79, 0.25);
+  --accent:      #ffa500;          /* orange-yellow */
+  --accent-dim:  rgba(255, 165, 0, 0.12);
+  --accent-muted:rgba(255, 165, 0, 0.25);
   --text:        #e8ecf2;          /* primary text */
   --text-muted:  #999999;          /* subdued text */
   --line:        rgba(255, 255, 255, 0.07);
