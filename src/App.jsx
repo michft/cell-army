@@ -381,7 +381,7 @@ export default function App() {
       margin: 1,
       width: 256,
       color: {
-        dark: "#f63b4f",
+        dark: "#ffa500",
         light: "#13161c",
       },
     }).then(setQrCodeUrl);
