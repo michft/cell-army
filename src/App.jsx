@@ -2,6 +2,11 @@ import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import QRCode from "qrcode";
 import agenda from "./data/sessions.json";
 import Calendar from "./Calendar";
+import SwipeCarousel from "./SwipeCarousel";
+import IntroScreen from "./screens/IntroScreen";
+import QRScreen from "./screens/QRScreen";
+import BrowseScreen from "./screens/BrowseScreen";
+import CalendarDayScreen from "./screens/CalendarDayScreen";
 
 const APP_TITLE = import.meta.env.VITE_APP_TITLE || "AWS Summit Sydney Planner";
 const AGENDA_URL = import.meta.env.VITE_AGENDA_URL || agenda.source.agendaUrl;
@@ -454,336 +459,56 @@ export default function App() {
   return (
     <div className="app-shell">
       <main className="phone-frame">
-        <section className="hero-card">
-          <p className="eyebrow">Portrait planner</p>
-          <div className="hero-heading-row">
-            <div>
-              <h1>{agenda.event.name}</h1>
-              <p className="hero-meta">
-                {DAY_OPTIONS.find((day) => day.id === currentDay)?.date} ·{" "}
-                {agenda.event.venue}
-              </p>
-            </div>
-            <a className="outline-link" href={AGENDA_URL} target="_blank" rel="noreferrer">
-              Online agenda
-            </a>
-          </div>
-          <p className="hero-note">{FIXED_TIME_NOTE}</p>
+        <SwipeCarousel screenIndex={screenIndex} onChangeScreen={setScreenIndex}>
+          <IntroScreen 
+            currentDay={currentDay}
+            dayStats={dayStats}
+            onChangeDay={setCurrentDay}
+            touchStartX={touchStartX}
+            eventName={agenda.event.name}
+            eventVenue={agenda.event.venue}
+            agendaUrl={AGENDA_URL}
+          />
 
-          <div
-            className="day-switcher"
-            aria-label="Planner days"
-            onTouchStart={(event) => {
-              touchStartX.current = event.changedTouches[0].clientX;
-            }}
-            onTouchEnd={(event) => {
-              const distance = event.changedTouches[0].clientX - touchStartX.current;
-              if (Math.abs(distance) < 60) {
-                return;
-              }
-              cycleDay(distance < 0 ? 1 : -1);
-            }}
-          >
-            {dayStats.map((day) => (
-              <button
-                key={day.id}
-                className={day.id === currentDay ? "day-pill is-active" : "day-pill"}
-                onClick={() => setCurrentDay(day.id)}
-                type="button"
-              >
-                <span>{day.label}</span>
-                <strong>{day.planned}</strong>
-              </button>
-            ))}
-          </div>
-        </section>
+          <QRScreen 
+            profile={profile}
+            qrCodeUrl={qrCodeUrl}
+            onProfileChange={setProfile}
+          />
 
-        <section className="identity-card">
-          <div>
-            <p className="eyebrow">Who am I</p>
-          </div>
-          <div className="identity-grid">
-            <div className="qr-panel">
-              {qrCodeUrl ? <img alt="QR code for attendee identity" src={qrCodeUrl} /> : null}
-              <p>Show this when someone asks who you are :)</p>
-            </div>
-            <div className="profile-form">
-              {PROFILE_FIELDS.map(({ key, label, type, placeholder }) => (
-                <label key={key}>
-                  <span>{label}</span>
-                  <input
-                    type={type}
-                    placeholder={placeholder}
-                    value={profile[key]}
-                    onChange={(event) =>
-                      setProfile((current) => ({
-                        ...current,
-                        [key]: event.target.value,
-                      }))
-                    }
-                  />
-                </label>
-              ))}
-            </div>
-          </div>
-        </section>
+          <BrowseScreen
+            topics={topics}
+            levels={levels}
+            query={query}
+            onQueryChange={setQuery}
+            topicFilters={topicFilters}
+            onTopicFiltersChange={setTopicFilters}
+            levelFilters={levelFilters}
+            onLevelFiltersChange={setLevelFilters}
+            browseDay={browseDay}
+            onBrowseDayChange={setBrowseDay}
+            timeWindow={timeWindow}
+            onTimeWindowChange={setTimeWindow}
+            timeWindowOptions={timeWindowOptions}
+            visibleSessions={visibleSessions}
+            likedOrgs={likedOrgs}
+            likedSpeakers={likedSpeakers}
+            onToggleSave={toggleSave}
+            onToggleLikedOrg={toggleLikedOrg}
+            onToggleLikedSpeaker={toggleLikedSpeaker}
+            onResetPlanner={resetPlanner}
+            likedOrgsCount={likedOrgs.length}
+            likedSpeakersCount={likedSpeakers.length}
+          />
 
-        <section className="toolbar-card">
-          <div className="segmented-control">
-            {[
-              { id: "browse", label: "Browse" },
-              { id: "calendar", label: "Calendar" },
-              { id: "planned", label: "My list" },
-              { id: "recommended", label: "Future talks" },
-            ].map((option) => (
-              <button
-                key={option.id}
-                className={viewMode === option.id ? "segment is-active" : "segment"}
-                onClick={() => setViewMode(option.id)}
-                type="button"
-              >
-                {option.label}
-              </button>
-            ))}
-            <button className="segment reset-segment" onClick={resetPlanner} type="button">
-              Reset
-            </button>
-          </div>
-
-          <div className="search-row">
-            <input
-              aria-label="Search talks"
-              className="search-input"
-              placeholder="Search title, speaker, org, topic"
-              value={query}
-              onChange={(event) => setQuery(event.target.value)}
-            />
-          </div>
-
-          {viewMode !== "calendar" && (
-            <>
-          <div className="filter-stack">
-            <div className="filter-group">
-              <span className="filter-label">Topics</span>
-              <div className="chip-row">
-                {topics.map((topic) => (
-                  <button
-                    key={topic}
-                    className={
-                      topicFilters.includes(topic) ? "topic-chip is-active" : "topic-chip"
-                    }
-                    onClick={() =>
-                      setTopicFilters((current) => toggleSelection(current, topic))
-                    }
-                    type="button"
-                  >
-                    {topic}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div className="filter-group">
-              <span className="filter-label">Talk level</span>
-              <div className="chip-row">
-                {levels.map((level) => (
-                  <button
-                    key={level}
-                    className={
-                      levelFilters.includes(level) ? "topic-chip is-active" : "topic-chip"
-                    }
-                    onClick={() =>
-                      setLevelFilters((current) => toggleSelection(current, level))
-                    }
-                    type="button"
-                  >
-                    {level}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {viewMode === "browse" ? (
-              <div className="filter-group">
-                <div className="gap-filter-header">
-                  <span className="filter-label">Fill a gap on</span>
-                  <div className="chip-row">
-                    {DAY_OPTIONS.map((day) => (
-                      <button
-                        key={day.id}
-                        className={browseDay === day.id ? "topic-chip is-active" : "topic-chip"}
-                        onClick={() => setBrowseDay(day.id)}
-                        type="button"
-                      >
-                        {day.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-                <select
-                  id="time-window-select"
-                  className="topic-select"
-                  value={timeWindow}
-                  onChange={(event) => setTimeWindow(event.target.value)}
-                >
-                  <option value="">Any time</option>
-                  {timeWindowOptions.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            ) : null}
-          </div>
-
-          <div className="liked-strip">
-            <span>Liked</span>
-            {topicFilters.map((label) => (
-              <span key={`topic-${label}`} className="mini-chip">
-                {label}
-              </span>
-            ))}
-            {levelFilters.map((label) => (
-              <span key={`level-${label}`} className="mini-chip">
-                {label}
-              </span>
-            ))}
-            {[...likedSpeakers, ...likedOrgs].slice(0, 8).map((label) => (
-              <span key={label} className="mini-chip">
-                {label}
-              </span>
-            ))}
-            {likedSpeakers.length === 0 && likedOrgs.length === 0 ? (
-              <span className="muted-copy">Tap a speaker or org on a card to surface related talks.</span>
-            ) : null}
-          </div>
-            </>
-          )}
-        </section>
-
-        {viewMode === "calendar" ? (
-          <section className="calendar-section">
-            <Calendar
-              sessions={sessions}
-              currentDay={currentDay}
-              onChangeDay={setCurrentDay}
-              onBrowseTime={browseSessionsForTime}
-              onToggleSave={toggleSave}
-            />
-          </section>
-        ) : (
-        <section className="cards-grid">
-          {visibleSessions.map((session) => {
-            const topicsForSession = tagLabels(session, "GLOBAL#aws-technology-categories");
-            return (
-              <article
-                key={session.id}
-                className={session.isRecommended ? "session-card is-recommended" : "session-card"}
-              >
-                <div className="card-topline">
-                  <span className="code-badge">{session.code}</span>
-                  <button
-                    className={
-                      levelFilters.includes(sessionLevelCode(session))
-                        ? "level-badge is-active"
-                        : "level-badge"
-                    }
-                    onClick={() =>
-                      setLevelFilters((current) =>
-                        toggleSelection(current, sessionLevelCode(session)),
-                      )
-                    }
-                    type="button"
-                  >
-                    {sessionLevelCode(session)}
-                  </button>
-                  {session.recommendationReason ? (
-                    <span className="signal-badge">{session.recommendationReason}</span>
-                  ) : null}
-                </div>
-
-                <h3>{session.title}</h3>
-                <p className="session-type">{session.sessionType}</p>
-                <p className="session-description">{session.description}</p>
-
-                <div className="chip-row">
-                  {topicsForSession.slice(0, 3).map((topic) => (
-                    <button
-                      key={topic}
-                      className={
-                        topicFilters.includes(topic) ? "topic-chip is-active" : "topic-chip"
-                      }
-                      onClick={() =>
-                        setTopicFilters((current) => toggleSelection(current, topic))
-                      }
-                      type="button"
-                    >
-                      {topic}
-                    </button>
-                  ))}
-                </div>
-
-                <div className="chip-row">
-                  {session.organisations.map((org, index) => (
-                    <button
-                      key={`${session.id}-org-${org}-${index}`}
-                      className={likedOrgs.includes(org) ? "toggle-chip is-active" : "toggle-chip"}
-                      onClick={() => toggleLikedOrg(org)}
-                      type="button"
-                    >
-                      {org}
-                    </button>
-                  ))}
-                </div>
-
-                {session.speakers.length ? (
-                  <div className="speaker-list">
-                    {session.speakers.map((speaker, index) => {
-                      const name = speakerName(speaker);
-                      return (
-                        <button
-                          key={`${session.id}-speaker-${speaker}-${index}`}
-                          className={
-                            likedSpeakers.includes(name)
-                              ? "speaker-chip is-active"
-                              : "speaker-chip"
-                          }
-                          onClick={() => toggleLikedSpeaker(speaker)}
-                          type="button"
-                        >
-                          {name}
-                        </button>
-                      );
-                    })}
-                  </div>
-                ) : null}
-
-                <div className="card-actions">
-                  <button
-                    className={
-                      session.isSaved
-                        ? "primary-button is-active"
-                        : "primary-button"
-                    }
-                    onClick={() => toggleSave(session.id)}
-                    type="button"
-                  >
-                    {session.isSaved ? "Attending" : "Add"}
-                  </button>
-                </div>
-              </article>
-            );
-          })}
-        </section>
-        )}
-
-        {visibleSessions.length === 0 && viewMode !== "calendar" ? (
-          <section className="empty-card">
-            <h2>No talks match this view</h2>
-            <p>Try another topic, clear the search, or like a speaker first.</p>
-          </section>
-        ) : null}
+          <CalendarDayScreen
+            sessions={sessions}
+            currentDay={currentDay}
+            onChangeDay={setCurrentDay}
+            onBrowseTime={browseSessionsForTime}
+            onToggleSave={toggleSave}
+          />
+        </SwipeCarousel>
 
         <footer className="footer-note">
           Snapshot refreshed {new Date(agenda.source.fetchedAt).toLocaleString()} from AWS.
