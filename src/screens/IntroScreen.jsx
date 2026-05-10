@@ -6,14 +6,16 @@ import { DAY_OPTIONS } from "../utils/session";
 /**
  * Intro screen component for the event planner displaying event details and a day selector.
  *
- * @param {DayId} currentDay - Active day id shown in the UI.
- * @param {DayStat[]} dayStats - Array of day entries used to render the day switcher (each item provides `id`, `label` and `planned` counts).
- * @param {import("react").Dispatch<import("react").SetStateAction<DayId>>} onChangeDay - Setter to change the active day.
- * @param {import("react").MutableRefObject<number>} touchStartX - Mutable ref storing the touch-start X coordinate for swipe detection.
- * @param {string} eventName - The event title displayed in the hero.
- * @param {string} eventVenue - The venue name shown alongside the current day's date.
- * @param {string} agendaUrl - URL to the online agenda, opened from the hero action link.
- * @returns {JSX.Element} The rendered intro screen element.
+ * `@param` {{
+ *   currentDay: DayId,
+ *   dayStats: DayStat[],
+ *   onChangeDay: import("react").Dispatch<import("react").SetStateAction<DayId>>,
+ *   touchStartX: import("react").MutableRefObject<number>,
+ *   eventName: string,
+ *   eventVenue: string,
+ *   agendaUrl: string
+ * }} props - Component props.
+ * `@returns` {import("react").JSX.Element} The rendered intro screen element.
  */
 export default function IntroScreen({ currentDay, dayStats, onChangeDay, touchStartX, eventName, eventVenue, agendaUrl }) {
   const FIXED_TIME_NOTE =
