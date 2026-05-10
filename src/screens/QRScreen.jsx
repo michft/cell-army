@@ -32,7 +32,7 @@ export default function QRScreen({ profile, qrCodeUrl, onProfileChange }) {
         </div>
         <div className="identity-grid">
           <div className="qr-panel">
-            {qrCodeUrl ? <img alt="QR code for attendee identity" src={qrCodeUrl} /> : null}
+            {qrCodeUrl && <img alt="QR code for attendee identity" src={qrCodeUrl} />}
             <p>Show this when someone asks who you are :)</p>
           </div>
           <div className="profile-form">

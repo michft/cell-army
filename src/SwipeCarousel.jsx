@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 
-const SCREEN_IDS = ['qr', 'browse', 'calendar-day1', 'calendar-day2'];
+const ANIMATION_DURATION_MS = 400;
 
 /**
  * Render a horizontal swipeable carousel that changes the active screen in response to touch gestures.
@@ -16,6 +16,7 @@ export default function SwipeCarousel({ screenIndex, onChangeScreen, children })
   const touchStartX = useRef(0);
   const touchStartTime = useRef(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  const screenCount = Array.isArray(children) ? children.length : 1;
 
   /**
    * Initialise the touch start X position and start time for swipe detection; no-op if an animation is in progress.
@@ -57,13 +58,13 @@ export default function SwipeCarousel({ screenIndex, onChangeScreen, children })
 
     setIsAnimating(true);
     const direction = distance < 0 ? 1 : -1;
-    const nextIndex = Math.max(0, Math.min(SCREEN_IDS.length - 1, screenIndex + direction));
+    const nextIndex = Math.max(0, Math.min(screenCount - 1, screenIndex + direction));
 
     if (nextIndex !== screenIndex) {
       onChangeScreen(nextIndex);
     }
 
-    setTimeout(() => setIsAnimating(false), 400);
+    setTimeout(() => setIsAnimating(false), ANIMATION_DURATION_MS);
   }
 
   return (

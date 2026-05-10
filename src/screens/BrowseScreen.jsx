@@ -1,69 +1,8 @@
-const DAY_OPTIONS = [
-  { id: "day1", label: "Day 1", date: "13 May" },
-  { id: "day2", label: "Day 2", date: "14 May" },
-];
+import { DAY_OPTIONS, toggleSelection, tagLabels, speakerName, sessionLevelCode } from "../utils/session";
 
 /** @typedef {import("../types").DayId} DayId */
 /** @typedef {import("../types").PlannerSession} PlannerSession */
 /** @typedef {import("../types").TimeWindowOption} TimeWindowOption */
-
-/**
- * Toggle a value's presence in an array and return the resulting sorted array.
- * @param {string[]} current - The source array of values.
- * @param {string} value - The value to add if missing or remove if present.
- * @returns {string[]} The updated array: `value` removed if it was present, otherwise added and the array sorted.
- */
-function toggleSelection(current, value) {
-  return current.includes(value)
-    ? current.filter((entry) => entry !== value)
-    : [...current, value].sort();
-}
-
-/**
- * Extracts labels from session tags that belong to the given namespace.
- *
- * @param {{ tags: { namespace: string, label: string }[] }} session - Session object containing a `tags` array.
- * @param {string} namespace - Namespace to filter tags by.
- * @returns {string[]} Array of tag labels whose `namespace` matches the provided `namespace`.
- */
-function tagLabels(session, namespace) {
-  return session.tags
-    .filter((tag) => tag.namespace === namespace)
-    .map((tag) => tag.label);
-}
-
-/**
- * Extracts the display name from a speaker label, using the text before the first comma.
- * @param {string} label - Speaker label, typically in the form "Last, First" or a single name.
- * @returns {string} The trimmed name before the first comma, or the original label if no comma is present.
- */
-function speakerName(label) {
-  return label.split(",")[0]?.trim() ?? label;
-}
-
-/**
- * Determine the display level code for a session.
- *
- * If `session.code` contains a digit, returns that digit followed by "00" (for example, a code containing "2" yields "200").
- * Otherwise maps `session.level` to one of "100", "200", "300", "400" or "Other", defaulting to "Other" when unmapped.
- *
- * @param {{ code?: string, level: string }} session - Session data; `code` is an optional session code string, `level` is the session's level label used as a fallback.
- * @returns {string} The computed display level code ("100", "200", "300", "400" or "Other").
- */
-function sessionLevelCode(session) {
-  const LEVEL_LABELS = {
-    foundational: "100",
-    intermediate: "200",
-    advanced: "300",
-    expert: "400",
-    unspecified: "Other",
-  };
-  const codeMatch = session.code?.match(/(\d)/);
-  if (codeMatch) {
-    return `${codeMatch[1]}00`;
-  }
-  return LEVEL_LABELS[/** @type {keyof typeof LEVEL_LABELS} */ (session.level)] ?? "Other";
-}
 
 /**
  * Render a searchable, filterable grid of session cards with controls for topics, levels, day and time.
@@ -215,8 +154,13 @@ export default function BrowseScreen({
               {label}
             </span>
           ))}
-          {[...likedSpeakers, ...likedOrgs].slice(0, 8).map((label) => (
-            <span key={label} className="mini-chip">
+          {likedSpeakers.slice(0, 4).map((label) => (
+            <span key={`speaker-${label}`} className="mini-chip">
+              {label}
+            </span>
+          ))}
+          {likedOrgs.slice(0, 4).map((label) => (
+            <span key={`org-${label}`} className="mini-chip">
               {label}
             </span>
           ))}

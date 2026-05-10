@@ -10,7 +10,7 @@
     "jsx": "react-jsx",
     "resolveJsonModule": true,
     "noEmit": true,
-    "strictNullChecks": true,
+    "strict": true,
     "isolatedModules": true,
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,

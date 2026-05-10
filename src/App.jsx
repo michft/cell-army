@@ -59,10 +59,10 @@ function escapeIcs(value) {
  *
  * If the stored value is missing or invalid, returns the default state.
  *
- * @returns {{ profile: Object, saved: Object, likedSpeakers: string[], likedOrgs: string[] }}
+ * @returns {{ profile: Object, saved: Set<string>, likedSpeakers: string[], likedOrgs: string[] }}
  *   An object containing:
  *   - profile: the user profile merged with DEFAULT_PROFILE.
- *   - saved: a map of saved session entries (empty object when none).
+ *   - saved: a Set of saved session IDs (empty when none).
  *   - likedSpeakers: sorted array of liked speaker names (empty when none).
  *   - likedOrgs: sorted array of liked organisation names (empty when none).
  */
@@ -71,14 +71,14 @@ function loadState() {
     const parsed = JSON.parse(window.localStorage.getItem(STORAGE_KEY) ?? "null");
     return {
       profile: { ...DEFAULT_PROFILE, ...parsed?.profile },
-      saved: parsed?.saved ?? {},
+      saved: new Set(parsed?.saved ?? []),
       likedSpeakers: parsed?.likedSpeakers ?? [],
       likedOrgs: parsed?.likedOrgs ?? [],
     };
   } catch {
     return {
       profile: DEFAULT_PROFILE,
-      saved: {},
+      saved: new Set(),
       likedSpeakers: [],
       likedOrgs: [],
     };
@@ -304,7 +304,6 @@ export default function App() {
   const [screenIndex, setScreenIndex] = useState(0);
   const [currentDay, setCurrentDay] = useState(/** @type {DayId} */ ("day1"));
   const [browseDay, setBrowseDay] = useState(/** @type {DayId} */ ("day1"));
-  const [viewMode, setViewMode] = useState("browse");
   const [query, setQuery] = useState("");
   const [topicFilters, setTopicFilters] = useState(/** @type {string[]} */ ([]));
   const [levelFilters, setLevelFilters] = useState(/** @type {string[]} */ ([]));
@@ -353,7 +352,7 @@ export default function App() {
       );
       const orgMatch = session.organisations.some(/** @param {string} org */ (org) => likedOrgs.includes(org));
       const assignedDay = sessionPlannerDay(session);
-      const isSaved = Boolean(saved[session.id]?.saved);
+      const isSaved = saved.has(session.id);
 
       return /** @type {PlannerSession} */ ({
         ...session,
@@ -398,7 +397,7 @@ export default function App() {
         });
 
     return timeFiltered;
-  }, [browseDay, currentDay, sessions, timeWindow, viewMode]);
+  }, [browseDay, currentDay, sessions, timeWindow]);
 
   /** @type {import("./types").DayStat[]} */
   const dayStats = useMemo(
@@ -425,7 +424,7 @@ export default function App() {
   useEffect(() => {
     window.localStorage.setItem(
       STORAGE_KEY,
-      JSON.stringify({ profile, saved, likedSpeakers, likedOrgs }),
+      JSON.stringify({ profile, saved: Array.from(saved), likedSpeakers, likedOrgs }),
     );
   }, [likedOrgs, likedSpeakers, profile, saved]);
 
@@ -460,12 +459,12 @@ export default function App() {
   /** @param {string} sessionId */
   function toggleSave(sessionId) {
     setSaved((current) => {
-      const next = { ...current };
-      if (next[sessionId]?.saved) {
-        delete next[sessionId];
-        return next;
+      const next = new Set(current);
+      if (next.has(sessionId)) {
+        next.delete(sessionId);
+      } else {
+        next.add(sessionId);
       }
-      next[sessionId] = { saved: true };
       return next;
     });
   }
@@ -508,12 +507,11 @@ export default function App() {
       return;
     }
 
-    setViewMode("browse");
     setQuery("");
     setTopicFilters([]);
     setLevelFilters([]);
     setTimeWindow("");
-    setSaved({});
+    setSaved(new Set());
     setLikedSpeakers([]);
     setLikedOrgs([]);
     setCurrentDay("day1");
@@ -526,7 +524,6 @@ export default function App() {
     setBrowseDay(session.assignedDay);
     setCurrentDay(session.assignedDay);
     setTimeWindow(browseWindow);
-    setViewMode("browse");
   }
 
   return (

@@ -1,7 +1,4 @@
-const DAY_OPTIONS = [
-  { id: "day1", label: "Day 1", date: "13 May" },
-  { id: "day2", label: "Day 2", date: "14 May" },
-];
+import { DAY_OPTIONS } from "../utils/session";
 
 /** @typedef {import("../types").DayId} DayId */
 /** @typedef {import("../types").DayStat} DayStat */
@@ -58,9 +55,11 @@ export default function IntroScreen({ currentDay, dayStats, onChangeDay, touchSt
           className="day-switcher"
           aria-label="Planner days"
           onTouchStart={(event) => {
+            event.stopPropagation();
             touchStartX.current = event.changedTouches[0].clientX;
           }}
           onTouchEnd={(event) => {
+            event.stopPropagation();
             const distance = event.changedTouches[0].clientX - touchStartX.current;
             if (Math.abs(distance) < 60) {
               return;
