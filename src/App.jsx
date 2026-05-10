@@ -115,12 +115,6 @@ function sessionPlannerDay(session) {
 
 
 
-/**
- * Parse a time string in "HH:MM" format into minutes since midnight.
- *
- * @param {string|undefined} time - Time in "HH:MM" (hours 0–23, minutes 0–59); may be undefined.
- * @returns {number|null} Minutes since midnight, or `null` if the input is not a valid `HH:MM` time.
- */
 function parseTimeValue(time) {
   if (typeof time !== "string") {
     return null;
