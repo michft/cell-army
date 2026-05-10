@@ -133,7 +133,12 @@ function toggleSelection(current, value) {
     : [...current, value].sort();
 }
 
-/** @param {string | undefined} time */
+/**
+ * Parse a time string in "HH:MM" format into minutes since midnight.
+ *
+ * @param {string|undefined} time - Time in "HH:MM" (hours 0–23, minutes 0–59); may be undefined.
+ * @returns {number|null} Minutes since midnight, or `null` if the input is not a valid `HH:MM` time.
+ */
 function parseTimeValue(time) {
   if (typeof time !== "string") {
     return null;
@@ -263,6 +268,15 @@ function sessionMatches(session, query, topicFilters, levelFilters) {
   return queryHit && topicHit && levelHit;
 }
 
+/**
+ * Root React component for the planner application.
+ *
+ * Initialises and persists user profile, saved sessions and likes; derives filtered
+ * and visible session lists; generates a contact QR code; and composes the app's
+ * screens (intro, QR, browse and calendar).
+ *
+ * @returns {import("react").ReactElement} The root React element for the application UI.
+ */
 export default function App() {
   /** @type {import("react").MutableRefObject<StoredState | null>} */
   const initialStateRef = useRef(null);
