@@ -19,7 +19,7 @@ const PROFILE_FIELDS = [
  * @param {Profile} props.profile - The current profile values used as input values.
  * @param {string} props.qrCodeUrl - URL of the QR image; when falsy no image is rendered.
  * @param {import("react").Dispatch<import("react").SetStateAction<Profile>>} props.onProfileChange - State setter invoked with an updater to apply profile changes.
- * @returns {JSX.Element} The identity card UI containing the QR panel and profile form.
+ * `@returns` {import("react").JSX.Element} The identity card UI containing the QR panel and profile form.
  */
 export default function QRScreen({ profile, qrCodeUrl, onProfileChange }) {
   return (
