@@ -3,22 +3,53 @@ const DAY_OPTIONS = [
   { id: "day2", label: "Day 2", date: "14 May" },
 ];
 
+/** @typedef {import("../types").DayId} DayId */
+/** @typedef {import("../types").PlannerSession} PlannerSession */
+/** @typedef {import("../types").TimeWindowOption} TimeWindowOption */
+
+/**
+ * Toggle a value's presence in an array and return the resulting sorted array.
+ * @param {string[]} current - The source array of values.
+ * @param {string} value - The value to add if missing or remove if present.
+ * @returns {string[]} The updated array: `value` removed if it was present, otherwise added and the array sorted.
+ */
 function toggleSelection(current, value) {
   return current.includes(value)
     ? current.filter((entry) => entry !== value)
     : [...current, value].sort();
 }
 
+/**
+ * Extracts labels from session tags that belong to the given namespace.
+ *
+ * @param {{ tags: { namespace: string, label: string }[] }} session - Session object containing a `tags` array.
+ * @param {string} namespace - Namespace to filter tags by.
+ * @returns {string[]} Array of tag labels whose `namespace` matches the provided `namespace`.
+ */
 function tagLabels(session, namespace) {
   return session.tags
     .filter((tag) => tag.namespace === namespace)
     .map((tag) => tag.label);
 }
 
+/**
+ * Extracts the display name from a speaker label, using the text before the first comma.
+ * @param {string} label - Speaker label, typically in the form "Last, First" or a single name.
+ * @returns {string} The trimmed name before the first comma, or the original label if no comma is present.
+ */
 function speakerName(label) {
   return label.split(",")[0]?.trim() ?? label;
 }
 
+/**
+ * Determine the display level code for a session.
+ *
+ * If `session.code` contains a digit, returns that digit followed by "00" (for example, a code containing "2" yields "200").
+ * Otherwise maps `session.level` to one of "100", "200", "300", "400" or "Other", defaulting to "Other" when unmapped.
+ *
+ * @param {{ code?: string, level: string }} session - Session data; `code` is an optional session code string, `level` is the session's level label used as a fallback.
+ * @returns {string} The computed display level code ("100", "200", "300", "400" or "Other").
+ */
 function sessionLevelCode(session) {
   const LEVEL_LABELS = {
     foundational: "100",
@@ -31,9 +62,37 @@ function sessionLevelCode(session) {
   if (codeMatch) {
     return `${codeMatch[1]}00`;
   }
-  return LEVEL_LABELS[session.level] ?? "Other";
+  return LEVEL_LABELS[/** @type {keyof typeof LEVEL_LABELS} */ (session.level)] ?? "Other";
 }
 
+/**
+ * Render a searchable, filterable grid of session cards with controls for topics, levels, day and time.
+ *
+ * @param {Object} props - Component props.
+ * @param {string[]} props.topics - Available topic labels for the topic filter chips.
+ * @param {string[]} props.levels - Available talk level labels for the level filter chips.
+ * @param {string} props.query - Current text in the search input.
+ * @param {import("react").Dispatch<import("react").SetStateAction<string>>} props.onQueryChange - Handler to update the search query.
+ * @param {string[]} props.topicFilters - Currently selected topic filters.
+ * @param {import("react").Dispatch<import("react").SetStateAction<string[]>>} props.onTopicFiltersChange - Updater for topic filter selections.
+ * @param {string[]} props.levelFilters - Currently selected level filters.
+ * @param {import("react").Dispatch<import("react").SetStateAction<string[]>>} props.onLevelFiltersChange - Updater for level filter selections.
+ * @param {DayId} props.browseDay - Selected day for the "Fill a gap on" control.
+ * @param {import("react").Dispatch<import("react").SetStateAction<DayId>>} props.onBrowseDayChange - Updater for the selected browse day.
+ * @param {string} props.timeWindow - Selected time window value.
+ * @param {import("react").Dispatch<import("react").SetStateAction<string>>} props.onTimeWindowChange - Updater for the selected time window.
+ * @param {TimeWindowOption[]} props.timeWindowOptions - Options presented in the time window select.
+ * @param {PlannerSession[]} props.visibleSessions - Sessions to display as cards.
+ * @param {string[]} props.likedOrgs - Organisation labels marked as liked.
+ * @param {string[]} props.likedSpeakers - Speaker names marked as liked.
+ * @param {(sessionId: string) => void} props.onToggleSave - Toggle handler to mark a session as saved/attending.
+ * @param {(label: string) => void} props.onToggleLikedOrg - Toggle handler for liking/unliking an organisation.
+ * @param {(label: string) => void} props.onToggleLikedSpeaker - Toggle handler for liking/unliking a speaker (receives the original speaker string).
+ * @param {() => void} props.onResetPlanner - Handler to reset planner state.
+ * @param {number} props.likedOrgsCount - Count of liked organisations.
+ * @param {number} props.likedSpeakersCount - Count of liked speakers.
+ * @returns {JSX.Element} The rendered Browse screen component.
+ */
 export default function BrowseScreen({
   topics,
   levels,
@@ -120,7 +179,7 @@ export default function BrowseScreen({
                   <button
                     key={day.id}
                     className={browseDay === day.id ? "topic-chip is-active" : "topic-chip"}
-                    onClick={() => onBrowseDayChange(day.id)}
+                    onClick={() => onBrowseDayChange(/** @type {DayId} */ (day.id))}
                     type="button"
                   >
                     {day.label}

@@ -1,17 +1,32 @@
 import { useEffect, useMemo, useState } from "react";
 
+/** @typedef {import("./types").DayId} DayId */
+/** @typedef {import("./types").PlannerSession} PlannerSession */
+
 const TIME_SLOTS = [
   "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
   "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30",
   "16:00", "16:30", "17:00", "17:30", "18:00",
 ];
 
+/**
+ * Return the provided 24-hour time string in `HH:MM` form, or an empty string when no time is given.
+ * @param {string|undefined} time24h - Time in `HH:MM` 24-hour format; may be `undefined`.
+ * @returns {string} The formatted `HH:MM` string, or `""` if `time24h` is `undefined`.
+ */
 function formatTime(time24h) {
   if (!time24h) return "";
   const [hours, minutes] = time24h.split(":");
   return `${hours}:${minutes}`;
 }
 
+/**
+ * Compute the session height in 30-minute grid units from start and end times.
+ *
+ * @param {string|undefined} startTime - Start time in "H:M" or "HH:MM" format; may be undefined to indicate missing time.
+ * @param {string|undefined} endTime - End time in "H:M" or "HH:MM" format; may be undefined to indicate missing time.
+ * @returns {number} The height expressed as an integer number of 30-minute slots; at least 1.
+ */
 function getSessionHeight(startTime, endTime) {
   if (!startTime || !endTime) return 1;
   
@@ -26,6 +41,11 @@ function getSessionHeight(startTime, endTime) {
   return Math.max(1, Math.ceil(duration / 30));
 }
 
+/**
+ * Compute the grid row for a session's start time on the calendar.
+ *
+ * @param {string | undefined} startTime - Start time as `"HH:MM"` (24-hour). If omitted, the function returns `0`.
+ * @returns {number} The CSS grid row number where the session should start; each 30-minute interval advances the row by 1 and the result is offset by 2 to account for the header.
 function getSessionTopOffset(startTime) {
   if (!startTime) return 0;
   
@@ -39,6 +59,26 @@ function getSessionTopOffset(startTime) {
   return Math.floor(offsetMins / 30) + 2;
 }
 
+/**
+ * Render a two-day schedule view with selectable sessions and an available-sessions flyout.
+ *
+ * Renders time slots, saved sessions for the active day, a sidebar of available sessions that can be added,
+ * and a modal summary for the selected session.
+ *
+ * @param {{
+ *   sessions: PlannerSession[],
+ *   currentDay: DayId,
+ *   onChangeDay: import("react").Dispatch<import("react").SetStateAction<DayId>>,
+ *   onBrowseTime: (session: PlannerSession) => void,
+ *   onToggleSave: (sessionId: string) => void,
+ * }} props - Component props.
+ * @param {PlannerSession[]} props.sessions - All planner sessions; each may include scheduling and saved state.
+ * @param {DayId} props.currentDay - Currently selected day identifier ("day1" or "day2").
+ * @param {import("react").Dispatch<import("react").SetStateAction<DayId>>} props.onChangeDay - Callback to change the active day.
+ * @param {(session: PlannerSession) => void} props.onBrowseTime - Callback invoked with a session when the user chooses to browse its time.
+ * @param {(sessionId: string) => void} props.onToggleSave - Callback to toggle a session's saved state by id.
+ * @returns {JSX.Element} The calendar UI for the current day, including time grid, sessions, flyout and session summary modal.
+ */
 export default function Calendar({ 
   sessions, 
   currentDay, 
@@ -47,7 +87,7 @@ export default function Calendar({
   onToggleSave,
 }) {
   const [showFlyout, setShowFlyout] = useState(false);
-  const [selectedSession, setSelectedSession] = useState(null);
+  const [selectedSession, setSelectedSession] = useState(/** @type {PlannerSession | null} */ (null));
   
   const daysSessions = useMemo(() => {
     const day1Sessions = sessions.filter(s => s.assignedDay === "day1" && s.startTime && s.endTime);
@@ -55,6 +95,7 @@ export default function Calendar({
     return { day1: day1Sessions, day2: day2Sessions };
   }, [sessions]);
 
+  /** @type {PlannerSession[]} */
   const currentDayData = currentDay === "day1" ? daysSessions.day1 : daysSessions.day2;
   const selectedSessions = currentDayData.filter(s => s.isSaved);
   const availableSessions = currentDayData.filter(s => !s.isSaved);
