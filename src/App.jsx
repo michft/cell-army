@@ -1,20 +1,22 @@
 import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import QRCode from "qrcode";
 import agenda from "./data/sessions.json";
-import Calendar from "./Calendar";
+import { DAY_OPTIONS, toggleSelection, tagLabels, speakerName, sessionLevelCode } from "./utils/session";
 import SwipeCarousel from "./SwipeCarousel";
 import IntroScreen from "./screens/IntroScreen";
 import QRScreen from "./screens/QRScreen";
 import BrowseScreen from "./screens/BrowseScreen";
 import CalendarDayScreen from "./screens/CalendarDayScreen";
 
+/** @typedef {import("./types").DayId} DayId */
+/** @typedef {import("./types").AgendaSession} AgendaSession */
+/** @typedef {import("./types").PlannerSession} PlannerSession */
+/** @typedef {import("./types").Profile} Profile */
+/** @typedef {import("./types").SavedSessions} SavedSessions */
+/** @typedef {import("./types").StoredState} StoredState */
+
 const APP_TITLE = import.meta.env.VITE_APP_TITLE || "AWS Summit Sydney Planner";
 const AGENDA_URL = import.meta.env.VITE_AGENDA_URL || agenda.source.agendaUrl;
-
-const DAY_OPTIONS = [
-  { id: "day1", label: "Day 1", date: "13 May" },
-  { id: "day2", label: "Day 2", date: "14 May" },
-];
 
 const STORAGE_KEY = "aws-summit-sydney-planner";
 const DEFAULT_PROFILE = {
@@ -36,14 +38,14 @@ const PROFILE_FIELDS = [
 const FIXED_TIME_NOTE =
   "Sessions run at fixed summit times. This app helps you browse each day, mark the talks you plan to attend, and highlight future talks from speakers or organisations you liked.";
 
-const LEVEL_LABELS = {
-  foundational: "100",
-  intermediate: "200",
-  advanced: "300",
-  expert: "400",
-  unspecified: "Other",
-};
+/** @type {AgendaSession[]} */
+const agendaSessions = /** @type {AgendaSession[]} */ (agenda.sessions);
 
+/**
+ * Escape characters that must be backslash-escaped for ICS/VCARD text fields.
+ * @param {string} value - The input text to escape.
+ * @returns {string} The input with backslashes, newlines, commas and semicolons escaped for inclusion in an ICS/VCARD field.
+ */
 function escapeIcs(value) {
   return value
     .replace(/\\/g, "\\\\")
@@ -52,35 +54,49 @@ function escapeIcs(value) {
     .replace(/;/g, "\\;");
 }
 
+/**
+ * Load persisted planner state from localStorage and merge the stored profile with defaults.
+ *
+ * If the stored value is missing or invalid, returns the default state.
+ *
+ * @returns {{ profile: Object, saved: Set<string>, likedSpeakers: string[], likedOrgs: string[] }}
+ *   An object containing:
+ *   - profile: the user profile merged with DEFAULT_PROFILE.
+ *   - saved: a Set of saved session IDs (empty when none).
+ *   - likedSpeakers: sorted array of liked speaker names (empty when none).
+ *   - likedOrgs: sorted array of liked organisation names (empty when none).
+ */
 function loadState() {
   try {
     const parsed = JSON.parse(window.localStorage.getItem(STORAGE_KEY) ?? "null");
     return {
       profile: { ...DEFAULT_PROFILE, ...parsed?.profile },
-      saved: parsed?.saved ?? {},
+      saved: new Set(parsed?.saved ?? []),
       likedSpeakers: parsed?.likedSpeakers ?? [],
       likedOrgs: parsed?.likedOrgs ?? [],
     };
   } catch {
     return {
       profile: DEFAULT_PROFILE,
-      saved: {},
+      saved: new Set(),
       likedSpeakers: [],
       likedOrgs: [],
     };
   }
 }
 
-function tagLabels(session, namespace) {
-  return session.tags
-    .filter((tag) => tag.namespace === namespace)
-    .map((tag) => tag.label);
-}
 
-function speakerName(label) {
-  return label.split(",")[0]?.trim() ?? label;
-}
 
+/**
+ * Determine which planner day a session belongs to.
+ *
+ * Checks for a tag in the `GLOBAL#local-tags-aws-summit-anz-event-day` namespace and maps
+ * `event-day-01` → `'day1'`, `event-day-02` → `'day2'`. If no marker tag is present,
+ * falls back to `session.plannerDay` and then `'day1'`.
+ *
+ * @param {{ tags: { namespace: string, label: string }[], plannerDay?: string }} session - Session object; may include event-day tags and an optional `plannerDay` field.
+ * @returns {string} `'day1'` or `'day2'` based on the tag, otherwise `session.plannerDay` or `'day1'`.
+ */
 function sessionPlannerDay(session) {
   const taggedDay = session.tags.find(
     (tag) => tag.namespace === "GLOBAL#local-tags-aws-summit-anz-event-day",
@@ -97,29 +113,42 @@ function sessionPlannerDay(session) {
   return session.plannerDay ?? "day1";
 }
 
-function sessionLevelCode(session) {
-  const codeMatch = session.code?.match(/(\d)/);
-  if (codeMatch) {
-    return `${codeMatch[1]}00`;
-  }
-  return LEVEL_LABELS[session.level] ?? "Other";
-}
 
-function toggleSelection(current, value) {
-  return current.includes(value)
-    ? current.filter((entry) => entry !== value)
-    : [...current, value].sort();
-}
 
 function parseTimeValue(time) {
-  if (!time) {
+  if (typeof time !== "string") {
     return null;
   }
 
-  const [hours, minutes] = time.split(":").map(Number);
+  const match = time.match(/^(\d{2}):(\d{2})$/);
+  if (!match) {
+    return null;
+  }
+
+  const hours = Number(match[1]);
+  const minutes = Number(match[2]);
+
+  if (
+    !Number.isFinite(hours) ||
+    !Number.isFinite(minutes) ||
+    hours < 0 ||
+    hours > 23 ||
+    minutes < 0 ||
+    minutes > 59
+  ) {
+    return null;
+  }
+
   return hours * 60 + minutes;
 }
 
+/**
+ * Produce a human-readable label for a one-hour time window starting at the given minutes.
+ *
+ * @param {number} startMinutes - Minutes from midnight at which the window starts (e.g. 540 for 09:00).
+ * @param {boolean} isLastWindow - If true, render an open-ended end (e.g. `17:00+`) for the final window.
+ * @returns {string} The formatted window label, e.g. `09:00-10:00` or `17:00+`.
+ */
 function formatWindowLabel(startMinutes, isLastWindow) {
   const startHours = String(Math.floor(startMinutes / 60)).padStart(2, "0");
   if (isLastWindow) {
@@ -130,6 +159,17 @@ function formatWindowLabel(startMinutes, isLastWindow) {
   return `${startHours}:00-${endHours}:00`;
 }
 
+/**
+ * Build one-hour time window options for sessions assigned to a given planner day.
+ *
+ * Produces an array of one-hour windows that overlap at least one session on the specified day.
+ * Each window covers a contiguous 60-minute interval aligned to hour boundaries, starting from the
+ * earliest session time on that day and ending at the latest session time.
+ *
+ * @param {Array<{ startTime?: string, endTime?: string, tags: { namespace: string, label: string }[], plannerDay?: DayId }>} sessions - All sessions to consider.
+ * @param {DayId} dayId - Planner day identifier to filter sessions (e.g. "day1" or "day2").
+ * @returns {Array<{ value: string, label: string, startMinutes: number, endMinutes: number }>} An array of window objects. `value` is "start-end" in minutes, `label` is a human-readable hour range (the final window uses a trailing `+`), and `startMinutes`/`endMinutes` are the window bounds in minutes since midnight.
+ */
 function buildTimeWindowOptions(sessions, dayId) {
   const starts = sessions
     .filter((session) => sessionPlannerDay(session) === dayId)
@@ -173,6 +213,13 @@ function buildTimeWindowOptions(sessions, dayId) {
   return windows;
 }
 
+/**
+ * Compute the one-hour time window that contains a session's start time.
+ *
+ * If the session has no valid `startTime`, an empty string is returned.
+ * @param {{ startTime?: string }} session - Session object with an optional `HH:MM` start time.
+ * @returns {string} The window in minutes as `"startMinutes-endMinutes"` (for example `"540-600"`), or `""` if unavailable.
+ */
 function timeWindowValueForSession(session) {
   const startMinutes = parseTimeValue(session.startTime);
   if (startMinutes === null) {
@@ -183,6 +230,19 @@ function timeWindowValueForSession(session) {
   return `${windowStart}-${windowStart + 60}`;
 }
 
+/**
+ * Determine whether a session satisfies the given search query and active topic and level filters.
+ *
+ * The function performs a case-insensitive match against a combined searchable string composed of the
+ * session's title, code, description, level, computed level code, speakers, organisations and technology category tags.
+ * An empty `query`, empty `topicFilters` or empty `levelFilters` each act as no-op (match-all) for their respective criterion.
+ *
+ * @param {AgendaSession} session - Session object to test.
+ * @param {string} query - Lowercased search string to match against the session's searchable fields; an empty string matches all sessions.
+ * @param {string[]} topicFilters - Array of technology category labels; session must include at least one when this array is non-empty.
+ * @param {string[]} levelFilters - Array of level codes (e.g. "100", "200"); session's computed level code must be present when this array is non-empty.
+ * @returns {boolean} `true` if the session matches the query and all active filters, `false` otherwise.
+ */
 function sessionMatches(session, query, topicFilters, levelFilters) {
   const topics = tagLabels(session, "GLOBAL#aws-technology-categories");
   const levelCode = sessionLevelCode(session);
@@ -206,7 +266,20 @@ function sessionMatches(session, query, topicFilters, levelFilters) {
   return queryHit && topicHit && levelHit;
 }
 
+/**
+ * Root React component that renders the conference planner UI.
+ *
+ * Initialises application state (loaded from localStorage when available), derives
+ * visible sessions and day statistics, and renders the intro, QR, browse and calendar
+ * screens with their controls and handlers.
+ *
+ * Side effects: updates document title, persists profile/likes/saved state to localStorage,
+ * and generates a VCARD QR code when the profile changes.
+ *
+ * @returns {JSX.Element} The app root element containing the planner UI and footer.
+ */
 export default function App() {
+  /** @type {import("react").MutableRefObject<StoredState | null>} */
   const initialStateRef = useRef(null);
   if (!initialStateRef.current && typeof window !== "undefined") {
     initialStateRef.current = loadState();
@@ -214,17 +287,20 @@ export default function App() {
 
   const initialState = initialStateRef.current ?? {
     profile: DEFAULT_PROFILE,
-    saved: {},
+    /** `@type` {SavedSessions} */
+    saved: new Set(),
+    /** `@type` {string[]} */
     likedSpeakers: [],
+    /** `@type` {string[]} */
     likedOrgs: [],
   };
 
-  const [currentDay, setCurrentDay] = useState("day1");
-  const [browseDay, setBrowseDay] = useState("day1");
-  const [viewMode, setViewMode] = useState("browse");
+  const [screenIndex, setScreenIndex] = useState(0);
+  const [currentDay, setCurrentDay] = useState(/** @type {DayId} */ ("day1"));
+  const [browseDay, setBrowseDay] = useState(/** @type {DayId} */ ("day1"));
   const [query, setQuery] = useState("");
-  const [topicFilters, setTopicFilters] = useState([]);
-  const [levelFilters, setLevelFilters] = useState([]);
+  const [topicFilters, setTopicFilters] = useState(/** @type {string[]} */ ([]));
+  const [levelFilters, setLevelFilters] = useState(/** @type {string[]} */ ([]));
   const [timeWindow, setTimeWindow] = useState("");
   const [profile, setProfile] = useState(initialState.profile);
   const [saved, setSaved] = useState(initialState.saved);
@@ -238,7 +314,7 @@ export default function App() {
     () =>
       Array.from(
         new Set(
-          agenda.sessions.flatMap((session) =>
+          agendaSessions.flatMap((session) =>
             tagLabels(session, "GLOBAL#aws-technology-categories"),
           ),
         ),
@@ -248,30 +324,31 @@ export default function App() {
 
   const levels = useMemo(
     () =>
-      Array.from(new Set(agenda.sessions.map((session) => sessionLevelCode(session)))).sort(),
+      Array.from(new Set(agendaSessions.map((session) => sessionLevelCode(session)))).sort(),
     [],
   );
 
   const timeWindowOptions = useMemo(
-    () => buildTimeWindowOptions(agenda.sessions, browseDay),
+    () => buildTimeWindowOptions(agendaSessions, browseDay),
     [browseDay],
   );
 
+  /** @type {PlannerSession[]} */
   const sessions = useMemo(() => {
-    const filtered = agenda.sessions.filter((session) =>
+    const filtered = agendaSessions.filter((session) =>
       sessionMatches(session, deferredQuery, topicFilters, levelFilters),
     );
 
     return filtered.map((session) => {
       const sessionSpeakers = session.speakers.map(speakerName);
-      const speakerMatch = sessionSpeakers.some((speaker) =>
+      const speakerMatch = sessionSpeakers.some(/** @param {string} speaker */ (speaker) =>
         likedSpeakers.includes(speaker),
       );
-      const orgMatch = session.organisations.some((org) => likedOrgs.includes(org));
+      const orgMatch = session.organisations.some(/** @param {string} org */ (org) => likedOrgs.includes(org));
       const assignedDay = sessionPlannerDay(session);
-      const isSaved = Boolean(saved[session.id]?.saved);
+      const isSaved = saved.has(session.id);
 
-      return {
+      return /** @type {PlannerSession} */ ({
         ...session,
         assignedDay,
         isSaved,
@@ -281,7 +358,7 @@ export default function App() {
           : orgMatch
             ? "Liked organisation"
             : "",
-      };
+      });
     });
   }, [deferredQuery, levelFilters, likedOrgs, likedSpeakers, saved, topicFilters]);
 
@@ -301,41 +378,22 @@ export default function App() {
           const sessionStart = parseTimeValue(session.startTime);
           const sessionEnd = parseTimeValue(session.endTime);
 
-          if (sessionStart === null || sessionEnd === null) {
+          if (
+            sessionStart === null ||
+            sessionEnd === null ||
+            windowStart === undefined ||
+            windowEnd === undefined
+          ) {
             return false;
           }
 
           return sessionStart < windowEnd && sessionEnd > windowStart;
         });
 
-    if (viewMode === "planned") {
-      return alphabetized.filter((session) => session.isSaved);
-    }
-
-    if (viewMode === "recommended") {
-      return alphabetized
-        .filter((session) => session.isRecommended)
-        .sort((left, right) => {
-          const leftScore =
-            Number(left.assignedDay === currentDay) * 4 +
-            Number(left.isSaved) * 3 +
-            Number(left.isRecommended) * 2;
-          const rightScore =
-            Number(right.assignedDay === currentDay) * 4 +
-            Number(right.isSaved) * 3 +
-            Number(right.isRecommended) * 2;
-
-          if (leftScore !== rightScore) {
-            return rightScore - leftScore;
-          }
-
-          return left.title.localeCompare(right.title);
-        });
-    }
-
     return timeFiltered;
-  }, [currentDay, sessions, timeWindow, viewMode]);
+  }, [browseDay, currentDay, sessions, timeWindow]);
 
+  /** @type {import("./types").DayStat[]} */
   const dayStats = useMemo(
     () =>
       DAY_OPTIONS.map((day) => ({
@@ -360,7 +418,7 @@ export default function App() {
   useEffect(() => {
     window.localStorage.setItem(
       STORAGE_KEY,
-      JSON.stringify({ profile, saved, likedSpeakers, likedOrgs }),
+      JSON.stringify({ profile, saved: Array.from(saved), likedSpeakers, likedOrgs }),
     );
   }, [likedOrgs, likedSpeakers, profile, saved]);
 
@@ -392,18 +450,20 @@ export default function App() {
     }).then(setQrCodeUrl);
   }, [profile]);
 
+  /** @param {string} sessionId */
   function toggleSave(sessionId) {
     setSaved((current) => {
-      const next = { ...current };
-      if (next[sessionId]?.saved) {
-        delete next[sessionId];
-        return next;
+      const next = new Set(current);
+      if (next.has(sessionId)) {
+        next.delete(sessionId);
+      } else {
+        next.add(sessionId);
       }
-      next[sessionId] = { saved: true };
       return next;
     });
   }
 
+  /** @param {string} label */
   function toggleLikedSpeaker(label) {
     const name = speakerName(label);
     setLikedSpeakers((current) =>
@@ -413,6 +473,7 @@ export default function App() {
     );
   }
 
+  /** @param {string} label */
   function toggleLikedOrg(label) {
     setLikedOrgs((current) =>
       current.includes(label)
@@ -421,10 +482,14 @@ export default function App() {
     );
   }
 
+  /** @param {number} direction */
   function cycleDay(direction) {
     const currentIndex = DAY_OPTIONS.findIndex((day) => day.id === currentDay);
     const nextIndex = (currentIndex + direction + DAY_OPTIONS.length) % DAY_OPTIONS.length;
-    setCurrentDay(DAY_OPTIONS[nextIndex].id);
+    const nextDay = DAY_OPTIONS[nextIndex];
+    if (nextDay) {
+      setCurrentDay(nextDay.id);
+    }
   }
 
   function resetPlanner() {
@@ -436,24 +501,23 @@ export default function App() {
       return;
     }
 
-    setViewMode("browse");
     setQuery("");
     setTopicFilters([]);
     setLevelFilters([]);
     setTimeWindow("");
-    setSaved({});
+    setSaved(new Set());
     setLikedSpeakers([]);
     setLikedOrgs([]);
     setCurrentDay("day1");
     setBrowseDay("day1");
   }
 
+  /** @param {PlannerSession} session */
   function browseSessionsForTime(session) {
     const browseWindow = timeWindowValueForSession(session);
     setBrowseDay(session.assignedDay);
     setCurrentDay(session.assignedDay);
     setTimeWindow(browseWindow);
-    setViewMode("browse");
   }
 
   return (

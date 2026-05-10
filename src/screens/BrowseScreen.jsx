@@ -1,39 +1,37 @@
-const DAY_OPTIONS = [
-  { id: "day1", label: "Day 1", date: "13 May" },
-  { id: "day2", label: "Day 2", date: "14 May" },
-];
+import { DAY_OPTIONS, toggleSelection, tagLabels, speakerName, sessionLevelCode } from "../utils/session";
 
-function toggleSelection(current, value) {
-  return current.includes(value)
-    ? current.filter((entry) => entry !== value)
-    : [...current, value].sort();
-}
+/** @typedef {import("../types").DayId} DayId */
+/** @typedef {import("../types").PlannerSession} PlannerSession */
+/** @typedef {import("../types").TimeWindowOption} TimeWindowOption */
 
-function tagLabels(session, namespace) {
-  return session.tags
-    .filter((tag) => tag.namespace === namespace)
-    .map((tag) => tag.label);
-}
-
-function speakerName(label) {
-  return label.split(",")[0]?.trim() ?? label;
-}
-
-function sessionLevelCode(session) {
-  const LEVEL_LABELS = {
-    foundational: "100",
-    intermediate: "200",
-    advanced: "300",
-    expert: "400",
-    unspecified: "Other",
-  };
-  const codeMatch = session.code?.match(/(\d)/);
-  if (codeMatch) {
-    return `${codeMatch[1]}00`;
-  }
-  return LEVEL_LABELS[session.level] ?? "Other";
-}
-
+/**
+ * Render a searchable, filterable grid of session cards with controls for topics, levels, day and time.
+ *
+ * @param {Object} props - Component props.
+ * @param {string[]} props.topics - Available topic labels for the topic filter chips.
+ * @param {string[]} props.levels - Available talk level labels for the level filter chips.
+ * @param {string} props.query - Current text in the search input.
+ * @param {import("react").Dispatch<import("react").SetStateAction<string>>} props.onQueryChange - Handler to update the search query.
+ * @param {string[]} props.topicFilters - Currently selected topic filters.
+ * @param {import("react").Dispatch<import("react").SetStateAction<string[]>>} props.onTopicFiltersChange - Updater for topic filter selections.
+ * @param {string[]} props.levelFilters - Currently selected level filters.
+ * @param {import("react").Dispatch<import("react").SetStateAction<string[]>>} props.onLevelFiltersChange - Updater for level filter selections.
+ * @param {DayId} props.browseDay - Selected day for the "Fill a gap on" control.
+ * @param {import("react").Dispatch<import("react").SetStateAction<DayId>>} props.onBrowseDayChange - Updater for the selected browse day.
+ * @param {string} props.timeWindow - Selected time window value.
+ * @param {import("react").Dispatch<import("react").SetStateAction<string>>} props.onTimeWindowChange - Updater for the selected time window.
+ * @param {TimeWindowOption[]} props.timeWindowOptions - Options presented in the time window select.
+ * @param {PlannerSession[]} props.visibleSessions - Sessions to display as cards.
+ * @param {string[]} props.likedOrgs - Organisation labels marked as liked.
+ * @param {string[]} props.likedSpeakers - Speaker names marked as liked.
+ * @param {(sessionId: string) => void} props.onToggleSave - Toggle handler to mark a session as saved/attending.
+ * @param {(label: string) => void} props.onToggleLikedOrg - Toggle handler for liking/unliking an organisation.
+ * @param {(label: string) => void} props.onToggleLikedSpeaker - Toggle handler for liking/unliking a speaker (receives the original speaker string).
+ * @param {() => void} props.onResetPlanner - Handler to reset planner state.
+ * @param {number} props.likedOrgsCount - Count of liked organisations.
+ * @param {number} props.likedSpeakersCount - Count of liked speakers.
+ * @returns {JSX.Element} The rendered Browse screen component.
+ */
 export default function BrowseScreen({
   topics,
   levels,
@@ -120,7 +118,7 @@ export default function BrowseScreen({
                   <button
                     key={day.id}
                     className={browseDay === day.id ? "topic-chip is-active" : "topic-chip"}
-                    onClick={() => onBrowseDayChange(day.id)}
+                    onClick={() => onBrowseDayChange(/** @type {DayId} */ (day.id))}
                     type="button"
                   >
                     {day.label}
@@ -156,8 +154,13 @@ export default function BrowseScreen({
               {label}
             </span>
           ))}
-          {[...likedSpeakers, ...likedOrgs].slice(0, 8).map((label) => (
-            <span key={label} className="mini-chip">
+          {likedSpeakers.slice(0, 4).map((label) => (
+            <span key={`speaker-${label}`} className="mini-chip">
+              {label}
+            </span>
+          ))}
+          {likedOrgs.slice(0, 4).map((label) => (
+            <span key={`org-${label}`} className="mini-chip">
               {label}
             </span>
           ))}
