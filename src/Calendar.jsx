@@ -46,6 +46,7 @@ function getSessionHeight(startTime, endTime) {
  *
  * @param {string | undefined} startTime - Start time as `"HH:MM"` (24-hour). If omitted, the function returns `0`.
  * @returns {number} The CSS grid row number where the session should start; each 30-minute interval advances the row by 1 and the result is offset by 2 to account for the header.
+ */
 function getSessionTopOffset(startTime) {
   if (!startTime) return 0;
   

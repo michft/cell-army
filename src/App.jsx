@@ -1,6 +1,7 @@
 import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import QRCode from "qrcode";
 import agenda from "./data/sessions.json";
+import { DAY_OPTIONS, toggleSelection, tagLabels, speakerName, sessionLevelCode } from "./utils/session";
 import SwipeCarousel from "./SwipeCarousel";
 import IntroScreen from "./screens/IntroScreen";
 import QRScreen from "./screens/QRScreen";
@@ -16,12 +17,6 @@ import CalendarDayScreen from "./screens/CalendarDayScreen";
 
 const APP_TITLE = import.meta.env.VITE_APP_TITLE || "AWS Summit Sydney Planner";
 const AGENDA_URL = import.meta.env.VITE_AGENDA_URL || agenda.source.agendaUrl;
-
-/** @type {{ id: DayId, label: string, date: string }[]} */
-const DAY_OPTIONS = [
-  { id: "day1", label: "Day 1", date: "13 May" },
-  { id: "day2", label: "Day 2", date: "14 May" },
-];
 
 const STORAGE_KEY = "aws-summit-sydney-planner";
 const DEFAULT_PROFILE = {
@@ -42,14 +37,6 @@ const PROFILE_FIELDS = [
 
 const FIXED_TIME_NOTE =
   "Sessions run at fixed summit times. This app helps you browse each day, mark the talks you plan to attend, and highlight future talks from speakers or organisations you liked.";
-
-const LEVEL_LABELS = {
-  foundational: "100",
-  intermediate: "200",
-  advanced: "300",
-  expert: "400",
-  unspecified: "Other",
-};
 
 /** @type {AgendaSession[]} */
 const agendaSessions = /** @type {AgendaSession[]} */ (agenda.sessions);
@@ -98,26 +85,7 @@ function loadState() {
   }
 }
 
-/**
- * Extracts tag labels from a session for a given tag namespace.
- * @param {{ tags: { namespace: string, label: string }[] }} session - Session object containing a `tags` array.
- * @param {string} namespace - Tag namespace to match.
- * @returns {string[]} Array of tag labels whose tag.namespace equals the provided namespace (may be empty).
- */
-function tagLabels(session, namespace) {
-  return session.tags
-    .filter((tag) => tag.namespace === namespace)
-    .map((tag) => tag.label);
-}
 
-/**
- * Extracts the primary name segment from a speaker label.
- * @param {string} label - Speaker label, typically in "Last, First" form.
- * @returns {string} The text before the first comma, trimmed; if there is no comma, returns the original label.
- */
-function speakerName(label) {
-  return label.split(",")[0]?.trim() ?? label;
-}
 
 /**
  * Determine which planner day a session belongs to.
@@ -145,31 +113,7 @@ function sessionPlannerDay(session) {
   return session.plannerDay ?? "day1";
 }
 
-/**
- * Get the three-digit level code for a session.
- * @param {{ code?: string, level: string }} session - Session object; `code` may include a digit, `level` is the level key.
- * @returns {string} The three-digit level code (for example `"100"`, `"200"`, `"300"`, `"400"`) or `"Other"` when no code can be determined.
- */
-function sessionLevelCode(session) {
-  const codeMatch = session.code?.match(/(\d)/);
-  if (codeMatch) {
-    return `${codeMatch[1]}00`;
-  }
-  return LEVEL_LABELS[/** @type {keyof typeof LEVEL_LABELS} */ (session.level)] ?? "Other";
-}
 
-/**
- * Toggle a value's presence in a selection array, returning a new sorted array.
- *
- * @param {string[]} current - The current selection of values.
- * @param {string} value - The value to toggle in the selection.
- * @returns {string[]} The updated selection: the value is removed if it was present, otherwise it is added and the resulting array is sorted.
- */
-function toggleSelection(current, value) {
-  return current.includes(value)
-    ? current.filter((entry) => entry !== value)
-    : [...current, value].sort();
-}
 
 /**
  * Parse a time string in "HH:MM" format into minutes since midnight.
@@ -187,14 +131,8 @@ function parseTimeValue(time) {
     return null;
   }
 
-
-  const [rawHours, rawMinutes] = parts;
-  if (!rawHours.match(/^\d{1,2}$/) || !rawMinutes.match(/^\d{2}$/)) {
-    return null;
-  }
-
-  const hours = Number(rawHours.trim());
-  const minutes = Number(rawMinutes.trim());
+  const hours = Number(match[1]);
+  const minutes = Number(match[2]);
 
   if (
     !Number.isFinite(hours) ||
@@ -204,10 +142,6 @@ function parseTimeValue(time) {
     minutes < 0 ||
     minutes > 59
   ) {
-    return null;
-  }
-
-  return hours * 60 + minutes;
     return null;
   }
 
@@ -462,31 +396,6 @@ export default function App() {
 
           return sessionStart < windowEnd && sessionEnd > windowStart;
         });
-
-    if (viewMode === "planned") {
-      return alphabetized.filter((session) => session.isSaved);
-    }
-
-    if (viewMode === "recommended") {
-      return alphabetized
-        .filter((session) => session.isRecommended)
-        .sort((left, right) => {
-          const leftScore =
-            Number(left.assignedDay === currentDay) * 4 +
-            Number(left.isSaved) * 3 +
-            Number(left.isRecommended) * 2;
-          const rightScore =
-            Number(right.assignedDay === currentDay) * 4 +
-            Number(right.isSaved) * 3 +
-            Number(right.isRecommended) * 2;
-
-          if (leftScore !== rightScore) {
-            return rightScore - leftScore;
-          }
-
-          return left.title.localeCompare(right.title);
-        });
-    }
 
     return timeFiltered;
   }, [browseDay, currentDay, sessions, timeWindow, viewMode]);
