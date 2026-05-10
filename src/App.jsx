@@ -144,14 +144,13 @@ function parseTimeValue(time) {
     return null;
   }
 
-  const parts = time.split(":");
-  if (parts.length !== 2) {
+  const match = time.match(/^(\d{2}):(\d{2})$/);
+  if (!match) {
     return null;
   }
 
-  const [rawHours, rawMinutes] = parts;
-  const hours = Number(rawHours.trim());
-  const minutes = Number(rawMinutes.trim());
+  const hours = Number(match[1]);
+  const minutes = Number(match[2]);
 
   if (
     !Number.isFinite(hours) ||
@@ -161,6 +160,10 @@ function parseTimeValue(time) {
     minutes < 0 ||
     minutes > 59
   ) {
+    return null;
+  }
+
+  return hours * 60 + minutes;
     return null;
   }
 
