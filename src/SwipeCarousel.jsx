@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 const ANIMATION_DURATION_MS = 400;
 
@@ -16,7 +16,7 @@ export default function SwipeCarousel({ screenIndex, onChangeScreen, children })
   const touchStartX = useRef(0);
   const touchStartTime = useRef(0);
   const [isAnimating, setIsAnimating] = useState(false);
-  const screenCount = Array.isArray(children) ? children.length : 1;
+  const screenCount = React.Children.toArray(children).length;
 
   /**
    * Initialise the touch start X position and start time for swipe detection; no-op if an animation is in progress.
