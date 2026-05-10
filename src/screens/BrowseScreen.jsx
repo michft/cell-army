@@ -3,22 +3,36 @@ const DAY_OPTIONS = [
   { id: "day2", label: "Day 2", date: "14 May" },
 ];
 
+/** @typedef {import("../types").DayId} DayId */
+/** @typedef {import("../types").PlannerSession} PlannerSession */
+/** @typedef {import("../types").TimeWindowOption} TimeWindowOption */
+
+/**
+ * @param {string[]} current
+ * @param {string} value
+ */
 function toggleSelection(current, value) {
   return current.includes(value)
     ? current.filter((entry) => entry !== value)
     : [...current, value].sort();
 }
 
+/**
+ * @param {{ tags: { namespace: string, label: string }[] }} session
+ * @param {string} namespace
+ */
 function tagLabels(session, namespace) {
   return session.tags
     .filter((tag) => tag.namespace === namespace)
     .map((tag) => tag.label);
 }
 
+/** @param {string} label */
 function speakerName(label) {
   return label.split(",")[0]?.trim() ?? label;
 }
 
+/** @param {{ code?: string, level: string }} session */
 function sessionLevelCode(session) {
   const LEVEL_LABELS = {
     foundational: "100",
@@ -31,9 +45,35 @@ function sessionLevelCode(session) {
   if (codeMatch) {
     return `${codeMatch[1]}00`;
   }
-  return LEVEL_LABELS[session.level] ?? "Other";
+  return LEVEL_LABELS[/** @type {keyof typeof LEVEL_LABELS} */ (session.level)] ?? "Other";
 }
 
+/**
+ * @param {{
+ *   topics: string[],
+ *   levels: string[],
+ *   query: string,
+ *   onQueryChange: import("react").Dispatch<import("react").SetStateAction<string>>,
+ *   topicFilters: string[],
+ *   onTopicFiltersChange: import("react").Dispatch<import("react").SetStateAction<string[]>>,
+ *   levelFilters: string[],
+ *   onLevelFiltersChange: import("react").Dispatch<import("react").SetStateAction<string[]>>,
+ *   browseDay: DayId,
+ *   onBrowseDayChange: import("react").Dispatch<import("react").SetStateAction<DayId>>,
+ *   timeWindow: string,
+ *   onTimeWindowChange: import("react").Dispatch<import("react").SetStateAction<string>>,
+ *   timeWindowOptions: TimeWindowOption[],
+ *   visibleSessions: PlannerSession[],
+ *   likedOrgs: string[],
+ *   likedSpeakers: string[],
+ *   onToggleSave: (sessionId: string) => void,
+ *   onToggleLikedOrg: (label: string) => void,
+ *   onToggleLikedSpeaker: (label: string) => void,
+ *   onResetPlanner: () => void,
+ *   likedOrgsCount: number,
+ *   likedSpeakersCount: number,
+ * }} props
+ */
 export default function BrowseScreen({
   topics,
   levels,
@@ -120,7 +160,7 @@ export default function BrowseScreen({
                   <button
                     key={day.id}
                     className={browseDay === day.id ? "topic-chip is-active" : "topic-chip"}
-                    onClick={() => onBrowseDayChange(day.id)}
+                    onClick={() => onBrowseDayChange(/** @type {DayId} */ (day.id))}
                     type="button"
                   >
                     {day.label}

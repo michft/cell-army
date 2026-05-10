@@ -1,5 +1,17 @@
 import Calendar from '../Calendar';
 
+/** @typedef {import("../types").DayId} DayId */
+/** @typedef {import("../types").PlannerSession} PlannerSession */
+
+/**
+ * @param {{
+ *   sessions: PlannerSession[],
+ *   currentDay: DayId,
+ *   onChangeDay: import("react").Dispatch<import("react").SetStateAction<DayId>>,
+ *   onBrowseTime: (session: PlannerSession) => void,
+ *   onToggleSave: (sessionId: string) => void
+ * }} props
+ */
 export default function CalendarDayScreen({
   sessions,
   currentDay,

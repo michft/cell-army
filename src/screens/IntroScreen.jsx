@@ -3,14 +3,32 @@ const DAY_OPTIONS = [
   { id: "day2", label: "Day 2", date: "14 May" },
 ];
 
+/** @typedef {import("../types").DayId} DayId */
+/** @typedef {import("../types").DayStat} DayStat */
+
+/**
+ * @param {{
+ *   currentDay: DayId,
+ *   dayStats: DayStat[],
+ *   onChangeDay: import("react").Dispatch<import("react").SetStateAction<DayId>>,
+ *   touchStartX: import("react").MutableRefObject<number>,
+ *   eventName: string,
+ *   eventVenue: string,
+ *   agendaUrl: string
+ * }} props
+ */
 export default function IntroScreen({ currentDay, dayStats, onChangeDay, touchStartX, eventName, eventVenue, agendaUrl }) {
   const FIXED_TIME_NOTE =
     "Sessions run at fixed summit times. This app helps you browse each day, mark the talks you plan to attend, and highlight future talks from speakers or organisations you liked.";
 
+  /** @param {number} direction */
   function cycleDay(direction) {
     const currentIndex = DAY_OPTIONS.findIndex((day) => day.id === currentDay);
     const nextIndex = (currentIndex + direction + DAY_OPTIONS.length) % DAY_OPTIONS.length;
-    onChangeDay(DAY_OPTIONS[nextIndex].id);
+    const nextDay = DAY_OPTIONS[nextIndex];
+    if (nextDay) {
+      onChangeDay(/** @type {DayId} */ (nextDay.id));
+    }
   }
 
   return (

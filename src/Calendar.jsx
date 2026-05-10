@@ -1,17 +1,25 @@
 import { useEffect, useMemo, useState } from "react";
 
+/** @typedef {import("./types").DayId} DayId */
+/** @typedef {import("./types").PlannerSession} PlannerSession */
+
 const TIME_SLOTS = [
   "08:00", "08:30", "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
   "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00", "15:30",
   "16:00", "16:30", "17:00", "17:30", "18:00",
 ];
 
+/** @param {string | undefined} time24h */
 function formatTime(time24h) {
   if (!time24h) return "";
   const [hours, minutes] = time24h.split(":");
   return `${hours}:${minutes}`;
 }
 
+/**
+ * @param {string | undefined} startTime
+ * @param {string | undefined} endTime
+ */
 function getSessionHeight(startTime, endTime) {
   if (!startTime || !endTime) return 1;
   
@@ -26,6 +34,7 @@ function getSessionHeight(startTime, endTime) {
   return Math.max(1, Math.ceil(duration / 30));
 }
 
+/** @param {string | undefined} startTime */
 function getSessionTopOffset(startTime) {
   if (!startTime) return 0;
   
@@ -39,6 +48,15 @@ function getSessionTopOffset(startTime) {
   return Math.floor(offsetMins / 30) + 2;
 }
 
+/**
+ * @param {{
+ *   sessions: PlannerSession[],
+ *   currentDay: DayId,
+ *   onChangeDay: import("react").Dispatch<import("react").SetStateAction<DayId>>,
+ *   onBrowseTime: (session: PlannerSession) => void,
+ *   onToggleSave: (sessionId: string) => void,
+ * }} props
+ */
 export default function Calendar({ 
   sessions, 
   currentDay, 
@@ -47,7 +65,7 @@ export default function Calendar({
   onToggleSave,
 }) {
   const [showFlyout, setShowFlyout] = useState(false);
-  const [selectedSession, setSelectedSession] = useState(null);
+  const [selectedSession, setSelectedSession] = useState(/** @type {PlannerSession | null} */ (null));
   
   const daysSessions = useMemo(() => {
     const day1Sessions = sessions.filter(s => s.assignedDay === "day1" && s.startTime && s.endTime);
@@ -55,6 +73,7 @@ export default function Calendar({
     return { day1: day1Sessions, day2: day2Sessions };
   }, [sessions]);
 
+  /** @type {PlannerSession[]} */
   const currentDayData = currentDay === "day1" ? daysSessions.day1 : daysSessions.day2;
   const selectedSessions = currentDayData.filter(s => s.isSaved);
   const availableSessions = currentDayData.filter(s => !s.isSaved);

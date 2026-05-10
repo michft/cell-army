@@ -6,6 +6,16 @@ const PROFILE_FIELDS = [
   { key: "phone", label: "Phone", type: "tel", placeholder: "+61 4xx xxx xxx" },
 ];
 
+/** @typedef {"name" | "role" | "company" | "email" | "phone"} ProfileFieldKey */
+/** @typedef {import("../types").Profile} Profile */
+
+/**
+ * @param {{
+ *   profile: Profile,
+ *   qrCodeUrl: string,
+ *   onProfileChange: import("react").Dispatch<import("react").SetStateAction<Profile>>
+ * }} props
+ */
 export default function QRScreen({ profile, qrCodeUrl, onProfileChange }) {
   return (
     <div className="carousel-screen">
@@ -25,7 +35,7 @@ export default function QRScreen({ profile, qrCodeUrl, onProfileChange }) {
                 <input
                   type={type}
                   placeholder={placeholder}
-                  value={profile[key]}
+                  value={profile[/** @type {ProfileFieldKey} */ (key)]}
                   onChange={(event) =>
                     onProfileChange((current) => ({
                       ...current,

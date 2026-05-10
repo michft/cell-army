@@ -2,18 +2,27 @@ import { useRef, useState } from 'react';
 
 const SCREEN_IDS = ['qr', 'browse', 'calendar-day1', 'calendar-day2'];
 
+/**
+ * @param {{
+ *   screenIndex: number,
+ *   onChangeScreen: (nextIndex: number) => void,
+ *   children: import("react").ReactNode
+ * }} props
+ */
 export default function SwipeCarousel({ screenIndex, onChangeScreen, children }) {
   const containerRef = useRef(null);
   const touchStartX = useRef(0);
   const touchStartTime = useRef(0);
   const [isAnimating, setIsAnimating] = useState(false);
 
+  /** @param {import("react").TouchEvent<HTMLDivElement>} event */
   function handleTouchStart(event) {
     if (isAnimating) return;
     touchStartX.current = event.changedTouches[0].clientX;
     touchStartTime.current = Date.now();
   }
 
+  /** @param {import("react").TouchEvent<HTMLDivElement>} event */
   function handleTouchEnd(event) {
     if (isAnimating) return;
 
