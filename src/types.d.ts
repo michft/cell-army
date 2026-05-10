@@ -8,15 +8,11 @@ export interface Profile {
   phone: string;
 }
 
-export interface StoredSessionState {
-  saved: true;
-}
-
-export type SavedSessions = Record<string, StoredSessionState>;
+export type SavedSessions = Set<string>;
 
 export interface StoredState {
   profile: Profile;
-  saved: SavedSessions;
+  saved: string[];
   likedSpeakers: string[];
   likedOrgs: string[];
 }

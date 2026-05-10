@@ -1,6 +1,7 @@
 import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import QRCode from "qrcode";
 import agenda from "./data/sessions.json";
+import { DAY_OPTIONS, toggleSelection, tagLabels, speakerName, sessionLevelCode } from "./utils/session";
 import SwipeCarousel from "./SwipeCarousel";
 import IntroScreen from "./screens/IntroScreen";
 import QRScreen from "./screens/QRScreen";
@@ -16,12 +17,6 @@ import CalendarDayScreen from "./screens/CalendarDayScreen";
 
 const APP_TITLE = import.meta.env.VITE_APP_TITLE || "AWS Summit Sydney Planner";
 const AGENDA_URL = import.meta.env.VITE_AGENDA_URL || agenda.source.agendaUrl;
-
-/** @type {{ id: DayId, label: string, date: string }[]} */
-const DAY_OPTIONS = [
-  { id: "day1", label: "Day 1", date: "13 May" },
-  { id: "day2", label: "Day 2", date: "14 May" },
-];
 
 const STORAGE_KEY = "aws-summit-sydney-planner";
 const DEFAULT_PROFILE = {
@@ -42,14 +37,6 @@ const PROFILE_FIELDS = [
 
 const FIXED_TIME_NOTE =
   "Sessions run at fixed summit times. This app helps you browse each day, mark the talks you plan to attend, and highlight future talks from speakers or organisations you liked.";
-
-const LEVEL_LABELS = {
-  foundational: "100",
-  intermediate: "200",
-  advanced: "300",
-  expert: "400",
-  unspecified: "Other",
-};
 
 /** @type {AgendaSession[]} */
 const agendaSessions = /** @type {AgendaSession[]} */ (agenda.sessions);
@@ -72,10 +59,10 @@ function escapeIcs(value) {
  *
  * If the stored value is missing or invalid, returns the default state.
  *
- * @returns {{ profile: Object, saved: Object, likedSpeakers: string[], likedOrgs: string[] }}
+ * @returns {{ profile: Object, saved: Set<string>, likedSpeakers: string[], likedOrgs: string[] }}
  *   An object containing:
  *   - profile: the user profile merged with DEFAULT_PROFILE.
- *   - saved: a map of saved session entries (empty object when none).
+ *   - saved: a Set of saved session IDs (empty when none).
  *   - likedSpeakers: sorted array of liked speaker names (empty when none).
  *   - likedOrgs: sorted array of liked organisation names (empty when none).
  */
@@ -84,40 +71,21 @@ function loadState() {
     const parsed = JSON.parse(window.localStorage.getItem(STORAGE_KEY) ?? "null");
     return {
       profile: { ...DEFAULT_PROFILE, ...parsed?.profile },
-      saved: parsed?.saved ?? {},
+      saved: new Set(parsed?.saved ?? []),
       likedSpeakers: parsed?.likedSpeakers ?? [],
       likedOrgs: parsed?.likedOrgs ?? [],
     };
   } catch {
     return {
       profile: DEFAULT_PROFILE,
-      saved: {},
+      saved: new Set(),
       likedSpeakers: [],
       likedOrgs: [],
     };
   }
 }
 
-/**
- * Extracts tag labels from a session for a given tag namespace.
- * @param {{ tags: { namespace: string, label: string }[] }} session - Session object containing a `tags` array.
- * @param {string} namespace - Tag namespace to match.
- * @returns {string[]} Array of tag labels whose tag.namespace equals the provided namespace (may be empty).
- */
-function tagLabels(session, namespace) {
-  return session.tags
-    .filter((tag) => tag.namespace === namespace)
-    .map((tag) => tag.label);
-}
 
-/**
- * Extracts the primary name segment from a speaker label.
- * @param {string} label - Speaker label, typically in "Last, First" form.
- * @returns {string} The text before the first comma, trimmed; if there is no comma, returns the original label.
- */
-function speakerName(label) {
-  return label.split(",")[0]?.trim() ?? label;
-}
 
 /**
  * Determine which planner day a session belongs to.
@@ -145,43 +113,32 @@ function sessionPlannerDay(session) {
   return session.plannerDay ?? "day1";
 }
 
-/**
- * Get the three-digit level code for a session.
- * @param {{ code?: string, level: string }} session - Session object; `code` may include a digit, `level` is the level key.
- * @returns {string} The three-digit level code (for example `"100"`, `"200"`, `"300"`, `"400"`) or `"Other"` when no code can be determined.
- */
-function sessionLevelCode(session) {
-  const codeMatch = session.code?.match(/(\d)/);
-  if (codeMatch) {
-    return `${codeMatch[1]}00`;
-  }
-  return LEVEL_LABELS[/** @type {keyof typeof LEVEL_LABELS} */ (session.level)] ?? "Other";
-}
 
-/**
- * Toggle a value's presence in a selection array, returning a new sorted array.
- *
- * @param {string[]} current - The current selection of values.
- * @param {string} value - The value to toggle in the selection.
- * @returns {string[]} The updated selection: the value is removed if it was present, otherwise it is added and the resulting array is sorted.
- */
-function toggleSelection(current, value) {
-  return current.includes(value)
-    ? current.filter((entry) => entry !== value)
-    : [...current, value].sort();
-}
 
-/**
- * Convert an 'HH:MM' time string into minutes elapsed since midnight.
- * @param {string|undefined} time - Time in 24-hour "HH:MM" format; may be undefined or empty.
- * @returns {number|null} Total minutes since midnight, or `null` if `time` is empty or undefined.
- */
 function parseTimeValue(time) {
-  if (!time) {
+  if (typeof time !== "string") {
     return null;
   }
 
-  const [hours, minutes] = time.split(":").map(Number);
+  const match = time.match(/^(\d{2}):(\d{2})$/);
+  if (!match) {
+    return null;
+  }
+
+  const hours = Number(match[1]);
+  const minutes = Number(match[2]);
+
+  if (
+    !Number.isFinite(hours) ||
+    !Number.isFinite(minutes) ||
+    hours < 0 ||
+    hours > 23 ||
+    minutes < 0 ||
+    minutes > 59
+  ) {
+    return null;
+  }
+
   return hours * 60 + minutes;
 }
 
@@ -341,7 +298,6 @@ export default function App() {
   const [screenIndex, setScreenIndex] = useState(0);
   const [currentDay, setCurrentDay] = useState(/** @type {DayId} */ ("day1"));
   const [browseDay, setBrowseDay] = useState(/** @type {DayId} */ ("day1"));
-  const [viewMode, setViewMode] = useState("browse");
   const [query, setQuery] = useState("");
   const [topicFilters, setTopicFilters] = useState(/** @type {string[]} */ ([]));
   const [levelFilters, setLevelFilters] = useState(/** @type {string[]} */ ([]));
@@ -390,7 +346,7 @@ export default function App() {
       );
       const orgMatch = session.organisations.some(/** @param {string} org */ (org) => likedOrgs.includes(org));
       const assignedDay = sessionPlannerDay(session);
-      const isSaved = Boolean(saved[session.id]?.saved);
+      const isSaved = saved.has(session.id);
 
       return /** @type {PlannerSession} */ ({
         ...session,
@@ -434,33 +390,8 @@ export default function App() {
           return sessionStart < windowEnd && sessionEnd > windowStart;
         });
 
-    if (viewMode === "planned") {
-      return alphabetized.filter((session) => session.isSaved);
-    }
-
-    if (viewMode === "recommended") {
-      return alphabetized
-        .filter((session) => session.isRecommended)
-        .sort((left, right) => {
-          const leftScore =
-            Number(left.assignedDay === currentDay) * 4 +
-            Number(left.isSaved) * 3 +
-            Number(left.isRecommended) * 2;
-          const rightScore =
-            Number(right.assignedDay === currentDay) * 4 +
-            Number(right.isSaved) * 3 +
-            Number(right.isRecommended) * 2;
-
-          if (leftScore !== rightScore) {
-            return rightScore - leftScore;
-          }
-
-          return left.title.localeCompare(right.title);
-        });
-    }
-
     return timeFiltered;
-  }, [currentDay, sessions, timeWindow, viewMode]);
+  }, [browseDay, currentDay, sessions, timeWindow]);
 
   /** @type {import("./types").DayStat[]} */
   const dayStats = useMemo(
@@ -487,7 +418,7 @@ export default function App() {
   useEffect(() => {
     window.localStorage.setItem(
       STORAGE_KEY,
-      JSON.stringify({ profile, saved, likedSpeakers, likedOrgs }),
+      JSON.stringify({ profile, saved: Array.from(saved), likedSpeakers, likedOrgs }),
     );
   }, [likedOrgs, likedSpeakers, profile, saved]);
 
@@ -522,12 +453,12 @@ export default function App() {
   /** @param {string} sessionId */
   function toggleSave(sessionId) {
     setSaved((current) => {
-      const next = { ...current };
-      if (next[sessionId]?.saved) {
-        delete next[sessionId];
-        return next;
+      const next = new Set(current);
+      if (next.has(sessionId)) {
+        next.delete(sessionId);
+      } else {
+        next.add(sessionId);
       }
-      next[sessionId] = { saved: true };
       return next;
     });
   }
@@ -570,12 +501,11 @@ export default function App() {
       return;
     }
 
-    setViewMode("browse");
     setQuery("");
     setTopicFilters([]);
     setLevelFilters([]);
     setTimeWindow("");
-    setSaved({});
+    setSaved(new Set());
     setLikedSpeakers([]);
     setLikedOrgs([]);
     setCurrentDay("day1");
@@ -588,7 +518,6 @@ export default function App() {
     setBrowseDay(session.assignedDay);
     setCurrentDay(session.assignedDay);
     setTimeWindow(browseWindow);
-    setViewMode("browse");
   }
 
   return (

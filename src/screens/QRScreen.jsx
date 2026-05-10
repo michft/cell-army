@@ -1,3 +1,7 @@
+/** @typedef {import("../types").Profile} Profile */
+/** @typedef {keyof Profile} ProfileFieldKey */
+
+/** @type {{ key: ProfileFieldKey, label: string, type: string, placeholder: string }[]} */
 const PROFILE_FIELDS = [
   { key: "name", label: "Name", type: "text", placeholder: "Your name" },
   { key: "role", label: "Role", type: "text", placeholder: "Your role" },
@@ -5,9 +9,6 @@ const PROFILE_FIELDS = [
   { key: "email", label: "Email", type: "email", placeholder: "you@example.com" },
   { key: "phone", label: "Phone", type: "tel", placeholder: "+61 4xx xxx xxx" },
 ];
-
-/** @typedef {"name" | "role" | "company" | "email" | "phone"} ProfileFieldKey */
-/** @typedef {import("../types").Profile} Profile */
 
 /**
  * Render a QR/profile identity screen that shows a QR code and editable profile fields.
@@ -31,7 +32,7 @@ export default function QRScreen({ profile, qrCodeUrl, onProfileChange }) {
         </div>
         <div className="identity-grid">
           <div className="qr-panel">
-            {qrCodeUrl ? <img alt="QR code for attendee identity" src={qrCodeUrl} /> : null}
+            {qrCodeUrl && <img alt="QR code for attendee identity" src={qrCodeUrl} />}
             <p>Show this when someone asks who you are :)</p>
           </div>
           <div className="profile-form">
@@ -41,7 +42,7 @@ export default function QRScreen({ profile, qrCodeUrl, onProfileChange }) {
                 <input
                   type={type}
                   placeholder={placeholder}
-                  value={profile[/** @type {ProfileFieldKey} */ (key)]}
+                  value={profile[key]}
                   onChange={(event) =>
                     onProfileChange((current) => ({
                       ...current,
