@@ -287,11 +287,11 @@ export default function App() {
 
   const initialState = initialStateRef.current ?? {
     profile: DEFAULT_PROFILE,
-    /** @type {SavedSessions} */
-    saved: {},
-    /** @type {string[]} */
+    /** `@type` {SavedSessions} */
+    saved: new Set(),
+    /** `@type` {string[]} */
     likedSpeakers: [],
-    /** @type {string[]} */
+    /** `@type` {string[]} */
     likedOrgs: [],
   };
 
