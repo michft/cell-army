@@ -187,8 +187,14 @@ function parseTimeValue(time) {
     return null;
   }
 
-  const hours = Number(match[1]);
-  const minutes = Number(match[2]);
+
+  const [rawHours, rawMinutes] = parts;
+  if (!rawHours.match(/^\d{1,2}$/) || !rawMinutes.match(/^\d{2}$/)) {
+    return null;
+  }
+
+  const hours = Number(rawHours.trim());
+  const minutes = Number(rawMinutes.trim());
 
   if (
     !Number.isFinite(hours) ||
