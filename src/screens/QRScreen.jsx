@@ -11,15 +11,17 @@ const PROFILE_FIELDS = [
 ];
 
 /**
- * Render a profile card with editable fields and an optional QR code.
+ * Render a QR/profile identity screen that shows a QR code and editable profile fields.
  *
- * Renders an identity card showing a "Who am I" eyebrow, a QR panel that displays an image when `qrCodeUrl` is provided, and a form with inputs for each entry in `PROFILE_FIELDS`. Input changes update the `profile` via `onProfileChange`.
+ * Renders a two-column identity card: a QR panel that displays the provided QR image URL (when present)
+ * and a profile form with inputs for each field defined in PROFILE_FIELDS. Editing an input invokes
+ * `onProfileChange` with an updated profile object.
  *
  * @param {{profile: Profile, qrCodeUrl: string, onProfileChange: import("react").Dispatch<import("react").SetStateAction<Profile>>}} props
- * @param {Profile} props.profile - The current profile values used as input values.
- * @param {string} props.qrCodeUrl - URL of the QR image; when falsy no image is rendered.
- * @param {import("react").Dispatch<import("react").SetStateAction<Profile>>} props.onProfileChange - State setter invoked with an updater to apply profile changes.
- * `@returns` {import("react").JSX.Element} The identity card UI containing the QR panel and profile form.
+ * @param {Profile} props.profile - Current profile values used to populate the form inputs.
+ * @param {string} props.qrCodeUrl - URL of the QR code image to display; if empty, no image is rendered.
+ * @param {import("react").Dispatch<import("react").SetStateAction<Profile>>} props.onProfileChange - State updater called with a functional update to modify the profile.
+ * @returns {JSX.Element} The identity screen element containing the QR panel and profile form.
  */
 export default function QRScreen({ profile, qrCodeUrl, onProfileChange }) {
   return (

@@ -54,7 +54,11 @@ const LEVEL_LABELS = {
 /** @type {AgendaSession[]} */
 const agendaSessions = /** @type {AgendaSession[]} */ (agenda.sessions);
 
-/** @param {string} value */
+/**
+ * Escape characters that must be backslash-escaped for ICS/VCARD text fields.
+ * @param {string} value - The input text to escape.
+ * @returns {string} The input with backslashes, newlines, commas and semicolons escaped for inclusion in an ICS/VCARD field.
+ */
 function escapeIcs(value) {
   return value
     .replace(/\\/g, "\\\\")
@@ -63,6 +67,18 @@ function escapeIcs(value) {
     .replace(/;/g, "\\;");
 }
 
+/**
+ * Load persisted planner state from localStorage and merge the stored profile with defaults.
+ *
+ * If the stored value is missing or invalid, returns the default state.
+ *
+ * @returns {{ profile: Object, saved: Object, likedSpeakers: string[], likedOrgs: string[] }}
+ *   An object containing:
+ *   - profile: the user profile merged with DEFAULT_PROFILE.
+ *   - saved: a map of saved session entries (empty object when none).
+ *   - likedSpeakers: sorted array of liked speaker names (empty when none).
+ *   - likedOrgs: sorted array of liked organisation names (empty when none).
+ */
 function loadState() {
   try {
     const parsed = JSON.parse(window.localStorage.getItem(STORAGE_KEY) ?? "null");
@@ -83,8 +99,10 @@ function loadState() {
 }
 
 /**
- * @param {{ tags: { namespace: string, label: string }[] }} session
- * @param {string} namespace
+ * Extracts tag labels from a session for a given tag namespace.
+ * @param {{ tags: { namespace: string, label: string }[] }} session - Session object containing a `tags` array.
+ * @param {string} namespace - Tag namespace to match.
+ * @returns {string[]} Array of tag labels whose tag.namespace equals the provided namespace (may be empty).
  */
 function tagLabels(session, namespace) {
   return session.tags
@@ -92,12 +110,25 @@ function tagLabels(session, namespace) {
     .map((tag) => tag.label);
 }
 
-/** @param {string} label */
+/**
+ * Extracts the primary name segment from a speaker label.
+ * @param {string} label - Speaker label, typically in "Last, First" form.
+ * @returns {string} The text before the first comma, trimmed; if there is no comma, returns the original label.
+ */
 function speakerName(label) {
   return label.split(",")[0]?.trim() ?? label;
 }
 
-/** @param {{ tags: { namespace: string, label: string }[], plannerDay?: DayId }} session */
+/**
+ * Determine which planner day a session belongs to.
+ *
+ * Checks for a tag in the `GLOBAL#local-tags-aws-summit-anz-event-day` namespace and maps
+ * `event-day-01` → `'day1'`, `event-day-02` → `'day2'`. If no marker tag is present,
+ * falls back to `session.plannerDay` and then `'day1'`.
+ *
+ * @param {{ tags: { namespace: string, label: string }[], plannerDay?: string }} session - Session object; may include event-day tags and an optional `plannerDay` field.
+ * @returns {string} `'day1'` or `'day2'` based on the tag, otherwise `session.plannerDay` or `'day1'`.
+ */
 function sessionPlannerDay(session) {
   const taggedDay = session.tags.find(
     (tag) => tag.namespace === "GLOBAL#local-tags-aws-summit-anz-event-day",
@@ -114,7 +145,11 @@ function sessionPlannerDay(session) {
   return session.plannerDay ?? "day1";
 }
 
-/** @param {{ code?: string, level: string }} session */
+/**
+ * Get the three-digit level code for a session.
+ * @param {{ code?: string, level: string }} session - Session object; `code` may include a digit, `level` is the level key.
+ * @returns {string} The three-digit level code (for example `"100"`, `"200"`, `"300"`, `"400"`) or `"Other"` when no code can be determined.
+ */
 function sessionLevelCode(session) {
   const codeMatch = session.code?.match(/(\d)/);
   if (codeMatch) {
@@ -124,8 +159,11 @@ function sessionLevelCode(session) {
 }
 
 /**
- * @param {string[]} current
- * @param {string} value
+ * Toggle a value's presence in a selection array, returning a new sorted array.
+ *
+ * @param {string[]} current - The current selection of values.
+ * @param {string} value - The value to toggle in the selection.
+ * @returns {string[]} The updated selection: the value is removed if it was present, otherwise it is added and the resulting array is sorted.
  */
 function toggleSelection(current, value) {
   return current.includes(value)
@@ -171,8 +209,11 @@ function parseTimeValue(time) {
 }
 
 /**
- * @param {number} startMinutes
- * @param {boolean} isLastWindow
+ * Produce a human-readable label for a one-hour time window starting at the given minutes.
+ *
+ * @param {number} startMinutes - Minutes from midnight at which the window starts (e.g. 540 for 09:00).
+ * @param {boolean} isLastWindow - If true, render an open-ended end (e.g. `17:00+`) for the final window.
+ * @returns {string} The formatted window label, e.g. `09:00-10:00` or `17:00+`.
  */
 function formatWindowLabel(startMinutes, isLastWindow) {
   const startHours = String(Math.floor(startMinutes / 60)).padStart(2, "0");
@@ -185,8 +226,15 @@ function formatWindowLabel(startMinutes, isLastWindow) {
 }
 
 /**
- * @param {Array<{ startTime?: string, endTime?: string, tags: { namespace: string, label: string }[], plannerDay?: DayId }>} sessions
- * @param {DayId} dayId
+ * Build one-hour time window options for sessions assigned to a given planner day.
+ *
+ * Produces an array of one-hour windows that overlap at least one session on the specified day.
+ * Each window covers a contiguous 60-minute interval aligned to hour boundaries, starting from the
+ * earliest session time on that day and ending at the latest session time.
+ *
+ * @param {Array<{ startTime?: string, endTime?: string, tags: { namespace: string, label: string }[], plannerDay?: DayId }>} sessions - All sessions to consider.
+ * @param {DayId} dayId - Planner day identifier to filter sessions (e.g. "day1" or "day2").
+ * @returns {Array<{ value: string, label: string, startMinutes: number, endMinutes: number }>} An array of window objects. `value` is "start-end" in minutes, `label` is a human-readable hour range (the final window uses a trailing `+`), and `startMinutes`/`endMinutes` are the window bounds in minutes since midnight.
  */
 function buildTimeWindowOptions(sessions, dayId) {
   const starts = sessions
@@ -231,7 +279,13 @@ function buildTimeWindowOptions(sessions, dayId) {
   return windows;
 }
 
-/** @param {{ startTime?: string }} session */
+/**
+ * Compute the one-hour time window that contains a session's start time.
+ *
+ * If the session has no valid `startTime`, an empty string is returned.
+ * @param {{ startTime?: string }} session - Session object with an optional `HH:MM` start time.
+ * @returns {string} The window in minutes as `"startMinutes-endMinutes"` (for example `"540-600"`), or `""` if unavailable.
+ */
 function timeWindowValueForSession(session) {
   const startMinutes = parseTimeValue(session.startTime);
   if (startMinutes === null) {
@@ -243,10 +297,17 @@ function timeWindowValueForSession(session) {
 }
 
 /**
- * @param {AgendaSession} session
- * @param {string} query
- * @param {string[]} topicFilters
- * @param {string[]} levelFilters
+ * Determine whether a session satisfies the given search query and active topic and level filters.
+ *
+ * The function performs a case-insensitive match against a combined searchable string composed of the
+ * session's title, code, description, level, computed level code, speakers, organisations and technology category tags.
+ * An empty `query`, empty `topicFilters` or empty `levelFilters` each act as no-op (match-all) for their respective criterion.
+ *
+ * @param {AgendaSession} session - Session object to test.
+ * @param {string} query - Lowercased search string to match against the session's searchable fields; an empty string matches all sessions.
+ * @param {string[]} topicFilters - Array of technology category labels; session must include at least one when this array is non-empty.
+ * @param {string[]} levelFilters - Array of level codes (e.g. "100", "200"); session's computed level code must be present when this array is non-empty.
+ * @returns {boolean} `true` if the session matches the query and all active filters, `false` otherwise.
  */
 function sessionMatches(session, query, topicFilters, levelFilters) {
   const topics = tagLabels(session, "GLOBAL#aws-technology-categories");
@@ -272,13 +333,16 @@ function sessionMatches(session, query, topicFilters, levelFilters) {
 }
 
 /**
- * Root React component for the planner application.
+ * Root React component that renders the conference planner UI.
  *
- * Initialises and persists user profile, saved sessions and likes; derives filtered
- * and visible session lists; generates a contact QR code; and composes the app's
- * screens (intro, QR, browse and calendar).
+ * Initialises application state (loaded from localStorage when available), derives
+ * visible sessions and day statistics, and renders the intro, QR, browse and calendar
+ * screens with their controls and handlers.
  *
- * @returns {import("react").ReactElement} The root React element for the application UI.
+ * Side effects: updates document title, persists profile/likes/saved state to localStorage,
+ * and generates a VCARD QR code when the profile changes.
+ *
+ * @returns {JSX.Element} The app root element containing the planner UI and footer.
  */
 export default function App() {
   /** @type {import("react").MutableRefObject<StoredState | null>} */
