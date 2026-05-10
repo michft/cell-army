@@ -1,3 +1,7 @@
+/** @typedef {import("../types").Profile} Profile */
+/** @typedef {keyof Profile} ProfileFieldKey */
+
+/** @type {{ key: ProfileFieldKey, label: string, type: string, placeholder: string }[]} */
 const PROFILE_FIELDS = [
   { key: "name", label: "Name", type: "text", placeholder: "Your name" },
   { key: "role", label: "Role", type: "text", placeholder: "Your role" },
@@ -5,9 +9,6 @@ const PROFILE_FIELDS = [
   { key: "email", label: "Email", type: "email", placeholder: "you@example.com" },
   { key: "phone", label: "Phone", type: "tel", placeholder: "+61 4xx xxx xxx" },
 ];
-
-/** @typedef {"name" | "role" | "company" | "email" | "phone"} ProfileFieldKey */
-/** @typedef {import("../types").Profile} Profile */
 
 /**
  * @param {{
@@ -35,7 +36,7 @@ export default function QRScreen({ profile, qrCodeUrl, onProfileChange }) {
                 <input
                   type={type}
                   placeholder={placeholder}
-                  value={profile[/** @type {ProfileFieldKey} */ (key)]}
+                  value={profile[key]}
                   onChange={(event) =>
                     onProfileChange((current) => ({
                       ...current,

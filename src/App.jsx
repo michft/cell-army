@@ -135,11 +135,30 @@ function toggleSelection(current, value) {
 
 /** @param {string | undefined} time */
 function parseTimeValue(time) {
-  if (!time) {
+  if (typeof time !== "string") {
     return null;
   }
 
-  const [hours, minutes] = time.split(":").map(Number);
+  const parts = time.split(":");
+  if (parts.length !== 2) {
+    return null;
+  }
+
+  const [rawHours, rawMinutes] = parts;
+  const hours = Number(rawHours.trim());
+  const minutes = Number(rawMinutes.trim());
+
+  if (
+    !Number.isFinite(hours) ||
+    !Number.isFinite(minutes) ||
+    hours < 0 ||
+    hours > 23 ||
+    minutes < 0 ||
+    minutes > 59
+  ) {
+    return null;
+  }
+
   return hours * 60 + minutes;
 }
 
@@ -383,7 +402,7 @@ export default function App() {
     }
 
     return timeFiltered;
-  }, [currentDay, sessions, timeWindow, viewMode]);
+  }, [browseDay, currentDay, sessions, timeWindow, viewMode]);
 
   /** @type {import("./types").DayStat[]} */
   const dayStats = useMemo(
