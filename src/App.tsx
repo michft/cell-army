@@ -29,7 +29,7 @@ type StoredPlannerState = {
   likedOrgs?: string[];
 };
 
-type QRMode = "contact" | "webLink";
+type QRMode = "contact" | "webLink" | "cellArmy";
 
 type ProfileField = {
   key: keyof Profile;
@@ -105,6 +105,7 @@ type CalendarProps = {
 
 const APP_TITLE = process.env.EXPO_PUBLIC_APP_TITLE || "AWS Summit Sydney Planner";
 const AGENDA_URL = process.env.EXPO_PUBLIC_AGENDA_URL || agenda.source.agendaUrl;
+const CELL_ARMY_URL = "https://cell-army.vercel.app/";
 const STORAGE_KEY = "aws-summit-sydney-planner";
 const SCREEN_TABS = ["Intro", "QR", "Browse", "Calendar"];
 const DEFAULT_PROFILE: Profile = { name: "", role: "", company: "", email: "", phone: "" };
@@ -152,6 +153,11 @@ function buildWebLinkPayload(value: string): string {
   if (!trimmed) return "";
   if (/^[a-z][a-z\d+.-]*:/i.test(trimmed)) return trimmed;
   return `https://${trimmed}`;
+}
+
+function parseQrMode(value: QRMode | undefined): QRMode {
+  if (value === "webLink" || value === "cellArmy") return value;
+  return "contact";
 }
 
 function sessionPlannerDay(session: AgendaSession): DayId {
@@ -259,21 +265,59 @@ function formatTime(time: string | undefined): string {
   return time || "";
 }
 
+function formatSessionTime(session: PlannerSession): string {
+  if (!session.startTime || !session.endTime) return "";
+  const day = DAY_OPTIONS.find((option) => option.id === session.assignedDay);
+  return `${day ? `${day.label} - ${day.date} · ` : ""}${session.startTime} - ${session.endTime}`;
+}
+
+function clampLookAheadMinutes(value: number): number {
+  return Math.max(1, Math.min(120, value));
+}
+
+function sessionStartDate(session: PlannerSession): Date | null {
+  const dayIndex = DAY_OPTIONS.findIndex((day) => day.id === session.assignedDay);
+  const date = agenda.event.dates[dayIndex];
+  const startMinutes = parseTimeValue(session.startTime);
+  if (!date || startMinutes === null) return null;
+
+  const [year, month, day] = date.split("-").map(Number);
+  if (!year || !month || !day) return null;
+  return new Date(year, month - 1, day, Math.floor(startMinutes / 60), startMinutes % 60);
+}
+
+function sessionEndDate(session: PlannerSession): Date | null {
+  const dayIndex = DAY_OPTIONS.findIndex((day) => day.id === session.assignedDay);
+  const date = agenda.event.dates[dayIndex];
+  const endMinutes = parseTimeValue(session.endTime);
+  if (!date || endMinutes === null) return null;
+
+  const [year, month, day] = date.split("-").map(Number);
+  if (!year || !month || !day) return null;
+  return new Date(year, month - 1, day, Math.floor(endMinutes / 60), endMinutes % 60);
+}
+
 function useSwipe(onSwipe: (direction: number) => void) {
   const start = useRef({ x: 0, y: 0 });
-  return PanResponder.create({
-    onMoveShouldSetPanResponder: (_, gesture) =>
-      Math.abs(gesture.dx) > 24 && Math.abs(gesture.dx) > Math.abs(gesture.dy),
-    onPanResponderGrant: (_, gesture) => {
-      start.current = { x: gesture.x0, y: gesture.y0 };
-    },
-    onPanResponderRelease: (_, gesture) => {
-      const deltaX = gesture.moveX - start.current.x;
-      const deltaY = gesture.moveY - start.current.y;
-      if (Math.abs(deltaX) < 60 || Math.abs(deltaX) <= Math.abs(deltaY)) return;
-      onSwipe(deltaX < 0 ? 1 : -1);
-    },
-  });
+  const onSwipeRef = useRef(onSwipe);
+  const panResponder = useRef(
+    PanResponder.create({
+      onMoveShouldSetPanResponder: (_, gesture) =>
+        Math.abs(gesture.dx) > 24 && Math.abs(gesture.dx) > Math.abs(gesture.dy),
+      onPanResponderGrant: (_, gesture) => {
+        start.current = { x: gesture.x0, y: gesture.y0 };
+      },
+      onPanResponderRelease: (_, gesture) => {
+        const deltaX = gesture.moveX - start.current.x;
+        const deltaY = gesture.moveY - start.current.y;
+        if (Math.abs(deltaX) < 60 || Math.abs(deltaX) <= Math.abs(deltaY)) return;
+        onSwipeRef.current(deltaX < 0 ? 1 : -1);
+      },
+    }),
+  );
+
+  onSwipeRef.current = onSwipe;
+  return panResponder.current;
 }
 
 function Chip({ active = false, label, onPress, tone = "default" }: ChipProps): ReactElement {
@@ -330,12 +374,11 @@ function IntroScreen({ currentDay, dayStats, onChangeDay }: IntroProps): ReactEl
 function QRScreen({ profile, onProfileChange, qrMode, onQrModeChange, webLink, onWebLinkChange }: QRProps): ReactElement {
   const vcardPayload = useMemo(() => buildVcard(profile), [profile]);
   const webLinkPayload = useMemo(() => buildWebLinkPayload(webLink), [webLink]);
-  const qrPayload = qrMode === "contact" ? vcardPayload : webLinkPayload;
+  const qrPayload = qrMode === "contact" ? vcardPayload : qrMode === "cellArmy" ? CELL_ARMY_URL : webLinkPayload;
 
   return (
     <ScrollView contentContainerStyle={styles.screen}>
       <View style={styles.card}>
-        <Text style={styles.eyebrow}>Who am I</Text>
         <View style={styles.segmentedControl}>
           <Pressable
             accessibilityRole="button"
@@ -353,6 +396,14 @@ function QRScreen({ profile, onProfileChange, qrMode, onQrModeChange, webLink, o
           >
             <Text style={[styles.segmentText, qrMode === "webLink" && styles.segmentTextActive]}>Web link</Text>
           </Pressable>
+          <Pressable
+            accessibilityRole="button"
+            accessibilityState={{ selected: qrMode === "cellArmy" }}
+            onPress={() => onQrModeChange("cellArmy")}
+            style={[styles.segment, qrMode === "cellArmy" && styles.segmentActive]}
+          >
+            <Text style={[styles.segmentText, qrMode === "cellArmy" && styles.segmentTextActive]}>Cell Army</Text>
+          </Pressable>
         </View>
 
         <View style={styles.qrBox}>
@@ -364,11 +415,14 @@ function QRScreen({ profile, onProfileChange, qrMode, onQrModeChange, webLink, o
             </View>
           )}
         </View>
-        <Text style={styles.centerCopy}>
-          {qrMode === "contact" ? "Show this when someone asks who you are :)" : "Open this link from a QR scan."}
-        </Text>
+        {qrMode === "contact" ? <Text style={styles.centerCopy}>Show this when someone asks who you are :)</Text> : null}
 
-        {qrMode === "contact" ? (
+        {qrMode === "cellArmy" ? (
+          <View style={styles.field}>
+            <Text style={styles.label}>Cell Army</Text>
+            <Text style={styles.muted}>{CELL_ARMY_URL}</Text>
+          </View>
+        ) : qrMode === "contact" ? (
           <View style={styles.form}>
             {PROFILE_FIELDS.map((field) => (
               <View key={field.key} style={styles.field}>
@@ -422,6 +476,7 @@ function SessionCard({
 }: SessionCardProps): ReactElement {
   const topicsForSession = tagLabels(session, "GLOBAL#aws-technology-categories");
   const levelCode = sessionLevelCode(session);
+  const sessionTime = formatSessionTime(session);
 
   return (
     <View style={[styles.sessionCard, session.isRecommended && styles.recommendedCard]}>
@@ -431,6 +486,7 @@ function SessionCard({
       </View>
       {session.recommendationReason ? <Text style={styles.signal}>{session.recommendationReason}</Text> : null}
       <Text style={styles.sessionTitle}>{session.title}</Text>
+      {sessionTime ? <Text style={styles.calendarTime}>{sessionTime}</Text> : null}
       <Text style={styles.sessionType}>{session.sessionType}</Text>
       <Text numberOfLines={5} style={styles.description}>
         {session.description}
@@ -524,11 +580,19 @@ function BrowseScreen(props: BrowseProps): ReactElement {
 
 function CalendarScreen({ currentDay, onBrowseTime, onChangeDay, onToggleSave, sessions }: CalendarProps): ReactElement {
   const [selectedSession, setSelectedSession] = useState<PlannerSession | null>(null);
+  const [lookAheadMinutes, setLookAheadMinutes] = useState(30);
   const currentDayData = sessions
     .filter((session) => session.assignedDay === currentDay && session.startTime && session.endTime)
     .sort((left, right) => `${left.startTime}${left.title}`.localeCompare(`${right.startTime}${right.title}`));
   const selectedSessions = currentDayData.filter((session) => session.isSaved);
-  const availableSessions = currentDayData.filter((session) => !session.isSaved);
+  const now = new Date();
+  const upcomingWindowEnd = new Date(now.getTime() + lookAheadMinutes * 60 * 1000);
+  const upcomingSessions = currentDayData.filter((session) => {
+    if (session.isSaved) return false;
+    const startsAt = sessionStartDate(session);
+    const endsAt = sessionEndDate(session);
+    return startsAt !== null && endsAt !== null && startsAt <= upcomingWindowEnd && endsAt >= now;
+  });
 
   useEffect(() => {
     if (!selectedSession) return;
@@ -551,7 +615,7 @@ function CalendarScreen({ currentDay, onBrowseTime, onChangeDay, onToggleSave, s
       <View style={styles.card}>
         <Text style={styles.label}>Sessions in your schedule</Text>
         {selectedSessions.length === 0 ? (
-          <Text style={styles.copy}>No sessions scheduled yet. Add fixed-time talks from Browse or Available Sessions.</Text>
+          <Text style={styles.copy}>No sessions scheduled yet. Add fixed-time talks from Browse or the upcoming list below.</Text>
         ) : (
           selectedSessions.map((session) => (
             <Pressable key={session.id} onPress={() => setSelectedSession(session)} style={styles.calendarItem}>
@@ -566,9 +630,36 @@ function CalendarScreen({ currentDay, onBrowseTime, onChangeDay, onToggleSave, s
       </View>
 
       <View style={styles.card}>
-        <Text style={styles.label}>Available Sessions</Text>
-        <Text style={styles.muted}>{availableSessions.length} sessions</Text>
-        {availableSessions.map((session) => (
+        <Text style={styles.label}>Add sessions occurring soon</Text>
+        <View style={styles.lookAheadControl}>
+          <Text style={styles.muted}>Next</Text>
+          <TextInput
+            accessibilityLabel="Upcoming sessions time window in minutes"
+            keyboardType="number-pad"
+            onChangeText={(value) => {
+              const parsed = Number(value.replace(/[^\d]/g, ""));
+              if (Number.isFinite(parsed) && parsed > 0) setLookAheadMinutes(clampLookAheadMinutes(parsed));
+            }}
+            style={[styles.input, styles.minutesInput]}
+            value={String(lookAheadMinutes)}
+          />
+          <Text style={styles.muted}>minutes</Text>
+        </View>
+        <View style={styles.wrapRow}>
+          {[15, 30, 60, 120].map((minutes) => (
+            <Chip
+              key={minutes}
+              active={lookAheadMinutes === minutes}
+              label={`${minutes} min`}
+              onPress={() => setLookAheadMinutes(minutes)}
+            />
+          ))}
+        </View>
+        <Text style={styles.muted}>{upcomingSessions.length} sessions in the next {lookAheadMinutes} minutes</Text>
+        {upcomingSessions.length === 0 ? (
+          <Text style={styles.copy}>No unscheduled sessions occur in that window for this day.</Text>
+        ) : null}
+        {upcomingSessions.map((session) => (
           <View key={session.id} style={styles.availableItem}>
             <Text style={styles.calendarTime}>
               {formatTime(session.startTime)} - {formatTime(session.endTime)} · {session.code}
@@ -656,7 +747,7 @@ export default function App(): ReactElement {
         const parsed = raw ? (JSON.parse(raw) as StoredPlannerState) : null;
         if (!mounted || !parsed) return;
         setProfile({ ...DEFAULT_PROFILE, ...parsed.profile });
-        setQrMode(parsed.qrMode === "webLink" ? "webLink" : "contact");
+        setQrMode(parseQrMode(parsed.qrMode));
         setWebLink(parsed.webLink ?? "");
         setSaved(new Set(parsed.saved ?? []));
         setLikedSpeakers(parsed.likedSpeakers ?? []);
@@ -898,6 +989,8 @@ const styles = StyleSheet.create({
     paddingVertical: 11,
   },
   horizontalChips: { marginHorizontal: -2 },
+  lookAheadControl: { alignItems: "center", flexDirection: "row", gap: 8 },
+  minutesInput: { minWidth: 76, paddingVertical: 8, textAlign: "center" },
   wrapRow: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
   chip: {
     backgroundColor: "#0f1218",

@@ -48,16 +48,14 @@ This refreshes `src/data/sessions.json`.
 
 ## Native App Notes
 The project now uses Expo and Metro rather than Vite. The app entry is
-[`index.js`](/Users/mt/src/conferenceapp/index.js), the native app config is
-[`app.json`](/Users/mt/src/conferenceapp/app.json), and the React Native UI is
-in [`src/App.tsx`](/Users/mt/src/conferenceapp/src/App.tsx).
+[`index.js`](index.js), the native app config is [`app.json`](app.json), and the
+React Native UI is in [`src/App.tsx`](src/App.tsx).
 
 ## Deploy Web On Vercel
-The repo includes [`vercel.json`](/Users/mt/src/conferenceapp/vercel.json) for
-Expo web static output.
+The repo includes [`vercel.json`](vercel.json) for Expo web static output.
 
 Vercel should use:
-- Install command: `pnpm install`
+- Install command: `pnpm install --frozen-lockfile`
 - Build command: `pnpm build:web`
 - Output directory: `dist`
 
