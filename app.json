@@ -1,0 +1,19 @@
+{
+  "expo": {
+    "name": "AWS Summit Sydney Planner",
+    "slug": "conferenceapp",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "scheme": "conferenceapp",
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#0f1218"
+      }
+    }
+  }
+}

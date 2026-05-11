@@ -2,7 +2,11 @@
   "compilerOptions": {
     "target": "ES2022",
     "useDefineForClassFields": true,
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "allowJs": true,
@@ -14,7 +18,13 @@
     "isolatedModules": true,
     "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
-    "types": ["vite/client"]
+    "types": [
+      "react-native"
+    ]
   },
-  "include": ["src"]
+  "include": [
+    "src",
+    "index.js"
+  ],
+  "extends": "expo/tsconfig.base"
 }
