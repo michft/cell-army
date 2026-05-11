@@ -767,7 +767,9 @@ export default function App(): ReactElement {
     AsyncStorage.setItem(
       STORAGE_KEY,
       JSON.stringify({ profile, qrMode, webLink, saved: Array.from(saved), likedSpeakers, likedOrgs }),
-    );
+    ).catch((error) => {
+      console.warn("Failed to persist planner state:", error);
+    });
   }, [isStorageReady, likedOrgs, likedSpeakers, profile, qrMode, saved, webLink]);
 
   const topics = useMemo(
