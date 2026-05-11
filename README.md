@@ -14,10 +14,10 @@ It includes:
 - liked speaker and liked organisation highlighting for future talks
 
 ## Stack
-- React
-- Vite
+- Expo
+- React Native
+- Metro
 - local JSON agenda snapshot generated from the public AWS catalogue API
-- Vercel static hosting
 
 ## Environment
 Copy the example env file and adjust values if needed:
@@ -27,14 +27,17 @@ cp .env.example .env.local
 ```
 
 Available variables:
-- `VITE_APP_TITLE`: browser tab title
-- `VITE_AGENDA_URL`: external AWS agenda link used by the app
+- `EXPO_PUBLIC_APP_TITLE`: app header title
+- `EXPO_PUBLIC_AGENDA_URL`: external AWS agenda link used by the app
 
 ## Run Locally
 ```sh
 pnpm install
-pnpm dev
+pnpm start
 ```
+
+Then open the app in Expo Go, an iOS simulator, an Android emulator, or press the
+platform shortcut shown by Expo CLI.
 
 ## Refresh The AWS Agenda Snapshot
 ```sh
@@ -43,38 +46,22 @@ pnpm refresh:agenda
 
 This refreshes `src/data/sessions.json`.
 
-## Deploy On Vercel
-The repo includes [`vercel.json`](/Users/mt/src/conferenceapp/vercel.json) configured for a Vite static build.
+## Native App Notes
+The project now uses Expo and Metro rather than Vite. The app entry is
+[`index.js`](index.js), the native app config is [`app.json`](app.json), and the
+React Native UI is in [`src/App.tsx`](src/App.tsx).
 
-1. Install dependencies:
-```sh
-pnpm install
-```
+## Deploy Web On Vercel
+The repo includes [`vercel.json`](vercel.json) for Expo web static output.
 
-2. Log in to Vercel if needed:
-```sh
-pnpm dlx vercel login
-```
+Vercel should use:
+- Install command: `pnpm install --frozen-lockfile`
+- Build command: `pnpm build:web`
+- Output directory: `dist`
 
-3. Deploy a preview build:
-```sh
-pnpm dlx vercel
-```
-
-4. Deploy to production:
-```sh
-pnpm dlx vercel --prod
-```
-
-5. In the Vercel project settings, add the same environment variables from `.env.local`:
-- `VITE_APP_TITLE`
-- `VITE_AGENDA_URL`
-
-If you prefer, you can also pull Vercel-managed env vars locally:
-
-```sh
-pnpm dlx vercel env pull .env.local
-```
+Set these environment variables in the Vercel project:
+- `EXPO_PUBLIC_APP_TITLE`
+- `EXPO_PUBLIC_AGENDA_URL`
 
 ## Notes
 - The public AWS catalogue feed exposes session metadata, speakers, organisations, and tags.
